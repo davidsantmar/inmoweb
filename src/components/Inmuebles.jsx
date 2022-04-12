@@ -3,7 +3,7 @@ import React from 'react';
 const Inmuebles = () => {
     return (
         <div>
-            Inmuebles
+            REAL ESTATE
         </div>
     );
 };

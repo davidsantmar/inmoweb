@@ -1,35 +1,33 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 import Inmuebles from './components/Inmuebles';
-import Empresa from './components/Empresa';
+import Contacto from './components/Contacto';
 import Hipotecas from './components/Hipotecas';
-import Ayuda from './components/Ayuda';
-import Intranet from './components/Intranet';
+import AboutUs from './components/AboutUs';
 import store from './redux/stores';
 import Header from './components/Header';
-
-
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <Header />
-    
-  )
-   /** <Provider store={store}>
-    <BrowserRouter>
-      <main>
-        <Routes>
-          <Route path="/" exact component={Inmuebles} />
-          <Route path="/empresa" exact component={Empresa} />
-          <Route path="/ayuda" exact component={Ayuda} />
-          <Route path="/hipotecas" exact component={Hipotecas} />
-          <Route path="/intranet" exact component={Intranet} />
-        </Routes>
-      </main>
-    </BrowserRouter>
-  </Provider>*/
-  
+    <>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" exact element={<Inmuebles />} />
+              <Route path="/hipotecas" exact element={<Hipotecas />} />
+              <Route path="/contacto" exact element={<Contacto />} />
+              <Route path="/about" exact element={<AboutUs />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+        <Footer />
+      </Provider>
+    </>
+  );
 }
 
 export default App;

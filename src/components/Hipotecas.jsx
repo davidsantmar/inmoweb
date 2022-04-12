@@ -2,9 +2,7 @@ import React from 'react';
 
 const Hipotecas = () => {
     return (
-        <div>
-            
-        </div>
+        <h1>Incrementor</h1>
     );
 };
 
