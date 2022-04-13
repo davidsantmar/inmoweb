@@ -38,16 +38,10 @@ body{
         display: flex;
         justify-content: center;
         flex-direction: column;
-        margin-bottom: 13rem;
-        .first__text{
-            padding: 1rem;
-        }
-        .image--container{
-            display: flex;
-            justify-content: center;
-            background: url('./images/background1.png');
-            height: 25rem;
-        }
+        padding: 1rem;
+    }
+    .background1{
+        width: 100%;
     }
     .footer--container{
         display: flex;
