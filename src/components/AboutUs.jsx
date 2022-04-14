@@ -4,10 +4,10 @@ import background1 from '../images/background1.png';
 const AboutUs = () => {
     return (
         <>
-            <div className='about--title'>
-                <div>
+            <div className='sub--title'>
+                <h2>
                     WE ARE THE BEST REAL ESTATE
-                </div>
+                </h2>
             </div>
             <div className='text--container'>
                 <div className='company__description'>
