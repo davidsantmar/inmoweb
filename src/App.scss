@@ -21,9 +21,12 @@ body{
     padding: .5rem;
     border-radius: 5px;
 }
-.nav__link:hover, .submit__button:hover{
+.nav__link:hover{
     background-color: lightgreen;
-    color: white;
+    color: blue;
+}
+hr{
+    width: 93.5%;
 }
 @media (max-width: 680px){
     .sub--title{
@@ -40,6 +43,28 @@ body{
     }
     .background1{
         width: 100%;
+    }
+    .mortgage--title{
+        padding: 1rem;
+    }
+    .price--container, .savings--container, .years--container, .interest--container{
+        display: flex;
+        justify-content: space-around;
+        height: 1.5rem;
+        border-radius: 5px;
+        border: solid 1px black;
+    }
+    .change__numbers__buttons{
+        font-weight: bold;
+        color: blue;
+    }
+    .figures--container{
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+        .monthly__fee__title{
+            font-weight: bold;
+        }
     }
     .contact--details{
         display: flex;
@@ -71,6 +96,11 @@ body{
             width: 101.5%;
             font-family: 'Poppins';
         }
+        .submit__button:hover{
+            background-color: lightgreen;
+            color: blue;
+        }
+
     }
     .footer--container{
         display: flex;
