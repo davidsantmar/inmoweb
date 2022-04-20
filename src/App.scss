@@ -57,17 +57,19 @@ body{
         padding: 1rem;
         .name__field, .email__field{
             width: 100%;
+            font-family: 'Poppins';
         }
         .request__field{
             width: 100%;
             height: 3rem;
+            font-family: 'Poppins';
         }
         .submit__button{
-            display: flex;
-            justify-content: center;
             background-color: rgb(226, 246, 226);
             border-radius: 5px;
-            width: 100%;
+            height: 2rem;
+            width: 101.5%;
+            font-family: 'Poppins';
         }
     }
     .footer--container{

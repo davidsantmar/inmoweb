@@ -2,6 +2,14 @@ import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
 
+/*
+para envio  de form a email usando cliente emailJS:
+crear cuenta con emailJS
+activar gmail y create new
+crear form y métodos
+asignar datos de la cuenta de emailJS a método send
+unique id, template y private key
+*/
 
 const Contacto = () => {
     const [toSend, setToSend] = useState({
@@ -54,25 +62,12 @@ const Contacto = () => {
                     className='name__field'
                     type='text'
                     name='from_name'
-                    placeholder='from name'
+                    placeholder='Type your name'
                     value={toSend.from_name}
                     onChange={handleChange}
                 />
-                <input
-                    type='text'
-                    name='to_name'
-                    placeholder='to name'
-                    value={toSend.to_name}
-                    onChange={handleChange}
-                />
-                <input
-                    className='request__field'
-                    type='text'
-                    name='message'
-                    placeholder='Your message'
-                    value={toSend.message}
-                    onChange={handleChange}
-                />
+                <br />
+                <br />
                 <input
                     className='email__field'
                     type='text'
@@ -81,11 +76,23 @@ const Contacto = () => {
                     value={toSend.reply_to}
                     onChange={handleChange}
                 />
+                <br />
+                <br />
+                <textarea
+                    className='request__field'
+                    name='message'
+                    placeholder='Your message'
+                    value={toSend.message}
+                    onChange={handleChange}
+                />
+                <br />
+                <br />
                 <button 
                     className='submit__button' 
                     type='submit'
-                />
-                    Submit
+                >
+                    SUBMIT
+                </button>
             </form>
         </>
     );
