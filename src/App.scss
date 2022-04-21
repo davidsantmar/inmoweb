@@ -62,8 +62,43 @@ hr{
         display: flex;
         padding: 1rem;
         justify-content: space-between;
+        .info__globus{
+            background-color: blue;
+            font-family: 'Times New Roman';
+            font-weight: bold;
+            border-radius: 20px;
+            color: white;
+        }
+        .modal__background {
+            position: absolute;
+            right: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: rgba(10, 10, 10, 0.86);
+          }
+          .modal__card {
+            margin: 0 auto;
+            display: block;
+            margin-top: 10rem;
+            width: 20rem;
+            height: 25rem;
+            background-color: lightgray;
+            border-radius: 5px;
+            height: 30rem;
+            overflow-y: "auto";
+          }
+          .listed__items{
+              list-style: none;
+          }
+          .listed__items__container{
+              display: flex;
+              justify-content: space-between;
+          }
+
         .monthly__fee__title{
             font-weight: bold;
+            margin-bottom: 2rem;
         }
     }
     .contact--details{

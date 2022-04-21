@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 
 const Hipotecas = () => {
-    const [taxes, setTaxes] = useState(0);
+    const [housePrice, setHousePrice] = useState(100000);
+    const [taxes, setTaxes] = useState(housePrice);
     const [loan, setLoan] = useState(0);
     const [monthlyFee, setMonthlyFee] = useState(0);
-    const [housePrice, setHousePrice] = useState(100000);
     const [savings, setSavings] = useState(10000);
     const [years, setYears] = useState(25);
     const [interest, setInterest] = useState(1.39);
+    const [show, setShow] = useState(false);
 
-
+    const handleModalClose = (e) => {
+        setShow(false);
+    }
+    function handleClick(){         
+        setShow(true);
+    }
     const addMoney = () => {
         setHousePrice(housePrice + 10000);
     }
@@ -79,9 +85,50 @@ const Hipotecas = () => {
             </div>
             <hr />
             <div className='figures--container'>
-                Bills and taxes:
+                <div>
+                    Bills and taxes: &nbsp;
+                    <span className='info__globus' onClick={handleClick}>
+                        &nbsp;&nbsp;i&nbsp;&nbsp;
+                    </span>
+                </div>
                 <div>
                     {taxes + ' €'}
+                </div>
+                
+                <div hidden={!show}>
+                    <div className="modal__background" onClick={handleModalClose}>
+                        
+                            <div className="modal__card">
+                                <ul>
+                                    <div className='listed__items__container'>
+                                        <li className='listed__items'>
+                                            Notary:
+                                        </li>
+                                    </div>
+                                    <div className='listed__items__container'>
+                                        <li className='listed__items'>
+                                            Registration:
+                                        </li>
+                                    </div>
+                                    <div className='listed__items__container'>
+                                        <li className='listed__items'>
+                                            Agency:
+                                        </li>
+                                    </div>
+                                    <div className='listed__items__container'>
+                                        <li className='listed__items'>
+                                            Taxes:
+                                        </li>
+                                    </div>
+                                    <div className='listed__items__container'>
+                                        <li className='listed__items'>
+                                            Total amount:
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                    </div>
                 </div>
             </div>
             <div className='figures--container'>
