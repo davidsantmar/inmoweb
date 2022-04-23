@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Hipotecas = () => {
-    const [housePrice, setHousePrice] = useState(100000);
-    const [taxes, setTaxes] = useState(housePrice);
+    //const [housePrice, setHousePrice] = useState(100000);
+    const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState(0);
     const [monthlyFee, setMonthlyFee] = useState(0);
     const [savings, setSavings] = useState(10000);
     const [years, setYears] = useState(25);
     const [interest, setInterest] = useState(1.39);
     const [show, setShow] = useState(false);
+    const [notary, setNotary] = useState(867);
+    const [registration, setRegistration] = useState(408);
+    const [agency, setAgency] = useState(300);
+    const [taxes, setTaxes] = useState(((housePrice - savings) / 100) * 9);
+    const [billsAndTaxes, setBillsAndTaxes] = useState(notary + registration + agency + taxes);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        addMoney();
+    }, [housePrice]);
 
     const handleModalClose = (e) => {
         setShow(false);
@@ -17,11 +27,16 @@ const Hipotecas = () => {
         setShow(true);
     }
     const addMoney = () => {
-        setHousePrice(housePrice + 10000);
+        //setHousePrice(housePrice + 10000);
+        setTaxes(((housePrice - savings) / 100) * 9);
+        setBillsAndTaxes(notary + registration + agency + taxes);
     }
     const removeMoney = () => {
-        setHousePrice(housePrice - 10000);
+        //setHousePrice(housePrice - 10000);
+        setTaxes(((housePrice - savings) / 100) * 9);
+        setBillsAndTaxes(notary + registration + agency + taxes);
     }
+  
     const addSavingsMoney = () => {
         setSavings(savings + 1000);
     }
@@ -48,9 +63,9 @@ const Hipotecas = () => {
             <div className='mortgage--title'>
                 House price
                 <div className='price--container'>
-                    <span className='change__numbers__buttons' onClick={removeMoney}>-</span>
+                    <span className='change__numbers__buttons' onClick={addMoney}>-</span>
                     {housePrice + ' €'}
-                    <span className='change__numbers__buttons' onClick={addMoney}>+</span>
+                    <span className='change__numbers__buttons' onClick={removeMoney}>+</span>
 
                 </div>
             </div>
@@ -92,38 +107,43 @@ const Hipotecas = () => {
                     </span>
                 </div>
                 <div>
-                    {taxes + ' €'}
+                    {billsAndTaxes + ' €'}
                 </div>
                 
                 <div hidden={!show}>
-                    <div className="modal__background" onClick={handleModalClose}>
+                    <div className='modal__background' onClick={handleModalClose}>
                         
-                            <div className="modal__card">
+                            <div className='modal__card'>
                                 <ul>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Notary:
                                         </li>
+                                        <span>{notary + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Registration:
                                         </li>
+                                        <span>{registration + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Agency:
                                         </li>
+                                        <span>{agency + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Taxes:
                                         </li>
+                                        <span>{taxes + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Total amount:
                                         </li>
+                                        <span>{billsAndTaxes + ' €'}</span>
                                     </div>
                                 </ul>
                             </div>
