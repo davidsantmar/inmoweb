@@ -2,8 +2,8 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Hipotecas = () => {
-    //const [housePrice, setHousePrice] = useState(100000);
-    const housePrice = useSelector((state) => state.housePrice);
+    const [housePrice, setHousePrice] = useState(100000);
+    //const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState(0);
     const [monthlyFee, setMonthlyFee] = useState(0);
     const [savings, setSavings] = useState(10000);
@@ -15,10 +15,10 @@ const Hipotecas = () => {
     const [agency, setAgency] = useState(300);
     const [taxes, setTaxes] = useState(((housePrice - savings) / 100) * 9);
     const [billsAndTaxes, setBillsAndTaxes] = useState(notary + registration + agency + taxes);
-    const dispatch = useDispatch();
+    /*const dispatch = useDispatch();
     useEffect(() => {
         addMoney();
-    }, [housePrice]);
+    }, [housePrice]);*/
 
     const handleModalClose = (e) => {
         setShow(false);
@@ -27,12 +27,13 @@ const Hipotecas = () => {
         setShow(true);
     }
     const addMoney = () => {
-        //setHousePrice(housePrice + 10000);
+        console.log(taxes)
+        setHousePrice(housePrice + 10000);
         setTaxes(((housePrice - savings) / 100) * 9);
         setBillsAndTaxes(notary + registration + agency + taxes);
     }
     const removeMoney = () => {
-        //setHousePrice(housePrice - 10000);
+        setHousePrice(housePrice - 10000);
         setTaxes(((housePrice - savings) / 100) * 9);
         setBillsAndTaxes(notary + registration + agency + taxes);
     }
@@ -63,9 +64,10 @@ const Hipotecas = () => {
             <div className='mortgage--title'>
                 House price
                 <div className='price--container'>
-                    <span className='change__numbers__buttons' onClick={addMoney}>-</span>
-                    {housePrice + ' €'}
-                    <span className='change__numbers__buttons' onClick={removeMoney}>+</span>
+                    <span className='change__numbers__buttons' onClick={removeMoney}>-</span>
+                    <input type='number' min='0' />
+                        {housePrice + ' €'}
+                    <span className='change__numbers__buttons' onClick={addMoney}>+</span>
 
                 </div>
             </div>

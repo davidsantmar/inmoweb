@@ -151,5 +151,9 @@ hr{
             border-radius: 5px;
           }
       }
-      
+    input::-webkit-outer-spin-button,  //hide input arrows
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 }
