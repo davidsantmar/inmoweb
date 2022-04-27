@@ -66,9 +66,8 @@ const Hipotecas = () => {
                 <div className='price--container'>
                     <span className='change__numbers__buttons' onClick={removeMoney}>-</span>
                     <input type='number' min='0' />
-                        {housePrice + ' €'}
+                    <span> €</span>
                     <span className='change__numbers__buttons' onClick={addMoney}>+</span>
-
                 </div>
             </div>
             <div className='mortgage--title'>
