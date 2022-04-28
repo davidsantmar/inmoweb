@@ -34,6 +34,9 @@ hr{
         justify-content: center;
         flex-direction: column;
         padding: 1rem;
+        -webkit-box-shadow: 0 8px 6px -6px black;
+        -moz-box-shadow: 0 8px 6px -6px black;
+        box-shadow: 0 8px 6px -6px black;        
         .card__picture__container{
             display: flex;
             justify-content: center;
@@ -65,6 +68,17 @@ hr{
         .contact__icon{
             font-size: 1.5rem;
         }
+        .card__description, .card__price, .card__features, .card__hr, .card__contact{
+            background-color: rgb(247, 242, 242);
+        }
+        .card__hr { 
+            margin:0; 
+            padding:0; 
+            background-color: blue; 
+            border: 0; 
+            height:1px;        
+        }
+
     }
     .sub--title{
         display: flex;
@@ -186,6 +200,7 @@ hr{
             font-size: .5rem;
             background-color: white;
             border-radius: 5px;
+            margin-top: 1rem;
           }
       }
     input{
