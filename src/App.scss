@@ -29,6 +29,10 @@ hr{
     width: 93.5%;
 }
 @media (max-width: 680px){
+    .flats--grid{
+        display: flex;
+        flex-direction: column;
+    }
     .card{
         display: flex;
         justify-content: center;
@@ -78,7 +82,14 @@ hr{
             border: 0; 
             height:1px;        
         }
-
+    }
+    .filter--container{
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+    }
+    .cheaper__button, .relevance__button{
+        color: blue;
     }
     .sub--title{
         display: flex;
@@ -203,7 +214,7 @@ hr{
             margin-top: 1rem;
           }
       }
-    input{
+    .mortgage__input{
         border: none;
     }
     input::-webkit-outer-spin-button,  //hide input arrows
