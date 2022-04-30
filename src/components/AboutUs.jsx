@@ -4,12 +4,12 @@ import background1 from '../images/background1.png';
 const AboutUs = () => {
     return (
         <>
-            <div className='sub--title'>
+            <div className='sub--title' data-testid='subTitle'>
                 <h2>
                     WE ARE THE BEST REAL ESTATE
                 </h2>
             </div>
-            <div className='text--container'>
+            <div className='text--container' data-testid='companyDescription'>
                 <div className='company__description'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -18,7 +18,7 @@ const AboutUs = () => {
                 </div>
             </div>
             <div className='image--container'>
-                <img className='background1' src={background1} alt='delivering-keys'/>
+                <img className='background1' src={background1} alt='delivering-keys' data-testid='backgroundImage'/>
             </div>
         </>
     );

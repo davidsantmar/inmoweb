@@ -16,21 +16,25 @@ const Inmuebles = () => {
     const [fourthFlat, setFourthFlat] = useState();
 
     function cheaperButton(){
-        const orderedFlats = [4, 2, 5, 1, 3];
-        document.getElementById
+        for (let i = 0; i = )
+        setFirstFlat(document.getAttribute('data-price');
+        if (secondFlat.id < firstFlat.id){
+            secondFlat.style.order = '-1';
+        }
 
-        numbers.sort(function(a, b) {
+        /*orderedFlats.sort(function(a, b) {
           return a - b;
-        });
+        });  //esto ya ordena el posible array orderedFlats
+        console.log(orderedFlats);*/
     }
     return (
         <>
         <div className='filter--container'>
-            <button className='cheaper__button'>Cheaper</button>
+            <button className='cheaper__button' onClick={cheaperButton}>Cheaper</button>
             <button className='relevance__button'>Relevance</button>
         </div>
         <div className='flats--grid'>
-            <div className='card' id='1'>
+            <div className='card' id='2' data-price='20000'>
                 <div className='card__picture__container'>
                     <div className='card__picture'>
                         <img className='flat1' src={flat1} alt='flat'/>
@@ -49,7 +53,7 @@ const Inmuebles = () => {
                     </Link>
                 </div>
             </div>
-            <div className='card' id='2'>
+            <div className='card' id='2' data-price='20000'>
                 <div className='card__picture__container'>
                     <div className='card__picture'>
                         <img className='flat2' src={flat2} alt='flat'/>
@@ -58,7 +62,7 @@ const Inmuebles = () => {
                 <div className='card__description'>
                     Fantastic flat in Balmes street
                 </div>
-                <span className='card__price'>400.000 €</span>
+                <span className='card__price' >200.000 €</span>
                 <div className='card__features'>4 hab.  110 m2  elevator</div>
                 <hr className='card__hr'/>
                 <div className='card__contact'>
