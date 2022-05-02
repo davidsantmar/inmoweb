@@ -5,10 +5,6 @@ import flat3 from '../images/flat3.jpeg';
 import flat4 from '../images/flat4.jpeg';
 import { Link } from "react-router-dom";
 
-
-
-
-
 const Inmuebles = () => {
     const [firstFlat, setFirstFlat] = useState();
     const [secondFlat, setSecondFlat] = useState();

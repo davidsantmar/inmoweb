@@ -8,6 +8,7 @@ import AboutUs from './components/AboutUs';
 import store from './redux/stores';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PA from './components/PA';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/hipotecas" exact element={<Hipotecas />} />
               <Route path="/contacto" exact element={<Contacto />} />
               <Route path="/about" exact element={<AboutUs />} />
+              <Route path="/pa" exact element={<PA />} />
             </Routes>
           </main>
         </BrowserRouter>

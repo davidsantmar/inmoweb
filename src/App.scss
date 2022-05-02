@@ -106,10 +106,10 @@ hr{
     .background1{
         width: 100%;
     }
-    .mortgage--title{
+    .mortgage--title, .rooms__field{
         padding: 1rem;
     }
-    .price--container, .savings--container, .years--container, .interest--container{
+    .title__field, .name__field, .email__field, .text__field, .price--container, .savings--container, .years--container, .interest--container, .rooms--container, .square--meters--container{
         display: flex;
         justify-content: space-around;
         height: 1.5rem;
@@ -177,11 +177,11 @@ hr{
     }
     .form--container{
         padding: 1rem;
-        .name__field, .email__field{
+        .name__field, .email__field, .title__field{
             width: 100%;
             font-family: 'Poppins';
         }
-        .request__field{
+        .text__field{
             width: 100%;
             height: 3rem;
             font-family: 'Poppins';

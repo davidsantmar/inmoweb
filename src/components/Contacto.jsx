@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
+import { Link } from "react-router-dom";
+import PA from './PA';
 
 /*
 para envio  de form a email usando cliente emailJS:
@@ -79,7 +81,7 @@ const Contacto = () => {
                 <br />
                 <br />
                 <textarea
-                    className='request__field'
+                    className='text__field'
                     name='message'
                     placeholder='Your message'
                     value={toSend.message}
@@ -96,7 +98,9 @@ const Contacto = () => {
             </form>
             <div className='admin--container'>
                 <button className='admin__button'>
-                    Administrator
+                        <Link to="/PA">
+                                Administrator
+                        </Link>
                 </button>
             </div>
         </>
