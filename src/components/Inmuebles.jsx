@@ -16,8 +16,7 @@ const Inmuebles = () => {
     const [fourthFlat, setFourthFlat] = useState();
 
     function cheaperButton(){
-        for (let i = 0; i = )
-        setFirstFlat(document.getAttribute('data-price');
+        //setFirstFlat(document.getAttribute('data-price');
         if (secondFlat.id < firstFlat.id){
             secondFlat.style.order = '-1';
         }

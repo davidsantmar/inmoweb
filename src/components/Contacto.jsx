@@ -94,6 +94,11 @@ const Contacto = () => {
                     SUBMIT
                 </button>
             </form>
+            <div className='admin--container'>
+                <button className='admin__button'>
+                    Administrator
+                </button>
+            </div>
         </>
     );
 };
