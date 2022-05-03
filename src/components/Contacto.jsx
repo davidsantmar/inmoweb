@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
 import PA from './PA';
+import { login } from '../firebase/actions';
+
 
 /*
 para envio  de form a email usando cliente emailJS:
@@ -40,6 +42,9 @@ const Contacto = () => {
       const handleChange = (e) => {
         setToSend({ ...toSend, [e.target.name]: e.target.value });
       };
+      const handleLogin = () =>{
+          login();
+      }
     return (
         <>
             <div className='sub--title'>
@@ -97,7 +102,7 @@ const Contacto = () => {
                 </button>
             </form>
             <div className='admin--container'>
-                <button className='admin__button'>
+                <button className='admin__button' onClick={handleLogin}>
                         <Link to="/PA">
                                 Administrator
                         </Link>
