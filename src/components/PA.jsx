@@ -19,27 +19,29 @@ const PA = () => {
 
     return (
         <div className='PA--form'>
-            <div className='sub--title'>
+            <div className='sub--title' data-testid='subTitle'>
                 <h2>POSTING ADMINISTRATOR</h2>
             </div>
-            <form className='form--container'>
+            <form className='form--container' data-testid='form-container'>
                 <input
                     className='title__field'
                     type='text'
-                    placeholder='Title'>
+                    placeholder='Title'
+                    data-testid='title-field'>
                 </input>
                 <br />
                 <br />
                 <textarea
                     className='text__field'
                     type='text'
-                    placeholder='Description'>
+                    placeholder='Description'
+                    data-testid='description'>
                 </textarea>
                 <br />
                 <br />
-                <div className='rooms--title'>
+                <div className='rooms--title' data-testid='rooms-title'>
                     Rooms
-                    <div className='rooms--container'>
+                    <div className='rooms--container' data-testid='rooms-container'>
                         <span className='change__numbers__buttons' onClick={removeRooms}>-</span>
                         {rooms}
                         <span className='change__numbers__buttons' onClick={addRooms}>+</span>                
@@ -47,9 +49,9 @@ const PA = () => {
                 </div>
                 <br />
                 <br />
-                <div className='sqmt--title'>
+                <div className='sqmt--title' data-testid='sqmt-title'>
                     m2
-                    <div className='square--meters--container'>
+                    <div className='square--meters--container' data-testid='square-meters-container'>
                         <span className='change__numbers__buttons' onClick={removeM2}>-</span>
                         {m2}
                         <span className='change__numbers__buttons' onClick={addM2}>+</span>                
@@ -60,13 +62,15 @@ const PA = () => {
                 <input
                     className='pictures__field'
                     type='file'
-                    multiple>
+                    multiple
+                    data-testid='pictures-field'>
                 </input>
                 <br />
                 <br />
                 <button 
                     className='submit__button' 
                     type='submit'
+                    data-testid='submit-button'
                 >
                     POST
                 </button>

@@ -43,7 +43,17 @@ const Contacto = () => {
         setToSend({ ...toSend, [e.target.name]: e.target.value });
       };
       const handleLogin = () =>{
-          login();
+        const allowedEmailDomain = 'admin.com';
+
+        const email = 'test@admin.com';
+        
+        if (email.split('@')[1] === allowedEmailDomain) {
+            login();        
+        } else {
+          // return an error or do nothing
+          console.log('email not granted');
+        }
+          //login();
       }
     return (
         <>
