@@ -19,7 +19,7 @@ describe('Given a PA component', () => {
             expect(titleField).toBeInTheDocument();
         })
         test('Then description should be in the doc', () => {
-            const description = screen.getByTestId('descriptionw');
+            const description = screen.getByTestId('description');
             expect(description).toBeInTheDocument();
         })
         test('Then rooms title should be in the doc', () => {
