@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
-import PA from './PA';
 import { login } from '../firebase/actions';
 
 
@@ -57,24 +56,10 @@ const Contacto = () => {
       }
     return (
         <>
-            <div className='sub--title'>
-                <h2>CONTACT DETAILS</h2>
+        <div className='sub--title' data-testid='subTitle2'>
+                <h2>CONTACT FORM</h2>
             </div>
-            <div className='contact--details'>
-                Pl. Catalunya, 1<br />
-                Barcelona <br />
-                Spain<br />
-                loremipsum@loremipsum.com<br />
-            </div>
-            <div class="google--map">
-                <iframe className='map__frame' title='google-map'
-                src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
-                </iframe>
-            </div>
-            <div className='sub--title'>
-                <h4>CONTACT FORM</h4>
-            </div>
-            <form className='form--container' onSubmit={onSubmit}>
+            <form className='form--container' onSubmit={onSubmit} data-testid='form-container'>
                 <input
                     className='name__field'
                     type='text'
@@ -82,6 +67,7 @@ const Contacto = () => {
                     placeholder='Type your name'
                     value={toSend.from_name}
                     onChange={handleChange}
+                    data-testid='name-field'
                 />
                 <br />
                 <br />
@@ -92,6 +78,7 @@ const Contacto = () => {
                     placeholder='Your email'
                     value={toSend.reply_to}
                     onChange={handleChange}
+                    data-testid='email-field'
                 />
                 <br />
                 <br />
@@ -101,18 +88,34 @@ const Contacto = () => {
                     placeholder='Your message'
                     value={toSend.message}
                     onChange={handleChange}
+                    data-testid='message-field'
                 />
                 <br />
                 <br />
                 <button 
                     className='submit__button' 
                     type='submit'
+                    data-testid='submit-button'
                 >
                     SUBMIT
                 </button>
             </form>
+            <div className='sub--title' data-testid='subTitle1'>
+                <h4>CONTACT DETAILS</h4>
+            </div>
+            <div className='contact--details' data-testid='contact-details'>
+                Pl. Catalunya, 1<br />
+                Barcelona <br />
+                Spain<br />
+                loremipsum@loremipsum.com<br />
+            </div>
+            <div class="google--map" data-testid='google-map'>
+                <iframe className='map__frame' title='google-map'
+                src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                </iframe>
+            </div>
             <div className='admin--container'>
-                <button className='admin__button' onClick={handleLogin}>
+                <button className='admin__button' onClick={handleLogin} data-testid='admin-button'>
                         <Link to="/PA">
                                 Administrator
                         </Link>
