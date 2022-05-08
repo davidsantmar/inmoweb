@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link, MemoryRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from '../images/logo.png';
 
 
 const Header = () => {
     return (
         <>
-        <div className='header--container' data-testid='header-container'>
-        <MemoryRouter>
+        <nav className='header--container' data-testid='header-container'>
             <Link to="/" className="nav__link" data-testid='logo-link'>
                 <img className='logo' src={logo} alt='logo'/>
             </Link>
@@ -20,8 +19,7 @@ const Header = () => {
             <Link to="/contacto" className="nav__link" data-testid='contacto-link'>
                 Contacto
             </Link>
-        </MemoryRouter>
-        </div>
+        </nav>
         </>
     );
 };
