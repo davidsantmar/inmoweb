@@ -24,11 +24,11 @@ const Inmuebles = () => {
     }
     return (
         <>
-        <div className='filter--container'>
-            <button className='cheaper__button' onClick={cheaperButton}>Cheaper</button>
-            <button className='relevance__button'>Relevance</button>
+        <div className='filter--container' data-testid='filter-container'>
+            <button className='cheaper__button' onClick={cheaperButton} data-testid='cheaper-button'>Cheaper</button>
+            <button className='relevance__button' data-testid='relevance-button'>Relevance</button>
         </div>
-        <div className='flats--grid'>
+        <div className='flats--grid' data-testid='flats-grid'>
             <div className='card' id='2' data-price='20000'>
                 <div className='card__picture__container'>
                     <div className='card__picture'>
