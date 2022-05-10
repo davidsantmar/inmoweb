@@ -115,36 +115,37 @@ const Hipotecas = () => {
                     <div className='modal__background' onClick={handleModalClose}>
                         
                             <div className='modal__card'>
+                                <h2 className='modal__title'>Total bills</h2>
                                 <ul>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Notary:
+                                            <span className='listed__numbers'>{notary + ' €'}</span>
                                         </li>
-                                        <span>{notary + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Registration:
+                                            <span className='listed__numbers'>{registration + ' €'}</span>
                                         </li>
-                                        <span>{registration + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Agency:
+                                            <span className='listed__numbers'>{agency + ' €'}</span>
                                         </li>
-                                        <span>{agency + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
                                         <li className='listed__items'>
                                             Taxes:
+                                            <span className='listed__numbers'>{taxes + ' €'}</span>
                                         </li>
-                                        <span>{taxes + ' €'}</span>
                                     </div>
                                     <div className='listed__items__container'>
-                                        <li className='listed__items'>
+                                        <li className='listed__items total__amount'>
                                             Total amount:
+                                            <span className='listed__numbers'>{billsAndTaxes + ' €'}</span>
                                         </li>
-                                        <span>{billsAndTaxes + ' €'}</span>
                                     </div>
                                 </ul>
                             </div>
