@@ -148,6 +148,7 @@ const Hipotecas = () => {
                                         </li>
                                     </div>
                                 </ul>
+                                <span className='modal__footer'>Non-binding indicative calculation</span>
                             </div>
 
                     </div>
