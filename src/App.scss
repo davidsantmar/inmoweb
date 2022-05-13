@@ -68,6 +68,7 @@ hr{
         .card__contact{
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
         }
         .contact__icon{
             font-size: 1.5rem;
@@ -81,6 +82,9 @@ hr{
             background-color: blue; 
             border: 0; 
             height:1px;        
+        }
+        .money__icon{
+            font-size: 2.5rem;
         }
     }
     .filter--container{
@@ -116,10 +120,18 @@ hr{
         border-radius: 5px;
         border: solid 1px black;
     }
+    .mortgage__input{
+        font-family: 'Poppins';
+        font-size: 1rem;
+    }
     .change__numbers__buttons{
         font-weight: bold;
         color: blue;
     }
+    .input__container{
+        display: flex;
+        justify-content: flex-end;
+    }    
     .figures--container{
         display: flex;
         padding: 1rem;

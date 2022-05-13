@@ -46,6 +46,10 @@ const Inmuebles = () => {
                         Contacto
                         <span className='contact__icon'>&#128196;</span>
                     </Link>
+                    <Link to="/hipotecas" className='nav__link'>
+                        Mortgage calculator
+                        <span className='money__icon'>&#128181;</span>
+                    </Link>
                 </div>
             </div>
             <div className='card' id='2' data-price='20000'>

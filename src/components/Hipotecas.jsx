@@ -26,6 +26,9 @@ const Hipotecas = () => {
     function handleClick(){         
         setShow(true);
     }
+    function handleChange(event) {
+        setHousePrice(event.target.value);
+      }
     const addMoney = () => {
         console.log(taxes)
         setHousePrice(housePrice + 10000);
@@ -58,35 +61,43 @@ const Hipotecas = () => {
     }
     return (
         <>
-            <div className='sub--title'>
+            <div className='sub--title' data-testid='subTitle2'>
                 <h2>MORTGAGE SIMULATOR</h2>
             </div>
-            <div className='mortgage--title'>
+            
+            <div className='mortgage--title' data-testid='house-price-title'>
                 House price
-                <div className='price--container'>
-                    <span className='change__numbers__buttons' onClick={removeMoney}>-</span>
-                    <input className='mortgage__input' type='number' min='0' />
-                    <span> €</span>
-                    <span className='change__numbers__buttons' onClick={addMoney}>+</span>
+                <div className='price--container' data-testid='price-container'>
+                    <span className='change__numbers__buttons' onClick={removeMoney} data-testid='subtraction-button'>-</span>
+                    <div className='input__container'>
+                        <input className='mortgage__input' size='7' maxlength='7' value={housePrice} onChange={handleChange} data-testid='mortgage-input'/>
+                        <span data-testid='euro-symbol'>€</span>
+                    </div>
+                    <span className='change__numbers__buttons' onClick={addMoney} data-testid='add-button'>+</span>
                 </div>
             </div>
-            <div className='mortgage--title'>
+            <div className='mortgage--title' data-testid='savings-title'>
                 Savings
-                <div className='savings--container'>
-                    <span className='change__numbers__buttons' onClick={removeSavingsMoney}>-</span>
-                    {savings + ' €'}
-                    <span className='change__numbers__buttons' onClick={addSavingsMoney}>+</span>                
+                <div className='savings--container' data-testid='savings-container'>
+                    <span className='change__numbers__buttons' onClick={removeSavingsMoney} data-testid='subtraction-button'>-</span>
+                    <div className='input__container'>
+                        <input className='mortgage__input' size='7' maxlength='7' value={savings} onChange={handleChange} data-testid='mortgage-input'/>
+                        <span data-testid='euro-symbol'>€</span>
+                    </div>
+                    <span className='change__numbers__buttons' onClick={addSavingsMoney} data-testid='add-button'>+</span>                
                 </div>
             </div>
-            <div className='mortgage--title'>
+            <div className='mortgage--title' data-testid='years-title'>
                 Years
                 <div className='years--container'>
                     <span className='change__numbers__buttons' onClick={addYears}>-</span>
-                    {years}
+                    <div className='input__container'>
+                        <input className='mortgage__input' size='2' maxlength='2' value={years} onChange={handleChange} data-testid='mortgage-input'/>
+                    </div>
                     <span className='change__numbers__buttons' onClick={removeYears}>+</span>                
                 </div>
             </div>
-            <div className='mortgage--title'>
+            <div className='mortgage--title' data-testid='interest-title'>
                 Interest rate
                 <br />
                 <label for="fixed">Fixed</label>
@@ -95,13 +106,15 @@ const Hipotecas = () => {
                 <input type='radio' value='variable' name='interest'></input>
                 <div className='interest--container'>
                     <span className='change__numbers__buttons' onClick={removeInterest}>-</span>
-                    {interest.toFixed(2)}
-                    <span className='change__numbers__buttons' onClick={addInterest}>+</span>                
+                    <div className='input__container'>
+                        <input className='mortgage__input' size='3' maxlength='3' value={interest} onChange={handleChange} data-testid='mortgage-input'/>
+                    </div>                    
+                <span className='change__numbers__buttons' onClick={addInterest}>+</span>                
                 </div>
             </div>
             <hr />
             <div className='figures--container'>
-                <div>
+                <div data-testid='bills-title'>
                     Bills and taxes: &nbsp;
                     <span className='info__globus' onClick={handleClick}>
                         &nbsp;&nbsp;i&nbsp;&nbsp;
@@ -155,13 +168,17 @@ const Hipotecas = () => {
                 </div>
             </div>
             <div className='figures--container'>
-                Loan amount:
+                <div data-testid='loan-title'>
+                    Loan amount:
+                </div>
                 <div>
                     {loan + ' €'}
                 </div>
             </div>
             <div className='figures--container'>
-                <span className='monthly__fee__title'>Monthly fee:</span>
+                <span className='monthly__fee__title' data-testid='monthly-title'>
+                    Monthly fee:
+                </span>
                 <div>
                     {monthlyFee + ' €'}
                 </div>
