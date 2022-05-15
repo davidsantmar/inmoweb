@@ -30,10 +30,11 @@ const Hipotecas = () => {
         setHousePrice(event.target.value);
       }
     const addMoney = () => {
-        console.log(taxes)
         setHousePrice(housePrice + 10000);
         setTaxes(((housePrice - savings) / 100) * 9);
         setBillsAndTaxes(notary + registration + agency + taxes);
+        console.log(housePrice);
+        console.log(taxes);
     }
     const removeMoney = () => {
         setHousePrice(housePrice - 10000);
