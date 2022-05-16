@@ -2,8 +2,9 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Hipotecas = () => {
-    const [housePrice, setHousePrice] = useState(100000);
-    //const housePrice = useSelector((state) => state.housePrice);
+    //no funciona con el state, al sumar las taxes no se actualizan
+    //const [housePrice, setHousePrice] = useState(100000);
+    const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState(0);
     const [monthlyFee, setMonthlyFee] = useState(0);
     const [savings, setSavings] = useState(10000);
@@ -15,8 +16,8 @@ const Hipotecas = () => {
     const [agency, setAgency] = useState(300);
     const [taxes, setTaxes] = useState(((housePrice - savings) / 100) * 9);
     const [billsAndTaxes, setBillsAndTaxes] = useState(notary + registration + agency + taxes);
-    /*const dispatch = useDispatch();
-    useEffect(() => {
+    const dispatch = useDispatch();
+    /*useEffect(() => {
         addMoney();
     }, [housePrice]);*/
 
@@ -26,18 +27,23 @@ const Hipotecas = () => {
     function handleClick(){         
         setShow(true);
     }
-    function handleChange(event) {
+    /*function handleChange(event) {
         setHousePrice(event.target.value);
-      }
+      }*/
     const addMoney = () => {
-        setHousePrice(housePrice + 10000);
-        setTaxes(((housePrice - savings) / 100) * 9);
-        setBillsAndTaxes(notary + registration + agency + taxes);
+        //setHousePrice(housePrice + 10000);
+        dispatch(addMoney());
+
         console.log(housePrice);
+        setTaxes(((housePrice - savings) / 100) * 9);
         console.log(taxes);
+        setBillsAndTaxes(notary + registration + agency + taxes);
+        console.log(billsAndTaxes);
+
     }
     const removeMoney = () => {
-        setHousePrice(housePrice - 10000);
+        //setHousePrice(housePrice - 10000);
+        dispatch(removeMoney());
         setTaxes(((housePrice - savings) / 100) * 9);
         setBillsAndTaxes(notary + registration + agency + taxes);
     }
@@ -71,7 +77,7 @@ const Hipotecas = () => {
                 <div className='price--container' data-testid='price-container'>
                     <span className='change__numbers__buttons' onClick={removeMoney} data-testid='subtraction-button'>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxlength='7' value={housePrice} onChange={handleChange} data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='7' maxlength='7' value={housePrice} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                         <span data-testid='euro-symbol'>€</span>
                     </div>
                     <span className='change__numbers__buttons' onClick={addMoney} data-testid='add-button'>+</span>
@@ -82,7 +88,7 @@ const Hipotecas = () => {
                 <div className='savings--container' data-testid='savings-container'>
                     <span className='change__numbers__buttons' onClick={removeSavingsMoney} data-testid='subtraction-button'>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxlength='7' value={savings} onChange={handleChange} data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='7' maxlength='7' value={savings} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                         <span data-testid='euro-symbol'>€</span>
                     </div>
                     <span className='change__numbers__buttons' onClick={addSavingsMoney} data-testid='add-button'>+</span>                
@@ -93,7 +99,7 @@ const Hipotecas = () => {
                 <div className='years--container'>
                     <span className='change__numbers__buttons' onClick={addYears}>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='2' maxlength='2' value={years} onChange={handleChange} data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='2' maxlength='2' value={years} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                     </div>
                     <span className='change__numbers__buttons' onClick={removeYears}>+</span>                
                 </div>
@@ -108,7 +114,7 @@ const Hipotecas = () => {
                 <div className='interest--container'>
                     <span className='change__numbers__buttons' onClick={removeInterest}>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='3' maxlength='3' value={interest} onChange={handleChange} data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='3' maxlength='3' value={interest} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                     </div>                    
                 <span className='change__numbers__buttons' onClick={addInterest}>+</span>                
                 </div>
