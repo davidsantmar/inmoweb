@@ -108,9 +108,12 @@ hr{
         flex-direction: column;
         padding: 1rem;
     }
-    .background1{
-        width: 100%;
+    .image--container{
+        .background1{
+            width: 100%;
+        }
     }
+    
     .mortgage--title, .rooms__field{
         padding: 1rem;
     }
@@ -261,6 +264,7 @@ hr{
             background-color: white;
             border-radius: 5px;
             margin-top: 1rem;
+            margin-bottom: 1rem;
           }
       }
     .mortgage__input{

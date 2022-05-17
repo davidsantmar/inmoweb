@@ -1,13 +1,13 @@
 import housePriceActionTypes from "./housePriceActionTypes";
 
-export function addMoney() {
+export function sumMoney() {
   return {
-    type: housePriceActionTypes.ADD_MONEY,
+    type: housePriceActionTypes.SUM_MONEY,
   };
 }
 
-export function removeMoney() {
+export function subtractMoney() {
   return {
-    type: housePriceActionTypes.REMOVE_MONEY,
+    type: housePriceActionTypes.SUBTRACT_MONEY,
   };
 }

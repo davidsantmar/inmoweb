@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { sumMoney, subtractMoney } from '../redux/actions/housePriceActionCreator'
 
 const Hipotecas = () => {
     //no funciona con el state, al sumar las taxes no se actualizan
@@ -16,10 +17,30 @@ const Hipotecas = () => {
     const [agency, setAgency] = useState(300);
     const [taxes, setTaxes] = useState(((housePrice - savings) / 100) * 9);
     const [billsAndTaxes, setBillsAndTaxes] = useState(notary + registration + agency + taxes);
+    const [button, setButton] = useState('');
     const dispatch = useDispatch();
     /*useEffect(() => {
         addMoney();
     }, [housePrice]);*/
+    useEffect(() => {
+        buttonBehaviour();
+    }, [button]);
+
+    function buttonBehaviour(){
+        if (button === 'sum') {
+            dispatch(sumMoney())
+        }else 
+        if (button === 'sub'){
+            dispatch(subtractMoney())
+        }
+    }
+    function chosenSum(){
+        setButton('sum');
+        console.log(housePrice);
+    }
+    function chosenSub(){
+        setButton('sub');
+    }
 
     const handleModalClose = (e) => {
         setShow(false);
@@ -32,8 +53,7 @@ const Hipotecas = () => {
       }*/
     const addMoney = () => {
         //setHousePrice(housePrice + 10000);
-        dispatch(addMoney());
-
+        dispatch(sumMoney());
         console.log(housePrice);
         setTaxes(((housePrice - savings) / 100) * 9);
         console.log(taxes);
@@ -43,11 +63,10 @@ const Hipotecas = () => {
     }
     const removeMoney = () => {
         //setHousePrice(housePrice - 10000);
-        dispatch(removeMoney());
+        dispatch(subtractMoney());
         setTaxes(((housePrice - savings) / 100) * 9);
         setBillsAndTaxes(notary + registration + agency + taxes);
     }
-  
     const addSavingsMoney = () => {
         setSavings(savings + 1000);
     }
@@ -75,12 +94,12 @@ const Hipotecas = () => {
             <div className='mortgage--title' data-testid='house-price-title'>
                 House price
                 <div className='price--container' data-testid='price-container'>
-                    <span className='change__numbers__buttons' onClick={removeMoney} data-testid='subtraction-button'>-</span>
+                    <span className='change__numbers__buttons' onClick={chosenSub} data-testid='subtraction-button'>-</span>
                     <div className='input__container'>
                         <input className='mortgage__input' size='7' maxlength='7' value={housePrice} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                         <span data-testid='euro-symbol'>€</span>
                     </div>
-                    <span className='change__numbers__buttons' onClick={addMoney} data-testid='add-button'>+</span>
+                    <span className='change__numbers__buttons' onClick={chosenSum} data-testid='add-button'>+</span>
                 </div>
             </div>
             <div className='mortgage--title' data-testid='savings-title'>
