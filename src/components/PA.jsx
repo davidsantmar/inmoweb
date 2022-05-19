@@ -103,6 +103,14 @@ const PA = () => {
                 <br />
                 <br />
                 <input
+                    className='extras__field'
+                    type='text'
+                    placeholder='Extras'
+                    data-testid='extras-field'>
+                </input>
+                <br />
+                <br />
+                <input
                     className='pictures__field'
                     type='file'
                     multiple

@@ -120,14 +120,16 @@ hr{
     .title__field, .name__field, .email__field, 
     .text__field, .price--container, .savings--container, 
     .years--container, .interest--container, .rooms--container, 
-    .square--meters--container, .id__field{
+    .square--meters--container, .id__field, .extras__field{
         display: flex;
         justify-content: space-around;
         height: 1.5rem;
         border-radius: 5px;
         border: solid 1px black;
         font-family: 'Poppins';
-
+    }
+    .extras__field{
+        width: 100%;
     }
     .mortgage__input{
         font-family: 'Poppins';
