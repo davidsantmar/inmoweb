@@ -4,9 +4,14 @@ import { addProperty } from "../firebase/dbactions";
 
 
 const PA = () => {
+    const [id, setId] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [rooms, setRooms] = useState(1);
     const [m2, setM2] = useState(60);
     const [price, setPrice] = useState(100000);
+    const [extras, setExtras] = useState('');
+    const [images, setImages] = useState([]);
 
     const addRooms = () => {
         setRooms(rooms + 1);
@@ -31,6 +36,17 @@ const PA = () => {
             //handleClick();        
         }
     }
+    function handleChange(event) {
+        setId(event.target.value);
+        setTitle(event.target.value);
+        setDescription(event.target.value);
+        setRooms(event.target.value);
+        setM2(event.target.value);
+        setPrice(event.target.value);
+        setExtras(event.target.value);
+        setImages(event.target.value);
+
+      }
     /*function handleClick() {
         addProperty(movieSelected.id, {
           title: title,
@@ -52,7 +68,9 @@ const PA = () => {
                     className='id__field'
                     type='text'
                     placeholder='Id'
-                    data-testid='id-field'>
+                    data-testid='id-field'
+                    onChange={handleChange}
+                >
                 </input>
                 <br />
                 <br />
@@ -60,7 +78,9 @@ const PA = () => {
                     className='title__field'
                     type='text'
                     placeholder='Title'
-                    data-testid='title-field'>
+                    data-testid='title-field'
+                    onChange={handleChange}
+                >
                 </input>
                 <br />
                 <br />
@@ -68,23 +88,29 @@ const PA = () => {
                     className='text__field'
                     type='text'
                     placeholder='Description'
-                    data-testid='description'>
+                    data-testid='description'
+                    onChange={handleChange}
+                >
                 </textarea>
                 <br />
                 <br />
                 <div className='rooms--title' data-testid='rooms-title'>
                     Rooms
-                    <div className='rooms--container' data-testid='rooms-container'>
-                        <span className='change__numbers__buttons' onClick={removeRooms}>-</span>
+                    <div className='rooms--container' data-testid='rooms-container' onChange={handleChange}>
+                        <span className='change__numbers__buttons' 
+                        onClick={removeRooms} 
+                        >-</span>
                         {rooms}
-                        <span className='change__numbers__buttons' onClick={addRooms}>+</span>                
+                        <span className='change__numbers__buttons' 
+                        onClick={addRooms}
+                        >+</span>                
                     </div>
                 </div>
                 <br />
                 <br />
                 <div className='sqmt--title' data-testid='sqmt-title'>
                     m2
-                    <div className='square--meters--container' data-testid='square-meters-container'>
+                    <div className='square--meters--container' data-testid='square-meters-container' onChange={handleChange}>
                         <span className='change__numbers__buttons' onClick={removeM2}>-</span>
                         {m2}
                         <span className='change__numbers__buttons' onClick={addM2}>+</span>                
@@ -94,7 +120,7 @@ const PA = () => {
                 <br />
                 <div className='price--title' data-testid='price-title'>
                     Price
-                    <div className='price--container' data-testid='price-container'>
+                    <div className='price--container' data-testid='price-container' onChange={handleChange}>
                         <span className='change__numbers__buttons' onClick={removePrice}>-</span>
                         {price}
                         <span className='change__numbers__buttons' onClick={addPrice}>+</span>                
@@ -106,7 +132,9 @@ const PA = () => {
                     className='extras__field'
                     type='text'
                     placeholder='Extras'
-                    data-testid='extras-field'>
+                    data-testid='extras-field'
+                    onChange={handleChange}
+                >
                 </input>
                 <br />
                 <br />
@@ -114,7 +142,9 @@ const PA = () => {
                     className='pictures__field'
                     type='file'
                     multiple
-                    data-testid='pictures-field'>
+                    data-testid='pictures-field'
+                    onChange={handleChange}
+                >
                 </input>
                 <br />
                 <br />
@@ -122,6 +152,7 @@ const PA = () => {
                     className='submit__button' 
                     type='submit'
                     data-testid='submit-button'
+                    onKeyPress={handleEnterPressed}
                 >
                     POST
                 </button>
