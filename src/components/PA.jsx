@@ -12,6 +12,7 @@ const PA = () => {
     const [price, setPrice] = useState(100000);
     const [extras, setExtras] = useState('');
     const [images, setImages] = useState([]);
+    const property = useSelector((state) => state.movieSelected);
 
     const addRooms = () => {
         setRooms(rooms + 1);
@@ -33,7 +34,7 @@ const PA = () => {
     }
     const handleEnterPressed = (event) => {
         if(event.key === 'Enter'){
-            //handleClick();        
+            handleClick();        
         }
     }
     function handleChange(event) {
@@ -47,17 +48,19 @@ const PA = () => {
         setImages(event.target.value);
 
       }
-    /*function handleClick() {
-        addProperty(movieSelected.id, {
+    function handleClick() {
+        addProperty(property.id, {
+          id: id,
           title: title,
           description: description, // TODO TRAER DEL STORE O DE FIREBASE
           rooms: rooms,
           m2: m2,
           price: price,
+          extras: extras,
           images: images,
         });
         //setMessage("");
-      }*/
+      }
     return (
         <div className='PA--form'>
             <div className='sub--title' data-testid='subTitle'>
