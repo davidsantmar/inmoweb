@@ -12,7 +12,6 @@ const PA = () => {
     const [price, setPrice] = useState(100000);
     const [extras, setExtras] = useState('');
     const [images, setImages] = useState([]);
-    const property = useSelector((state) => state.movieSelected);
 
     const addRooms = () => {
         setRooms(rooms + 1);
@@ -49,8 +48,8 @@ const PA = () => {
 
       }
     function handleClick() {
-        addProperty(property.id, {
-          id: id,
+        addProperty({
+          propertyId: id,
           title: title,
           description: description, // TODO TRAER DEL STORE O DE FIREBASE
           rooms: rooms,
@@ -58,7 +57,7 @@ const PA = () => {
           price: price,
           extras: extras,
           images: images,
-        });
+    });
         //setMessage("");
       }
     return (
@@ -137,6 +136,7 @@ const PA = () => {
                     placeholder='Extras'
                     data-testid='extras-field'
                     onChange={handleChange}
+                    onKeyPress={handleEnterPressed}
                 >
                 </input>
                 <br />
@@ -155,7 +155,7 @@ const PA = () => {
                     className='submit__button' 
                     type='submit'
                     data-testid='submit-button'
-                    onKeyPress={handleEnterPressed}
+                    onClick={handleClick}
                 >
                     POST
                 </button>
