@@ -2,7 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
-import { login } from '../firebase/actions';
+import { login, logout } from '../firebase/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 /*
@@ -15,51 +16,45 @@ unique id, template y private key
 */
 
 const Contacto = () => {
-    const [toSend, setToSend] = useState({
-        from_name: '',
-        to_name: '',
-        message: '',
-        reply_to: '',
-      });
-    
-      const onSubmit = (e) => {
-        e.preventDefault();
-        send(
-            'service_6ilyu6d',
-            'template_h7gucd8',
-            toSend,
-            'mZFlYH32MWGNn7UKB'
-          )
-            .then((response) => {
-              console.log('SUCCESS!', response.status, response.text);
-            })
-            .catch((err) => {
-              console.log('FAILED...', err);
-            });     
-        };
-    
-      const handleChange = (e) => {
-        setToSend({ ...toSend, [e.target.name]: e.target.value });
-      };
-      const handleLogin = () =>{
-        const allowedEmailDomain = 'admin.com';
+    const dispatch = useDispatch();
+  const [showResult, setShowResult] = useState('');
+  const [toSend, setToSend] = useState({
+      from_name: '',
+      to_name: '',
+      message: '',
+      reply_to: '',
+    });
+    const onSubmit = (e) => {
+      e.preventDefault();
+      send(
+          'service_6ilyu6d',
+          'template_h7gucd8',
+          toSend,
+          'mZFlYH32MWGNn7UKB'
+        )
+          .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+          })
+          .catch((err) => {
+            console.log('FAILED...', err);
+          });     
+    };
+    const handleChange = (e) => {
+      setToSend({ ...toSend, [e.target.name]: e.target.value });
+    };
+    const handleLogin = () =>{
 
-        const email = 'test@admin.com';
-        
-        if (email.split('@')[1] === allowedEmailDomain) {
-            login();        
-        } else {
-          // return an error or do nothing
-          console.log('email not granted');
-        }
-          //login();
-      }
+      login();
+      console.log(dispatch(showResult()));
+    }
     return (
         <>
         <div className='sub--title' data-testid='subTitle2'>
                 <h2>CONTACT FORM</h2>
             </div>
-            <form className='form--container' onSubmit={onSubmit} data-testid='form-container'>
+            <form className='form--container' 
+            onSubmit={onSubmit} 
+            data-testid='form-container'>
                 <input
                     className='name__field'
                     type='text'
@@ -115,10 +110,12 @@ const Contacto = () => {
                 </iframe>
             </div>
             <div className='admin--container'>
-                <button className='admin__button' onClick={handleLogin} data-testid='admin-button'>
-                  <Link to="/PA">
+                <button className='admin__button' 
+                onClick={handleLogin} 
+                data-testid='admin-button'>
+                <Link to='/PA'>
                     Administrator
-                  </Link>
+                </Link>
                 </button>
             </div>
         </>

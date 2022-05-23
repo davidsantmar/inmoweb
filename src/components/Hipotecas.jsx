@@ -4,8 +4,8 @@ import { sumMoney, subtractMoney } from '../redux/actions/housePriceActionCreato
 
 const Hipotecas = () => {
     //no funciona con el state, al sumar las taxes no se actualizan
-    //const [housePrice, setHousePrice] = useState(100000);
-    const housePrice = useSelector((state) => state.housePrice);
+    const [housePrice, setHousePrice] = useState(100000);
+    //const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState(0);
     const [monthlyFee, setMonthlyFee] = useState(0);
     const [savings, setSavings] = useState(10000);
@@ -96,7 +96,7 @@ const Hipotecas = () => {
                 <div className='price--container' data-testid='price-container'>
                     <span className='change__numbers__buttons' onClick={chosenSub} data-testid='subtraction-button'>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxlength='7' value={housePrice} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='7' maxLength='7' value={housePrice} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                         <span data-testid='euro-symbol'>€</span>
                     </div>
                     <span className='change__numbers__buttons' onClick={chosenSum} data-testid='add-button'>+</span>
@@ -107,7 +107,7 @@ const Hipotecas = () => {
                 <div className='savings--container' data-testid='savings-container'>
                     <span className='change__numbers__buttons' onClick={removeSavingsMoney} data-testid='subtraction-button'>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxlength='7' value={savings} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='7' maxLength='7' value={savings} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                         <span data-testid='euro-symbol'>€</span>
                     </div>
                     <span className='change__numbers__buttons' onClick={addSavingsMoney} data-testid='add-button'>+</span>                
@@ -118,7 +118,7 @@ const Hipotecas = () => {
                 <div className='years--container'>
                     <span className='change__numbers__buttons' onClick={addYears}>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='2' maxlength='2' value={years} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='2' maxLength='2' value={years} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                     </div>
                     <span className='change__numbers__buttons' onClick={removeYears}>+</span>                
                 </div>
@@ -133,7 +133,7 @@ const Hipotecas = () => {
                 <div className='interest--container'>
                     <span className='change__numbers__buttons' onClick={removeInterest}>-</span>
                     <div className='input__container'>
-                        <input className='mortgage__input' size='3' maxlength='3' value={interest} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
+                        <input className='mortgage__input' size='3' maxLength='3' value={interest} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
                     </div>                    
                 <span className='change__numbers__buttons' onClick={addInterest}>+</span>                
                 </div>
