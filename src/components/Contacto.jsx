@@ -4,6 +4,8 @@ import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
 import { login, logout } from '../firebase/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { accessGranted, accessNotAuthorised } from '../redux/actions/accessPAActionCreator'
+import LoginButton from './LoginButton';
 
 
 /*
@@ -16,7 +18,7 @@ unique id, template y private key
 */
 
 const Contacto = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [showResult, setShowResult] = useState('');
   const [toSend, setToSend] = useState({
       from_name: '',
@@ -42,10 +44,11 @@ const Contacto = () => {
     const handleChange = (e) => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     };
-    const handleLogin = () =>{
-
-      login();
-      console.log(dispatch(showResult()));
+    async function getEmail() {
+        login();
+            let result = await onSubmit();
+            console.log(result);
+        
     }
     return (
         <>
@@ -111,14 +114,13 @@ const Contacto = () => {
             </div>
             <div className='admin--container'>
                 <button className='admin__button' 
-                onClick={handleLogin} 
+                onClick={getEmail} 
                 data-testid='admin-button'>
                 <Link to='/PA'>
                     Administrator
                 </Link>
                 </button>
-            </div>
-        </>
+        </div>        </>
     );
 };
 
