@@ -2,10 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
-import { login, logout } from '../firebase/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { accessGranted, accessNotAuthorised } from '../redux/actions/accessPAActionCreator'
-import LoginButton from './LoginButton';
+import { login } from '../firebase/actions';
 
 
 /*
@@ -18,8 +15,7 @@ unique id, template y private key
 */
 
 const Contacto = () => {
-  const dispatch = useDispatch();
-  const [showResult, setShowResult] = useState('');
+  const [accessEmail, setAccessEmail] = useState('');
   const [toSend, setToSend] = useState({
       from_name: '',
       to_name: '',
@@ -45,10 +41,13 @@ const Contacto = () => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     };
     async function getEmail() {
-        login();
-            let result = await onSubmit();
-            console.log(result);
-        
+        let result = await login();
+        setAccessEmail(result);
+        if (accessEmail === 'davidsantmar@gmail.com'){
+            console.log('access')
+        }else{
+            console.log('not')
+        }
     }
     return (
         <>
@@ -116,11 +115,12 @@ const Contacto = () => {
                 <button className='admin__button' 
                 onClick={getEmail} 
                 data-testid='admin-button'>
-                <Link to='/PA'>
-                    Administrator
-                </Link>
+                    <Link to='/PA'>
+                        Administrator
+                    </Link>
                 </button>
-        </div>        </>
+            </div>        
+        </>
     );
 };
 
