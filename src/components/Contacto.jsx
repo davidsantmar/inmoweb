@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
 import { login } from '../firebase/actions';
+import { useDispatch } from 'react-redux';
+import { accessGranted } from '../redux/actions/administratorActionCreator';
 
 
 /*
@@ -22,6 +24,7 @@ const Contacto = () => {
       message: '',
       reply_to: '',
     });
+    const dispatch = useDispatch();
     const onSubmit = (e) => {
       e.preventDefault();
       send(
@@ -42,6 +45,7 @@ const Contacto = () => {
     };
     async function getEmail() {
         const result = await login();
+        dispatch(accessGranted);
         //login();
         //setEmailAccess(result);
         console.log(result) 
