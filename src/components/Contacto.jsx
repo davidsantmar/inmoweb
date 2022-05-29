@@ -15,7 +15,7 @@ unique id, template y private key
 */
 
 const Contacto = () => {
-  const [accessEmail, setAccessEmail] = useState('');
+  const [emailAccess, setEmailAccess] = useState('');
   const [toSend, setToSend] = useState({
       from_name: '',
       to_name: '',
@@ -41,14 +41,26 @@ const Contacto = () => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     };
     async function getEmail() {
-        let result = await login();
-        setAccessEmail(result);
-        if (accessEmail === 'davidsantmar@gmail.com'){
-            console.log('access')
-        }else{
-            console.log('not')
-        }
+        const result = await login();
+        //login();
+        //setEmailAccess(result);
+        console.log(result) 
+        //paAccess();       
+        //return result;
     }
+    async function paAccess(){
+        const email = await getEmail();
+        setEmailAccess(email);
+        console.log(emailAccess);      
+
+        /*if (email === 'davidsantmar@gmail.com'){
+            console.log('si')
+    }
+        else{
+            console.log('access not authorised')
+        } */   
+    }
+
     return (
         <>
         <div className='sub--title' data-testid='subTitle2'>
@@ -115,11 +127,9 @@ const Contacto = () => {
                 <button className='admin__button' 
                 onClick={getEmail} 
                 data-testid='admin-button'>
-                    <Link to='/PA'>
-                        Administrator
-                    </Link>
+                    <Link to='/pa'>ADMINISTRATOR</Link>  
                 </button>
-            </div>        
+            </div>
         </>
     );
 };
