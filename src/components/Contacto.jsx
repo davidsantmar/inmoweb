@@ -4,7 +4,7 @@ import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
 import { login } from '../firebase/actions';
 import { useDispatch } from 'react-redux';
-import { accessGranted } from '../redux/actions/administratorActionCreator';
+import { accessGranted, accessNotAuthorised } from '../redux/actions/administratorActionCreator';
 
 
 /*
@@ -45,12 +45,17 @@ const Contacto = () => {
     };
     async function getEmail() {
         const result = await login();
-        dispatch(accessGranted);
+        if (result === 'davidsanmar@yahoo.es'){
+            dispatch(accessGranted());
+        }else{
+            dispatch(accessNotAuthorised());
         //login();
-        //setEmailAccess(result);
+        setEmailAccess(result);
         console.log(result) 
-        //paAccess();       
-        //return result;
+        console.log(emailAccess);
+        //paAccess();
+        }     
+        return result;
     }
     async function paAccess(){
         const email = await getEmail();
@@ -128,10 +133,12 @@ const Contacto = () => {
                 </iframe>
             </div>
             <div className='admin--container'>
-                <button className='admin__button' 
+                <button className='admin__button'
                 onClick={getEmail} 
                 data-testid='admin-button'>
-                    <Link to='/pa'>ADMINISTRATOR</Link>  
+                    <Link to='/pa'>
+                        ADMINISTRATOR
+                    </Link> 
                 </button>
             </div>
         </>
