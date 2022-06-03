@@ -26,6 +26,22 @@ body{
     background-color: lightgreen;
     color: blue;
 }
+.login__button{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: black;
+    border: none;
+    padding: .5rem;
+    font-family: 'Poppins'; 
+    background-color: lightgray;
+
+}
+.login__button:hover{
+    background-color: lightgreen;
+    color: blue;
+}
 hr{
     width: 93.5%;
 }
