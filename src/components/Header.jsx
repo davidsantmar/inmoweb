@@ -19,6 +19,9 @@ const Header = () => {
             <Link to="/contacto" className="nav__link" data-testid='contacto-link'>
                 Contacto
             </Link>
+            <button className="login__button" data-testid='login-button'>
+                Login
+            </button>
         </nav>
         </>
     );
