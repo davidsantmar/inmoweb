@@ -1,6 +1,6 @@
 import { authentication } from ".";
 
-export async function login() {
+export async function firebaseLogin() {
   const provider = new authentication.auth.GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
   const data = await authentication.auth().signInWithPopup(provider);
@@ -8,6 +8,6 @@ export async function login() {
   return data?.additionalUserInfo?.profile.email;
 }
 
-export function logout() {
+export function firebaseLogout() {
   authentication.auth().signOut();
 }
