@@ -1,9 +1,29 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import logo from '../images/logo.png';
-
+import { useDispatch, useSelector} from "react-redux";
+import { login, logout } from "../redux/actions/authActionCreator";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const { isAuthenticated, user } = useSelector((state) => {
+        return {
+          isAuthenticated: state.auth.isAuthenticated,
+          user: state.auth?.additionalUserInfo?.profile.email,
+        };
+      });
+    
+      /*useEffect(() => {
+        isAuthenticated && dispatch({ type: taskActionTypes.LOAD_TASKS });
+      }, [dispatch, isAuthenticated, tasks]);*/
+
+    function handleLogin() {
+        dispatch(login());
+      }
+    
+      function handleLogout() {
+        dispatch(logout());
+      }
     return (
         <>
         <nav className='header--container' data-testid='header-container'>
@@ -22,6 +42,26 @@ const Header = () => {
             <button className="login__button" data-testid='login-button'>
                 Login
             </button>
+            {isAuthenticated ? (
+          <>
+            Welcome administrator
+            <button
+              onClick={handleLogout}
+              type="button"
+              className="btn btn-secondary nav-item"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={handleLogin}
+            type="button"
+            className="btn btn-secondary nav-item mx-3"
+          >
+            Login
+          </button>
+        )}
         </nav>
         </>
     );

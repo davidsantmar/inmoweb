@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
 import { Link } from "react-router-dom";
-import { login } from '../firebase/actions';
+import { firebaseLogin } from '../firebase/actions';
 import { useDispatch } from 'react-redux';
 import { accessGranted, accessNotAuthorised } from '../redux/actions/administratorActionCreator';
 
@@ -44,7 +44,7 @@ const Contacto = () => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     };
     async function getEmail() {
-        const result = await login();
+        const result = await firebaseLogin();
         if (result === 'davidsanmar@yahoo.es'){
             dispatch(accessGranted());
         }else{
