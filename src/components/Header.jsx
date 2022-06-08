@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import logo from '../images/logo.png';
 import { useDispatch, useSelector} from "react-redux";
+import { firebaseLogin } from '../firebase/actions';
 import { login, logout } from "../redux/actions/authActionCreator";
 
 const Header = () => {
@@ -17,9 +18,11 @@ const Header = () => {
         isAuthenticated && dispatch({ type: taskActionTypes.LOAD_TASKS });
       }, [dispatch, isAuthenticated, tasks]);*/
 
-    function handleLogin() {
-        dispatch(login());
-      }
+    async function handleLogin() {
+          dispatch(login());
+          const result = await firebaseLogin();
+          return result;  
+    }
     
       function handleLogout() {
         dispatch(logout());
