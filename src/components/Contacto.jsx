@@ -132,6 +132,7 @@ const Contacto = () => {
                 src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
                 </iframe>
             </div>
+            
             <div className='admin--container'>
                 <button className='admin__button'
                 onClick={getEmail} 

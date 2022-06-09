@@ -39,16 +39,15 @@ const Header = () => {
             <Link to="/contacto" className="nav__link" data-testid='contacto-link'>
                 Contacto
             </Link>
-            <button className="login__button" data-testid='login-button'>
-                Login
-            </button>
+            
             {isAuthenticated ? (
           <>
             Welcome administrator
             <button
               onClick={handleLogout}
               type="button"
-              className="btn btn-secondary nav-item"
+              className="login__button" 
+              data-testid='login-button'
             >
               Logout
             </button>
@@ -57,7 +56,8 @@ const Header = () => {
           <button
             onClick={handleLogin}
             type="button"
-            className="btn btn-secondary nav-item mx-3"
+            className="login__button" 
+
           >
             Login
           </button>
