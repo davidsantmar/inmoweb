@@ -17,10 +17,10 @@ const Header = () => {
         isAuthenticated && dispatch({ type: taskActionTypes.LOAD_TASKS });
       }, [dispatch, isAuthenticated, tasks]);*/
 
-    async function handleLogin() {
-          dispatch(login()); 
+    function handleLogin(){    
+      dispatch(login());
+      console.log('ok');
     }
-    
       function handleLogout() {
         dispatch(logout());
       }
@@ -42,7 +42,9 @@ const Header = () => {
             
             {isAuthenticated ? (
           <>
-            Welcome administrator
+            <Link to='/pa' className="nav__link">
+                Posting Administrator
+            </Link> 
             <button
               onClick={handleLogout}
               type="button"

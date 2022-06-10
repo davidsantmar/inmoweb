@@ -1,13 +1,19 @@
+import { accessGranted, accessNotAuthorised } from "./administratorActionCreator";
 import authActionTypes from "./authActionTypes";
-import { firebaseLogin, firebaseLogout } from '/Users/macbook/Desktop/Front End/inmoweb/src/firebase/actions';
 
 
 export function login() {
-  firebaseLogin();
-  return { type: authActionTypes.LOGIN };
+   
+  /*const [loginType, setLoginType] = ('');
+  if (emailUser === 'davidsantmar'){
+    setLoginType('LOGIN');
+    console.log(loginType);
+  }*/
+  return { 
+        type: authActionTypes.LOGIN};
 }
 
+
 export function logout() {
-  firebaseLogout();
   return { type: authActionTypes.LOGOUT };
 }
