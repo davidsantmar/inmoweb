@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logo from '../images/logo.png';
 import { useDispatch, useSelector} from "react-redux";
 import { login, logout } from "../redux/actions/authActionCreator";
+import { firebaseLogin } from '../firebase/actions';
+
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -12,18 +14,17 @@ const Header = () => {
           user: state.auth?.additionalUserInfo?.profile.email,
         };
       });
-    
-      /*useEffect(() => {
-        isAuthenticated && dispatch({ type: taskActionTypes.LOAD_TASKS });
-      }, [dispatch, isAuthenticated, tasks]);*/
 
-    function handleLogin(){    
-      dispatch(login());
-      console.log('ok');
+    async function handleLogin(){   
+      const email = await firebaseLogin();
+      if (email === 'davidsantmar@gmail.com'){
+        dispatch(login());
+      }    
     }
-      function handleLogout() {
-        dispatch(logout());
-      }
+    
+    function handleLogout() {
+      dispatch(logout());
+    }
     return (
         <>
         <nav className='header--container' data-testid='header-container'>

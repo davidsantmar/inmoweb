@@ -3,12 +3,11 @@ import authActionTypes from "./authActionTypes";
 import { firebaseLogin } from '/Users/macbook/Desktop/Front End/inmoweb/src/firebase/actions';
 
 
-export async function login() {
+export function login() {
   //async function getEmail(){
-  const emailUser = await firebaseLogin();
-  console.log(emailUser);
+  //firebaseLogin();
   //return emailUser;
-  switch (emailUser) {
+  /*switch (emailUser) {
     case (emailUser === 'davidsantmar@gmail.com'):
       console.log(emailUser);
 
@@ -16,9 +15,9 @@ export async function login() {
     default:
       console.log(emailUser);
 
-      return emailUser;
-  }
-  //return { type: authActionTypes.LOGIN };
+      return { type: authActionTypes.LOGIN };
+  }*/
+  return { type: authActionTypes.LOGIN };
 }
 
 
