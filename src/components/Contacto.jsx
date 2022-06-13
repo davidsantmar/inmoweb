@@ -1,11 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
-import { Link } from "react-router-dom";
-import { firebaseLogin } from '../firebase/actions';
-import { useDispatch } from 'react-redux';
-import { accessGranted, accessNotAuthorised } from '../redux/actions/administratorActionCreator';
-
 
 /*
 para envio  de form a email usando cliente emailJS:
@@ -17,14 +12,12 @@ unique id, template y private key
 */
 
 const Contacto = () => {
-  const [emailAccess, setEmailAccess] = useState('');
   const [toSend, setToSend] = useState({
       from_name: '',
       to_name: '',
       message: '',
       reply_to: '',
     });
-    const dispatch = useDispatch();
     const onSubmit = (e) => {
       e.preventDefault();
       send(
@@ -43,33 +36,6 @@ const Contacto = () => {
     const handleChange = (e) => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     };
-    async function getEmail() {
-        const result = await firebaseLogin();
-        if (result === 'davidsanmar@yahoo.es'){
-            dispatch(accessGranted());
-        }else{
-            dispatch(accessNotAuthorised());
-        //login();
-        setEmailAccess(result);
-        console.log(result) 
-        console.log(emailAccess);
-        //paAccess();
-        }     
-        return result;
-    }
-    async function paAccess(){
-        const email = await getEmail();
-        setEmailAccess(email);
-        console.log(emailAccess);      
-
-        /*if (email === 'davidsantmar@gmail.com'){
-            console.log('si')
-    }
-        else{
-            console.log('access not authorised')
-        } */   
-    }
-
     return (
         <>
         <div className='sub--title' data-testid='subTitle2'>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {  useSelector } from "react-redux";
 import { addProperty } from "../firebase/dbactions";
-
+import { Link } from "react-router-dom";
 
 const PA = () => {
     const [id, setId] = useState('');
@@ -45,7 +44,6 @@ const PA = () => {
         setPrice(event.target.value);
         setExtras(event.target.value);
         setImages(event.target.value);
-
       }
     function handleClick() {
         addProperty({
@@ -57,14 +55,26 @@ const PA = () => {
           price: price,
           extras: extras,
           images: images,
-    });
+        });
         //setMessage("");
-      }
+    }
     return (
+        <>
         <div className='PA--form'>
             <div className='sub--title' data-testid='subTitle'>
                 <h2>POSTING ADMINISTRATOR</h2>
             </div>
+            <nav className='admin--container'>
+                <div className='admin__button'>
+                    Create property
+                </div>
+                <div className='admin__button'>
+                    Property list
+                </div>
+                    <Link to='/addUser' className="nav__link">
+                        Add user
+                    </Link> 
+            </nav>
             <form className='form--container' data-testid='form-container'>
                 <input
                     className='id__field'
@@ -161,6 +171,7 @@ const PA = () => {
                 </button>
             </form>
         </div>
+        </>
     );
 };
 

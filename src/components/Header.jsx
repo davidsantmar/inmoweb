@@ -60,7 +60,6 @@ const Header = () => {
             onClick={handleLogin}
             type="button"
             className="login__button" 
-
           >
             Login
           </button>
