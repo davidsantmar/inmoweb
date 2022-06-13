@@ -230,7 +230,7 @@ hr{
             width: 100%;
         }
     }
-    .form--container{
+    .form--container, .add--user--container{
         padding: 1rem;
         .name__field, .email__field, .title__field{
             width: 100%;
@@ -255,11 +255,13 @@ hr{
         }
 
     }
+    .add--user--container{
+        margin-bottom: 10rem;
+    }
     .admin--container{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
         padding: 1rem;
-        margin-top: 5rem;
         .admin__button{
             background-color: rgb(226, 246, 226);
             border-radius: 5px;
