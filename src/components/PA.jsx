@@ -72,7 +72,7 @@ const PA = () => {
                     Property list
                 </div>
                     <Link to='/addUser' className="nav__link">
-                        Add user
+                        Users management
                     </Link> 
             </nav>
             <form className='form--container' data-testid='form-container'>

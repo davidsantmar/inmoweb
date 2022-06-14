@@ -4,14 +4,60 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
 
-const AddUser = () => {
+function AddUsers() {
+    const dispatch = useDispatch();
+    const [user, setUser] = useState("");
+  
+    function handleChange(event) {
+      setUser(event.target.value);
+    }
+  
+    function handleClick() {
+      dispatch(addUser(user));
+      setUser(" ");
+      console.log(user);
+    }
+  
+    return (
+      <>
+        <div>
+            <Link to='/pa' className="nav__link">
+                Back<span>&#8617;</span>
+            </Link>
+          <input
+            type="text"
+        
+            onChange={handleChange}
+            value={user}
+            placeholder="Write your user"
+          />
+          <button
+
+            type="button"
+            disabled={!user.trim()}
+            onClick={handleClick}
+          >
+            Add
+          </button>
+        </div>
+      </>
+    );
+  }
+  
+  export default AddUsers;
+
+
+
+/*const UsersManagement = () => {
+    const users = useSelector((state) => state.users);
+
     const [user, setUser] = useState('');
     const dispatch = useDispatch();
     
     function handleChange(event) {
         setUser(event.target.value);
     }  
-    function addUser(){
+    function addEmail(){
         dispatch(addUser(user));
         console.log(user);
     }  
@@ -37,15 +83,18 @@ const AddUser = () => {
                 className='submit__button' 
                 type='submit'
                 data-testid='submit-button'
-                onClick={addUser}
+                onClick={addEmail}
             >
                     ADD USER
             </button>
             <div>Actual users</div>
             <br />
+            <ul>
+
+            </ul>
         </div>
         </>
     );
 };
 
-export default AddUser;
+export default UsersManagement;*/

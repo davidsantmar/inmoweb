@@ -8,16 +8,15 @@ import { firebaseLogin } from '../firebase/actions';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const { isAuthenticated, user } = useSelector((state) => {
+    const { isAuthenticated } = useSelector((state) => {
         return {
-          isAuthenticated: state.auth.isAuthenticated,
-          user: state.auth?.additionalUserInfo?.profile.email,
+          isAuthenticated: state.auth.isAuthenticated
         };
       });
 
     async function handleLogin(){   
       const email = await firebaseLogin();
-      if (email === 'davidsantmar@gmail.com'){
+      if (email === 'davidsantmar@gmail.com'){ //user granted
         dispatch(login());
       }    
     }

@@ -9,7 +9,7 @@ import store from './redux/stores';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PA from './components/PA';
-import AddUser from './components/AddUser';
+import UsersList from './components/UsersList';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
               <Route path="/contacto" exact element={<Contacto />} />
               <Route path="/about" exact element={<AboutUs />} />
               <Route path="/pa" exact element={<PA />} />
-              <Route path="/addUser" exact element={<AddUser />} />
+              <Route path="/addUser" exact element={<UsersList />} />
             </Routes>
           </main>
         </BrowserRouter>
