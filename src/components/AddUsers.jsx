@@ -1,21 +1,33 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
+import { addUserFirebase } from "../firebase/dbactions";
+
 
 function AddUsers() {
     const dispatch = useDispatch();
     const [user, setUser] = useState("");
+    const userAdded = useSelector((state) => state.movieSelected);
+
   
     function handleChange(event) {
       setUser(event.target.value);
     }
+    const handleEnterPressed = (event) => {
+      if(event.key === 'Enter'){
+          handleClick();        
+      }
+  }
   
     function handleClick() {
       dispatch(addUser(user));
       setUser(" ");
       console.log(user);
+      addUserFirebase(userAdded, {
+        user: user, 
+      });
     }
   
     return (
@@ -30,6 +42,7 @@ function AddUsers() {
             onChange={handleChange}
             value={user}
             placeholder="Write your user"
+            onKeyPress={handleEnterPressed}
           />
           <button
 
