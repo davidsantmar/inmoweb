@@ -6,5 +6,4 @@ export async function addProperty(propertyId, title, description, rooms, meters,
 
 export async function addUserFirebase(userId, user) {
   await db.collection(`users_${userId}`).add(user);
-  console.log(user);
 }
