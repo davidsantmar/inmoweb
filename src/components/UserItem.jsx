@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../redux/actions/addUserActionCreator";
 
-function UserItem({ user }) {
+function UserItem(user) {
   const dispatch = useDispatch();
 
   function handleDelete() {
