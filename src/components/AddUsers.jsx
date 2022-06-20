@@ -1,17 +1,17 @@
-import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
 import { addUserFirebase } from "../firebase/dbactions";
+import firebase from "firebase/compat/app";
 
 
 function AddUsers() {
     const dispatch = useDispatch();
+    const [newEmails, setNewEmails] = useState([]);
     const [user, setUser] = useState("");
-    const userAdded = useSelector((state) => state.movieSelected);
+    const grantedEmails = firebase.firestore().collection('users_admin');
 
-  
     function handleChange(event) {
       setUser(event.target.value);
     }
@@ -19,15 +19,25 @@ function AddUsers() {
       if(event.key === 'Enter'){
           handleClick();        
       }
+    }
+  function getDatos(){
+    grantedEmails
+    .get()
+    .then((results) => {
+      const data = results.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNewEmails(data);
+      console.log(data);
+      return newEmails;
+    });
   }
   
     function handleClick() {
       dispatch(addUser(user));
       setUser(" ");
-      console.log(user);
-      addUserFirebase(userAdded, {
-        user: user, 
-      });
+      addUserFirebase('admin', {user: user})
     }
   
     return (
@@ -47,12 +57,13 @@ function AddUsers() {
           <button
 
             type="button"
-            disabled={!user.trim()}
             onClick={handleClick}
           >
             Add
           </button>
-          {user}
+        </div>
+        <div>
+          {newEmails}
         </div>
       </>
     );
