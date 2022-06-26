@@ -2,10 +2,12 @@ import AddUsers from "./AddUsers";
 import UserItem from "./UserItem";
 import EmptyUsersList from "./EmptyUsersList";
 import firebase from "firebase/compat/app";
+import { useState } from "react";
 
 
 function UsersList() {
   const grantedEmails = firebase.firestore().collection('users_admin');
+  const [dataCollection, setDataCollection] = useState([]);
 
   function getDatos(){
     grantedEmails
@@ -15,7 +17,9 @@ function UsersList() {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(data); 
+      setDataCollection(data);
+      console.log(data[0].user); 
+      return data;
     });
   }
   
@@ -23,22 +27,21 @@ function UsersList() {
   return (
     <>
       <h1>Users List</h1>
-      <AddUsers />
-      {getDatos()}
-      
-      {getDatos() && getDatos().length > 0 ? (
-        <div>
-          <ol>
-            {getDatos()?.map((user) => (
-              <UserItem key={user.id} user={user} />
-            ))}
-          </ol>
-        </div>
-      ) : (
-        <EmptyUsersList />
-      )}
-    </>
+      <AddUsers />  
+      </>
   );
 }
 
 export default UsersList;
+
+/*{getDatos() && getDatos().length > 0 ? (
+  <div>
+    <ol>
+      {getDatos()?.map((user) => (
+        <UserItem key={user.id} user={user} />
+      ))}
+    </ol>
+  </div>
+) : (
+  <EmptyUsersList />
+)}*/

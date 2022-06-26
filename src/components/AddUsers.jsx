@@ -28,9 +28,12 @@ function AddUsers() {
         id: doc.id,
         ...doc.data(),
       }));
-      setNewEmails(data);
-      console.log(data);
-      return newEmails;
+      for (let i = 0; i <= data.length; i++){
+        setNewEmails(data.concat(i.user));
+      }
+      //setNewEmails(data[0].user)
+
+      return newEmails[0].user;
     });
   }
   
@@ -38,8 +41,8 @@ function AddUsers() {
       dispatch(addUser(user));
       setUser(" ");
       addUserFirebase('admin', {user: user})
+      getDatos();
     }
-  
     return (
       <>
         <div>
@@ -61,8 +64,6 @@ function AddUsers() {
           >
             Add
           </button>
-        </div>
-        <div>
           {newEmails}
         </div>
       </>
@@ -70,3 +71,15 @@ function AddUsers() {
   }
   
   export default AddUsers;
+
+   /*{getDatos() && getDatos().length > 0 ? (
+              <div>
+                <ol>
+                  {getDatos()?.map((user) => (
+                    <UserItem key={user.id} user={user} />
+                  ))}
+                </ol>
+              </div>
+            ) : (
+              <EmptyUsersList />
+            )}*/

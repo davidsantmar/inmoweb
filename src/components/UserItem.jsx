@@ -7,11 +7,12 @@ function UserItem(user) {
 
   function handleDelete() {
     dispatch(deleteUser(user));
+    console.log(user.user)
   }
 
   return (
     <li>
-      {user.description}
+      {user.user}
       <button
         type="button"
         aria-label="Close"
