@@ -7,7 +7,6 @@ function UserItem(user) {
 
   function handleDelete() {
     dispatch(deleteUser(user));
-    console.log(user.user)
   }
 
   return (

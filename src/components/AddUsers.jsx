@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
 import { addUserFirebase } from "../firebase/dbactions";
 import firebase from "firebase/compat/app";
 
-
 function AddUsers() {
     const dispatch = useDispatch();
-    const [newEmails, setNewEmails] = useState([]);
+    const [emails, setEmails] = useState([]);
     const [user, setUser] = useState("");
     const grantedEmails = firebase.firestore().collection('users_admin');
-
+    
     function handleChange(event) {
       setUser(event.target.value);
     }
@@ -20,23 +19,26 @@ function AddUsers() {
           handleClick();        
       }
     }
-  function getDatos(){
-    grantedEmails
-    .get()
-    .then((results) => {
-      const data = results.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      for (let i = 0; i <= data.length; i++){
-        setNewEmails(data.concat(i.user));
-      }
-      //setNewEmails(data[0].user)
+    function getDatos(){
+      const users = [];
+      grantedEmails
+      .get()
+      .then((results) => {
+        const data = results.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        for (let i = 0; i <= data.length; i++){
+          users.push(data[i].user);
+        }
+        //return data;
 
-      return newEmails[0].user;
-    });
-  }
-  
+      });
+      console.log(users);//habemus array
+      //setEmails(emails => [...emails, users]);
+      setEmails([...emails, users]); //no funciona
+      console.log(emails);
+    }
     function handleClick() {
       dispatch(addUser(user));
       setUser(" ");
@@ -64,7 +66,7 @@ function AddUsers() {
           >
             Add
           </button>
-          {newEmails}
+          
         </div>
       </>
     );
