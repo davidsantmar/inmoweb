@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
 import { addUserFirebase } from "../firebase/dbactions";
 import firebase from "firebase/compat/app";
+import { showUsers } from '../redux/actions/showUsersActionCreator';
 
 function AddUsers() {
     const dispatch = useDispatch();
@@ -38,12 +39,16 @@ function AddUsers() {
       //setEmails(emails => [...emails, users]);
       setEmails([...emails, users]); //no funciona
       console.log(emails);
+      return users;
     }
     function handleClick() {
       dispatch(addUser(user));
       setUser(" ");
       addUserFirebase('admin', {user: user})
-      getDatos();
+    }
+    function showUsers() {
+      dispatch(showUsers(getDatos()));
+      console.log(showUsers(getDatos()));
     }
     return (
       <>
@@ -66,7 +71,13 @@ function AddUsers() {
           >
             Add
           </button>
-          
+          <button
+
+            type="button"
+            onClick={showUsers}
+          >
+            Show users
+          </button>
         </div>
       </>
     );
