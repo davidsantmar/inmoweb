@@ -31,7 +31,7 @@ const Header = () => {
                 <img className='logo' src={logo} alt='logo'/>
             </Link>
             <Link to="/about" className="nav__link" data-testid='about-us-link'>
-                Sobre nosotros
+              <span className='nav__about__us'>Sobre nosotros</span>
             </Link>
             <Link to="/hipotecas" className="nav__link" data-testid='hipotecas-link'>
                 Hipotecas
