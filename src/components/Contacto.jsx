@@ -39,8 +39,8 @@ const Contacto = () => {
     return (
         <>
         <div className='sub--title' data-testid='subTitle2'>
-                <h2>CONTACT FORM</h2>
-            </div>
+            <h2>CONTACT FORM</h2>
+        </div>
             <form className='form--container' 
             onSubmit={onSubmit} 
             data-testid='form-container'>
@@ -48,7 +48,7 @@ const Contacto = () => {
                     className='name__field'
                     type='text'
                     name='from_name'
-                    placeholder='Type your name'
+                    placeholder=' Type your name'
                     value={toSend.from_name}
                     onChange={handleChange}
                     data-testid='name-field'
@@ -59,7 +59,7 @@ const Contacto = () => {
                     className='email__field'
                     type='text'
                     name='reply_to'
-                    placeholder='Your email'
+                    placeholder=' Your email'
                     value={toSend.reply_to}
                     onChange={handleChange}
                     data-testid='email-field'
@@ -69,7 +69,7 @@ const Contacto = () => {
                 <textarea
                     className='text__field'
                     name='message'
-                    placeholder='Your message'
+                    placeholder=' Your message'
                     value={toSend.message}
                     onChange={handleChange}
                     data-testid='message-field'

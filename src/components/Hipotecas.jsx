@@ -1,148 +1,119 @@
-import React, { useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { sumMoney, subtractMoney } from '../redux/actions/housePriceActionCreator'
+import React, { useState } from 'react';
 
 const Hipotecas = () => {
-    //no funciona con el state, al sumar las taxes no se actualizan
-    const [housePrice, setHousePrice] = useState(100000);
+    const [housePrice, setHousePrice] = useState('');
     //const housePrice = useSelector((state) => state.housePrice);
-    const [loan, setLoan] = useState(0);
-    const [monthlyFee, setMonthlyFee] = useState(0);
-    const [savings, setSavings] = useState(10000);
-    const [years, setYears] = useState(25);
-    const [interest, setInterest] = useState(1.39);
+    const [loan, setLoan] = useState('');
+    const [monthlyFee, setMonthlyFee] = useState('');
+    const [savings, setSavings] = useState('');
+    const [years, setYears] = useState('');
+    const [interest, setInterest] = useState('');
     const [show, setShow] = useState(false);
-    const [notary, setNotary] = useState(867);
-    const [registration, setRegistration] = useState(408);
-    const [agency, setAgency] = useState(300);
-    const [taxes, setTaxes] = useState(((housePrice - savings) / 100) * 9);
-    const [billsAndTaxes, setBillsAndTaxes] = useState(notary + registration + agency + taxes);
-    const [button, setButton] = useState('');
-    const dispatch = useDispatch();
-    /*useEffect(() => {
-        addMoney();
-    }, [housePrice]);*/
-    useEffect(() => {
-        buttonBehaviour();
-    }, [button]);
-
-    function buttonBehaviour(){
-        if (button === 'sum') {
-            dispatch(sumMoney())
-        }else 
-        if (button === 'sub'){
-            dispatch(subtractMoney())
-        }
-    }
-    function chosenSum(){
-        setButton('sum');
-        console.log(housePrice);
-    }
-    function chosenSub(){
-        setButton('sub');
-    }
+    const [notary, setNotary] = useState('');
+    const [registration, setRegistration] = useState('');
+    const [agency, setAgency] = useState('');
+    const [taxes, setTaxes] = useState('');
+    const [billsAndTaxes, setBillsAndTaxes] = useState('');
+    const [euribor, setEuribor] = useState(1.482); 
 
     const handleModalClose = (e) => {
         setShow(false);
     }
-    function handleClick(){         
+    const handleModal = () => {  
         setShow(true);
+        setBillsAndTaxes(notary + registration + agency + taxes);
+        setMonthlyFee(((loan / (years * 12)) * interest).toFixed(2));
     }
-    /*function handleChange(event) {
+    function handleChangeHousePrice(event) {
         setHousePrice(event.target.value);
-      }*/
-    const addMoney = () => {
-        //setHousePrice(housePrice + 10000);
-        dispatch(sumMoney());
-        console.log(housePrice);
-        setTaxes(((housePrice - savings) / 100) * 9);
-        console.log(taxes);
-        setBillsAndTaxes(notary + registration + agency + taxes);
-        console.log(billsAndTaxes);
-
     }
-    const removeMoney = () => {
-        //setHousePrice(housePrice - 10000);
-        dispatch(subtractMoney());
-        setTaxes(((housePrice - savings) / 100) * 9);
-        setBillsAndTaxes(notary + registration + agency + taxes);
+    function handleChangeSavings(event) {
+        setSavings(event.target.value);
     }
-    const addSavingsMoney = () => {
-        setSavings(savings + 1000);
+    function handleChangeYears(event) {
+        setYears(event.target.value);
     }
-    const removeSavingsMoney = () => {
-        setSavings(savings - 1000);
+    function handleChangeInterest(event) {
+        setInterest(Number(event.target.value)); 
     }
-    const addYears = () => {
-        setYears(years + 1);
+    const calculate = () => {
+        if(document.getElementById('fixed').checked){
+            calculateFixed();
+        }else{
+            calculateVariable();
+            setInterest(interest + euribor)
+        }
     }
-    const removeYears = () => {
-        setYears(years - 1);
+    
+    const calculateFixed = () => {
+        setTaxes(Math.ceil(((housePrice - savings) * 9) / 100));
+        setNotary(867);
+        setRegistration(408);
+        setAgency(300);
+        setLoan(housePrice - savings);
+        document.getElementById('info-globus').style.animationName = 'blink';
+        document.getElementById('info-globus').style.animationDuration = '1.5s';
+        document.getElementById('info-globus').style.animationIterationCount = '10';
     }
-    const addInterest = () => {
-        setInterest(interest + 0.1);
+    const calculateVariable = () => {
+        setTaxes(Math.ceil(((housePrice - savings) * 9) / 100));
+        setNotary(867);
+        setRegistration(408);
+        setAgency(300);
+        setLoan(housePrice - savings);
+        document.getElementById('info-globus').style.animationName = 'blink';
+        document.getElementById('info-globus').style.animationDuration = '1.5s';
+        document.getElementById('info-globus').style.animationIterationCount = '10';
     }
-    const removeInterest = () => {
-        setInterest(interest - 0.1);
-    }
+    
     return (
         <>
             <div className='sub--title' data-testid='subTitle2'>
                 <h2>MORTGAGE SIMULATOR</h2>
             </div>
-            
-            <div className='mortgage--title' data-testid='house-price-title'>
-                House price
-                <div className='price--container' data-testid='price-container'>
-                    <span className='change__numbers__buttons' onClick={chosenSub} data-testid='subtraction-button'>-</span>
-                    <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxLength='7' value={housePrice} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
-                        <span data-testid='euro-symbol'>€</span>
-                    </div>
-                    <span className='change__numbers__buttons' onClick={chosenSum} data-testid='add-button'>+</span>
+            <form>
+                <div className='mortgage--title' data-testid='house-price-title'>
+                    House price
+                    <input  type='tel' className='house__price__input' 
+                    value={housePrice}
+                    onChange={handleChangeHousePrice} data-testid='mortgage-input'
+                    pattern="\d*" maxLength="8"/>
                 </div>
-            </div>
-            <div className='mortgage--title' data-testid='savings-title'>
-                Savings
-                <div className='savings--container' data-testid='savings-container'>
-                    <span className='change__numbers__buttons' onClick={removeSavingsMoney} data-testid='subtraction-button'>-</span>
-                    <div className='input__container'>
-                        <input className='mortgage__input' size='7' maxLength='7' value={savings} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
-                        <span data-testid='euro-symbol'>€</span>
-                    </div>
-                    <span className='change__numbers__buttons' onClick={addSavingsMoney} data-testid='add-button'>+</span>                
+                <div className='mortgage--title' data-testid='savings-title'>
+                    Savings
+                    <input type='tel' className='savings__input'  
+                    value={savings} onChange={handleChangeSavings} data-testid='mortgage-input'
+                    pattern="\d*" maxLength="6"/>
                 </div>
-            </div>
-            <div className='mortgage--title' data-testid='years-title'>
-                Years
-                <div className='years--container'>
-                    <span className='change__numbers__buttons' onClick={addYears}>-</span>
-                    <div className='input__container'>
-                        <input className='mortgage__input' size='2' maxLength='2' value={years} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
-                    </div>
-                    <span className='change__numbers__buttons' onClick={removeYears}>+</span>                
+                <div className='mortgage--title' data-testid='years-title'>
+                    Years
+                    <input type='tel' className='years__input'  
+                    value={years}  data-testid='mortgage-input' onChange={handleChangeYears}
+                    pattern="\d*" maxLength="2"/>
                 </div>
-            </div>
-            <div className='mortgage--title' data-testid='interest-title'>
-                Interest rate
-                <br />
-                <label for="fixed">Fixed</label>
-                <input type='radio' value='fixed' name='interest'></input>
-                <label for="variable">Variable</label>
-                <input type='radio' value='variable' name='interest'></input>
-                <div className='interest--container'>
-                    <span className='change__numbers__buttons' onClick={removeInterest}>-</span>
-                    <div className='input__container'>
-                        <input className='mortgage__input' size='3' maxLength='3' value={interest} /*onChange={handleChange}*/ data-testid='mortgage-input'/>
-                    </div>                    
-                <span className='change__numbers__buttons' onClick={addInterest}>+</span>                
+                <div className='mortgage--title' data-testid='interest-title'>
+                    Interest rate
+                    <br />
+                    <label>Fixed</label>
+                    <input type='radio' value='fixed' id='fixed' className='mortgage--interest'></input>
+                    <label>Variable</label>
+                    <input type='radio' value='variable' id='variable'></input>
+                    <input type='number' className='interest__input'  
+                    value={interest} data-testid='mortgage-input' onChange={handleChangeInterest}
+                    id='interest'  />
                 </div>
-            </div>
+
+                <div className='calculate--container'>
+                        <a  href='#figures' className='calculate' onClick={calculate}>
+                        Calculate
+                        </a>
+                </div>
+            </form>
             <hr />
-            <div className='figures--container'>
+            <div className='figures--container' id='figures'>
                 <div data-testid='bills-title'>
                     Bills and taxes: &nbsp;
-                    <span className='info__globus' onClick={handleClick}>
+                    <span className='info__globus' onClick={handleModal} id='info-globus'>
                         &nbsp;&nbsp;i&nbsp;&nbsp;
                     </span>
                 </div>
@@ -152,7 +123,6 @@ const Hipotecas = () => {
                 
                 <div hidden={!show}>
                     <div className='modal__background' onClick={handleModalClose}>
-                        
                             <div className='modal__card'>
                                 <h2 className='modal__title'>Total bills</h2>
                                 <ul>

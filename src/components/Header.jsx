@@ -30,7 +30,7 @@ const Header = () => {
             <Link to="/" className="nav__link" data-testid='logo-link'>
                 <img className='logo' src={logo} alt='logo'/>
             </Link>
-            <Link to="/about" className="nav__link" data-testid='about-us-link'>
+            <Link to="/about" className="nav__link about__us__link" data-testid='about-us-link'>
               <span className='nav__about__us'>Sobre nosotros</span>
             </Link>
             <Link to="/hipotecas" className="nav__link" data-testid='hipotecas-link'>

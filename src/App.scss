@@ -11,44 +11,45 @@ body{
     background-color: lightgray;
     .logo{
         width: 5rem;
+        border-radius: 10px;
     }
-}
-.nav__link{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    color: black;
-    text-decoration: none;
-    padding: .5rem;
-    border-radius: 5px;
-}
-.nav__about__us{
-    margin-left: 1.5rem;
-}
-.nav__link:hover{
-    background-color: lightgreen;
-    color: blue;
-}
-.login__button{
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 1rem;
-    color: black;
-    border: none;
-    padding: .5rem;
-    font-family: 'Poppins'; 
-    background-color: lightgray;
-
-}
-.login__button:hover{
-    background-color: lightgreen;
-    color: blue;
+    .about__us__link{
+        text-align: center;
+    }
+    .nav__link{
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: black;
+        text-decoration: none;
+        padding: .5rem;
+        border-radius: 10px;
+    }
+    .nav__link:hover{
+        background-color: lightgreen;
+        color: blue;
+    }
+    .login__button{
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1rem;
+        color: black;
+        border: none;
+        padding: .5rem;
+        font-family: 'Poppins'; 
+        background-color: lightgray;
+        border-radius: 10px;
+    }
+    .login__button:hover{
+        background-color: lightgreen;
+        color: blue;
+    }
 }
 hr{
     width: 93.5%;
 }
+
 @media (max-width: 680px){
     .flats--grid{
         display: flex;
@@ -66,7 +67,7 @@ hr{
             display: flex;
             justify-content: center;
             .card__picture{
-                border-radius: 5px;
+                border-radius: 10px;
                 border: solid 1px black;
             }
             .flat1, .flat2, .flat3, .flat4{
@@ -115,6 +116,13 @@ hr{
     }
     .cheaper__button, .relevance__button{
         color: blue;
+        border-radius: 10px;
+        margin-right: 1rem;
+        font-size: 1rem;
+    }
+    .cheaper__button:hover, .relevance__button:hover{
+        background-color: green;
+        color: white;
     }
     .sub--title{
         display: flex;
@@ -133,36 +141,66 @@ hr{
             width: 100%;
         }
     }
-    
-    .mortgage--title, .rooms__field{
+    .mortgage--title{
         padding: 1rem;
+        .house__price__input, .savings__input, .years__input, .interest__input{
+        height: 3rem;
+        font-size: 2rem;
+        border-radius: 10px;
+        border: solid 2px green ;
+        font-family: 'Poppins';
+        width: 100%;
+        text-align: center;
+        }
+        .house__price__input:hover, .savings__input:hover, 
+        .years__input:hover, .interest__input:hover{
+            border: solid 4px green ;
+        }
     }
+    .mortgage--interest:hover{
+        color: green;
+    }
+
     .title__field, .name__field, .email__field, 
-    .text__field, .price--container, .savings--container, 
-    .years--container, .interest--container, .rooms--container, 
+    .text__field, .rooms--container, 
     .square--meters--container, .id__field, .extras__field{
         display: flex;
         justify-content: space-around;
-        height: 1.5rem;
-        border-radius: 5px;
-        border: solid 1px black;
+        height: 3rem;
+        font-size: 2rem;
+        border-radius: 10px;
+        border: solid 2px green ;
         font-family: 'Poppins';
+    }
+    .name__field:hover, .email__field:hover, 
+    .text__field:hover{
+        border: solid 4px green ;
+
     }
     .extras__field{
         width: 100%;
     }
-    .mortgage__input{
-        font-family: 'Poppins';
-        font-size: 1rem;
-    }
-    .change__numbers__buttons{
-        font-weight: bold;
-        color: blue;
-    }
-    .input__container{
+    .calculate--container{
         display: flex;
-        justify-content: flex-end;
-    }    
+        justify-content: center;
+        padding: 1rem;
+        text-align: center;
+        .calculate{
+            padding: .5rem;
+            width: 200%;
+            border-radius: 10px;
+            background-color: lightgreen;
+            font-size: 2rem;
+            font-style: italic;
+            text-decoration: none;
+            border: solid 2px black;
+            font-weight: bold;
+        }
+        .calculate:hover{
+            background-color: yellow;
+
+        }
+    }
     .figures--container{
         display: flex;
         padding: 1rem;
@@ -181,15 +219,16 @@ hr{
             left: 0;
             bottom: 0;
             background-color: rgba(10, 10, 10, 0.86);
+            height: 130%;
           }
           .modal__card {
             font-style: italic;
             margin: 0 auto;
-            margin-top: 15rem;
+            margin-top: 25rem;
             width: 20rem;
             height: 25rem;
             background-color: lightgray;
-            border-radius: 5px;
+            border-radius: 30px;
             height: 20rem;
             overflow-y: "auto";
           }
@@ -232,6 +271,7 @@ hr{
         padding: 1rem;
         .map__frame{
             width: 100%;
+            border-radius: 10px;
         }
     }
     .form--container, .add--user--container{
@@ -247,11 +287,12 @@ hr{
         }
         .submit__button{
             background-color: rgb(226, 246, 226);
-            border-radius: 5px;
-            height: 2rem;
+            border-radius: 10px;
+            height: 3rem;
             width: 101.5%;
             font-family: 'Poppins';
             margin-bottom: 3rem;
+            font-size: 1.5rem;
         }
         .submit__button:hover{
             background-color: lightgreen;
@@ -268,7 +309,7 @@ hr{
         padding: 1rem;
         .admin__button{
             background-color: rgb(226, 246, 226);
-            border-radius: 5px;
+            border-radius: 10px;
             font-family: 'Poppins';
         }
         .admin__button:hover{
@@ -278,7 +319,6 @@ hr{
         a:link{
             text-decoration: none;
         }
-
     }
     .footer--container{
         display: flex;
@@ -291,7 +331,7 @@ hr{
             color: black;
             font-size: .5rem;
             background-color: white;
-            border-radius: 5px;
+            border-radius: 10px;
             margin-top: 1rem;
             margin-bottom: 1rem;
           }
@@ -299,12 +339,13 @@ hr{
             color: #ED1D24;
           }
       }
-    .mortgage__input{
-        border: none;
-    }
     input::-webkit-outer-spin-button,  //hide input arrows
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
+}
+@keyframes blink{
+    from {background-color: blue;}
+    to {background-color: red;}
 }
