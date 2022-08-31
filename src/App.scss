@@ -126,9 +126,26 @@ hr{
     }
     .sub--title{
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         color: black;
         background-color: rgb(226, 246, 226);
+        padding: 1rem;
+        .reset{
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: 100%;
+            background-image: url('./images/recircle.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: rgb(226, 246, 226);
+            margin-top: .5rem;
+        }
+        .reset:hover{
+            animation-name: round;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            border: solid 3px lightgreen;
+        }
     }
     .text--container{
         display: flex;
@@ -198,7 +215,6 @@ hr{
         }
         .calculate:hover{
             background-color: yellow;
-
         }
     }
     .figures--container{
@@ -219,7 +235,7 @@ hr{
             left: 0;
             bottom: 0;
             background-color: rgba(10, 10, 10, 0.86);
-            height: 130%;
+            height: 136%;
           }
           .modal__card {
             font-style: italic;
@@ -346,6 +362,10 @@ hr{
     }
 }
 @keyframes blink{
-    from {background-color: blue;}
-    to {background-color: red;}
+    from { background-color: blue; }
+    to { background-color: red; }
+}
+@keyframes round{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(-360deg); }
 }

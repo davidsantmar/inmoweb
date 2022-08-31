@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 const Hipotecas = () => {
     const [housePrice, setHousePrice] = useState('');
@@ -6,8 +7,8 @@ const Hipotecas = () => {
     const [loan, setLoan] = useState('');
     const [monthlyFee, setMonthlyFee] = useState('');
     const [savings, setSavings] = useState('');
-    const [years, setYears] = useState('');
-    const [interest, setInterest] = useState('');
+    const [years, setYears] = useState(''); 
+    const [interest, setInterest] = useState('' );
     const [show, setShow] = useState(false);
     const [notary, setNotary] = useState('');
     const [registration, setRegistration] = useState('');
@@ -22,10 +23,11 @@ const Hipotecas = () => {
     const handleModal = () => {  
         setShow(true);
         setBillsAndTaxes(notary + registration + agency + taxes);
-        setMonthlyFee(((loan / (years * 12)) * interest).toFixed(2));
+        setMonthlyFee(Math.ceil((loan / (years * 12)) * interest));
     }
     function handleChangeHousePrice(event) {
         setHousePrice(event.target.value);
+        //addPoints();
     }
     function handleChangeSavings(event) {
         setSavings(event.target.value);
@@ -41,10 +43,8 @@ const Hipotecas = () => {
             calculateFixed();
         }else{
             calculateVariable();
-            setInterest(interest + euribor)
         }
     }
-    
     const calculateFixed = () => {
         setTaxes(Math.ceil(((housePrice - savings) * 9) / 100));
         setNotary(867);
@@ -61,15 +61,48 @@ const Hipotecas = () => {
         setRegistration(408);
         setAgency(300);
         setLoan(housePrice - savings);
+        setInterest(interest + euribor)
         document.getElementById('info-globus').style.animationName = 'blink';
         document.getElementById('info-globus').style.animationDuration = '1.5s';
         document.getElementById('info-globus').style.animationIterationCount = '10';
     }
-    
+    const addPoints = () => {
+        const pointsNumber = Array.from(housePrice.toString()).map(Number);
+        console.log(pointsNumber);
+        if (pointsNumber.length === 4) {
+            pointsNumber.splice(1, 0, '.');
+        } else if (pointsNumber.length === 5) {
+            pointsNumber.splice(2, 1, '.');
+        } else if (pointsNumber.length === 6) {
+            pointsNumber.splice(3, 2, '.');
+        } else if (pointsNumber.length === 7) {
+            pointsNumber.splice(2, 1, '.');
+            pointsNumber.splice(5, 4, '.');
+        }
+        //const puntos = Number(pointsNumber.join(''));
+        console.log(pointsNumber);
+        //console.log(puntos);
+    }
+    const reset = () => {
+        setHousePrice('');
+        setLoan('');
+        setMonthlyFee('');
+        setSavings('');
+        setYears(''); 
+        setInterest('');
+        setShow(false);
+        setNotary('');
+        setRegistration('');
+        setAgency('');
+        setTaxes('');
+        setBillsAndTaxes('');
+    }
+
     return (
         <>
             <div className='sub--title' data-testid='subTitle2'>
-                <h2>MORTGAGE SIMULATOR</h2>
+                <h1>MORTGAGE SIMULATOR</h1>
+                <div className='reset' onClick={reset}></div>
             </div>
             <form>
                 <div className='mortgage--title' data-testid='house-price-title'>
@@ -88,16 +121,16 @@ const Hipotecas = () => {
                 <div className='mortgage--title' data-testid='years-title'>
                     Years
                     <input type='tel' className='years__input'  
-                    value={years}  data-testid='mortgage-input' onChange={handleChangeYears}
+                    value={years} data-testid='mortgage-input' onChange={handleChangeYears}
                     pattern="\d*" maxLength="2"/>
                 </div>
                 <div className='mortgage--title' data-testid='interest-title'>
                     Interest rate
                     <br />
                     <label>Fixed</label>
-                    <input type='radio' value='fixed' id='fixed' className='mortgage--interest'></input>
+                    <input type='radio' value='fixed' id='fixed' className='mortgage--interest' name='interest'></input>
                     <label>Variable</label>
-                    <input type='radio' value='variable' id='variable'></input>
+                    <input type='radio' value='variable' id='variable' name='interest'></input>
                     <input type='number' className='interest__input'  
                     value={interest} data-testid='mortgage-input' onChange={handleChangeInterest}
                     id='interest'  />
