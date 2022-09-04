@@ -179,8 +179,8 @@ hr{
     }
 
     .title__field, .name__field, .email__field, 
-    .text__field, .rooms--container, 
-    .square--meters--container, .id__field, .extras__field{
+    .text__field, .rooms__field, 
+    .meters__field, .ref__field, .extras__field, .price__field{
         display: flex;
         justify-content: space-around;
         height: 3rem;
@@ -188,14 +188,17 @@ hr{
         border-radius: 10px;
         border: solid 2px green ;
         font-family: 'Poppins';
+        margin-bottom: 1rem;
+        width: 100%;
     }
     .name__field:hover, .email__field:hover, 
-    .text__field:hover{
+    .text__field:hover, .title__field:hover, .name__field:hover, 
+    .rooms__field:hover, .meters__field:hover, .ref__field:hover, 
+    .extras__field:hover, .price__field:hover{
         border: solid 4px green ;
-
     }
-    .extras__field{
-        width: 100%;
+    .text__field{
+        height: 9rem;
     }
     .calculate--container{
         display: flex;
@@ -235,7 +238,7 @@ hr{
             left: 0;
             bottom: 0;
             background-color: rgba(10, 10, 10, 0.86);
-            height: 136%;
+            height: 150%;
           }
           .modal__card {
             font-style: italic;
@@ -291,16 +294,7 @@ hr{
         }
     }
     .form--container, .add--user--container{
-        padding: 1rem;
-        .name__field, .email__field, .title__field{
-            width: 100%;
-            font-family: 'Poppins';
-        }
-        .text__field{
-            width: 100%;
-            height: 3rem;
-            font-family: 'Poppins';
-        }
+        padding: 1rem;        
         .submit__button{
             background-color: rgb(226, 246, 226);
             border-radius: 10px;

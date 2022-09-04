@@ -1,9 +1,166 @@
-import React, {useState} from 'react';
+import { useState, useEffect } from 'react';
+import '../App.scss';
+import { db } from '../firebase/index';
+import { Link } from 'react-router-dom';
+import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+
+function PA() {
+  const [properties, setProperties] = useState([]);
+  const propertiesCollectionsRef = collection(db, 'properties');
+  const [newRef, setNewRef] = useState(0);
+  const [newTitle, setNewTitle] = useState('');
+  const [updatedTitle, setUpdatedTitle] = useState('');
+
+
+  const createProperty = async () =>{
+    await addDoc(propertiesCollectionsRef, {ref: Number(newRef), title: newTitle})
+  }
+  const updateTitle = async (id) => {
+    const propertyDoc = doc(db, 'properties', id);  //documento de la coleccion
+    const newFields = {title : updatedTitle};  //actualización 
+    await updateDoc(propertyDoc,newFields)
+  }
+  const deleteProperty = async (id) => {
+    const propertyDoc = doc(db, 'properties', id);
+    await deleteDoc(propertyDoc);
+  }
+
+useEffect(() => {
+    const getProperties = async () => {
+      const data = await getDocs(propertiesCollectionsRef);
+      setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+  }
+    getProperties();  
+  }, []);
+
+
+  return (
+    <>
+    <div className="PA--form">
+         <div className='sub--title' data-testid='subTitle'>
+            <h2>POSTING ADMINISTRATOR</h2>
+        </div>
+        <nav className='admin--container'>
+            <Link to='/propertyList' className = 'admin__button nav__link'>
+                Property list
+            </Link> 
+            <Link to='/addUser' className = 'admin__button nav__link'>
+                Users management
+            </Link> 
+        </nav>
+    <div className='form--container' data-testid='form-container'>
+      <input className='ref__field'
+        type='number'
+        placeholder='Reference'
+        data-testid='ref-field'onChange={(event) => {
+        setNewRef(event.target.value);
+      }}></input>
+      <input className='title__field'
+        type='text'
+        placeholder='Title'
+        data-testid='ref-field' onChange={(event) => {
+        setNewTitle(event.target.value);
+      }}></input>
+      <textarea className='text__field'
+        type='text-area'
+        placeholder='Description'
+        data-testid='text-field' 
+      ></textarea>
+      <input className='meters__field'
+        type='number'
+        placeholder='Meters'
+        data-testid='meters-field'onChange={(event) => {
+        setNewRef(event.target.value);
+      }}></input>
+      <input className='rooms__field'
+        type='number'
+        placeholder='Rooms'
+        data-testid='rooms-field'onChange={(event) => {
+        setNewRef(event.target.value);
+      }}></input>
+      <input className='extras__field'
+        type='text'
+        placeholder='Extras'
+        data-testid='extras-field'onChange={(event) => {
+        setNewRef(event.target.value);
+      }}></input>
+      <input className='price__field'
+        type='number'
+        placeholder='Price'
+        data-testid='price-field'onChange={(event) => {
+        setNewRef(event.target.value);
+      }}></input>
+
+      <button onClick={createProperty} 
+      className='submit__button' 
+      type='submit'
+      data-testid='submit-button'
+      >
+        Create property
+      </button>
+    </div>
+      {properties.sort(function (a, b) {   //hay que llevarselo a PropertyList
+          return a.ref - b.ref;            //map sorted
+      })
+      .map((property) => { 
+        return (
+          <div>
+            <span>Property: {property.ref}</span>
+            <br />
+            <span>Title: {property.title}</span>
+            <br />
+            <span>Description: {property.description}</span>
+            <br />
+            <span>Meters: {property.meters}</span>
+            <br />
+            <span>Rooms: {property.rooms}</span>
+            <br />
+            <span>Extras: {property.extras}</span>
+            <br />
+            <span>Price: {property.price}</span>
+            <br />
+            <input placeholder='new title' onChange={(event) => {
+                setUpdatedTitle(event.target.value);
+            }}></input>
+            <br />
+            <button onClick={() => {updateTitle(property.id)}}>Change title</button>
+            <button onClick={() => {deleteProperty(property.id)}}>Delete property</button>
+          </div>
+        );
+      })}
+    </div>
+    </>
+  );
+}
+
+export default PA;
+
+
+
+
+
+
+
+
+
+
+
+/*
+import React, {useState, useEffect} from 'react';
 import { addProperty } from "../firebase/dbactions";
 import { Link } from "react-router-dom";
+import { db } from '../firebase/index';
+import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+
+
 
 const PA = () => {
-    const [id, setId] = useState('');
+    const [properties, setProperties] = useState([]);
+    const propertiesCollectionsRef = collection(db, 'properties');
+    const [ref, setRef] = useState('');
+    const [newRef, setNewRef] = useState(0);
+    const [newTitle, setNewTitle] = useState('');
+    const [updatedTitle, setUpdatedTitle] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [rooms, setRooms] = useState(1);
@@ -12,52 +169,44 @@ const PA = () => {
     const [extras, setExtras] = useState('');
     const [images, setImages] = useState([]);
 
-    const addRooms = () => {
-        setRooms(rooms + 1);
-    }
-    const removeRooms = () => {
-        setRooms(rooms - 1);
-    }
-    const addM2 = () => {
-        setM2(m2 + 1);
-    }
-    const removeM2 = () => {
-        setM2(m2 - 1);
-    }
-    const addPrice = () => {
-        setPrice(price + 1000);
-    }
-    const removePrice = () => {
-        setM2(price - 1000);
-    }
+    useEffect(() => {
+        const getProperties = async () => {
+          const data = await getDocs(propertiesCollectionsRef);
+          setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+      }
+        getProperties();  
+      }, []);
+
     const handleEnterPressed = (event) => {
         if(event.key === 'Enter'){
-            handleClick();        
+            post();            
         }
     }
-    function handleChange(event) {
-        setId(event.target.value);
-        setTitle(event.target.value);
-        setDescription(event.target.value);
-        setRooms(event.target.value);
-        setM2(event.target.value);
-        setPrice(event.target.value);
-        setExtras(event.target.value);
-        setImages(event.target.value);
-      }
-    function handleClick() {
-        addProperty({
-          propertyId: id,
-          title: title,
-          description: description, // TODO TRAER DEL STORE O DE FIREBASE
-          rooms: rooms,
-          m2: m2,
-          price: price,
-          extras: extras,
-          images: images,
-        });
-        //setMessage("");
+    function handleChangeRef(event) {
+        setRef(event.target.value);
     }
+    const handleChangeTitle = (event) =>{
+        setTitle(event.target.value);
+    }
+    const handleChangeDescription = (event) => {
+        setDescription(event.target.value);
+    }
+    const handleChangeRooms = (event) =>{
+        setRooms(event.target.value);
+    }
+    const handleChangeMeters = (event) => {
+        setM2(event.target.value);
+    }
+    const handleChangePrice = (event) => {
+        setPrice(event.target.value);
+    }
+    const handleChangeExtras = (event) => {
+        setExtras(event.target.value);
+    }
+    const post = async () =>{
+        await addDoc(propertiesCollectionsRef, {ref: Number(newRef), title: newTitle})
+      }
+    
     return (
         <>
         <div className='PA--form'>
@@ -71,17 +220,17 @@ const PA = () => {
                 <div className='admin__button'>
                     Property list
                 </div>
-                    <Link to='/addUser' className="nav__link">
-                        Users management
-                    </Link> 
+                <Link to='/addUser' className="nav__link">
+                    Users management
+                </Link> 
             </nav>
             <form className='form--container' data-testid='form-container'>
                 <input
-                    className='id__field'
+                    className='ref__field'
                     type='text'
-                    placeholder='Id'
-                    data-testid='id-field'
-                    onChange={handleChange}
+                    placeholder='Type the reference'
+                    data-testid='ref-field'
+                    onChange={handleChangeRef}
                 >
                 </input>
                 <br />
@@ -91,7 +240,7 @@ const PA = () => {
                     type='text'
                     placeholder='Title'
                     data-testid='title-field'
-                    onChange={handleChange}
+                    onChange={handleChangeTitle}
                 >
                 </input>
                 <br />
@@ -101,41 +250,31 @@ const PA = () => {
                     type='text'
                     placeholder='Description'
                     data-testid='description'
-                    onChange={handleChange}
+                    onChange={handleChangeDescription}
                 >
                 </textarea>
                 <br />
                 <br />
                 <div className='rooms--title' data-testid='rooms-title'>
                     Rooms
-                    <div className='rooms--container' data-testid='rooms-container' onChange={handleChange}>
-                        <span className='change__numbers__buttons' 
-                        onClick={removeRooms} 
-                        >-</span>
+                    <div className='rooms--container' data-testid='rooms-container' onChange={handleChangeRooms}>
                         {rooms}
-                        <span className='change__numbers__buttons' 
-                        onClick={addRooms}
-                        >+</span>                
                     </div>
                 </div>
                 <br />
                 <br />
                 <div className='sqmt--title' data-testid='sqmt-title'>
                     m2
-                    <div className='square--meters--container' data-testid='square-meters-container' onChange={handleChange}>
-                        <span className='change__numbers__buttons' onClick={removeM2}>-</span>
+                    <div className='square--meters--container' data-testid='square-meters-container' onChange={handleChangeMeters}>
                         {m2}
-                        <span className='change__numbers__buttons' onClick={addM2}>+</span>                
                     </div>
                 </div>
                 <br />
                 <br />
                 <div className='price--title' data-testid='price-title'>
                     Price
-                    <div className='price--container' data-testid='price-container' onChange={handleChange}>
-                        <span className='change__numbers__buttons' onClick={removePrice}>-</span>
+                    <div className='price--container' data-testid='price-container' onChange={handleChangePrice}>
                         {price}
-                        <span className='change__numbers__buttons' onClick={addPrice}>+</span>                
                     </div>
                 </div>
                 <br />
@@ -145,7 +284,7 @@ const PA = () => {
                     type='text'
                     placeholder='Extras'
                     data-testid='extras-field'
-                    onChange={handleChange}
+                    onChange={handleChangeExtras}
                     onKeyPress={handleEnterPressed}
                 >
                 </input>
@@ -156,7 +295,7 @@ const PA = () => {
                     type='file'
                     multiple
                     data-testid='pictures-field'
-                    onChange={handleChange}
+                    //onChange={handleChange}
                 >
                 </input>
                 <br />
@@ -165,7 +304,7 @@ const PA = () => {
                     className='submit__button' 
                     type='submit'
                     data-testid='submit-button'
-                    onClick={handleClick}
+                    onClick={post}
                 >
                     POST
                 </button>
@@ -175,4 +314,4 @@ const PA = () => {
     );
 };
 
-export default PA;
+export default PA;*/

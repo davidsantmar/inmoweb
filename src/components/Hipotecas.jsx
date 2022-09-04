@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 
 const Hipotecas = () => {
     const [housePrice, setHousePrice] = useState('');
@@ -15,7 +14,6 @@ const Hipotecas = () => {
     const [agency, setAgency] = useState('');
     const [taxes, setTaxes] = useState('');
     const [billsAndTaxes, setBillsAndTaxes] = useState('');
-    const [euribor, setEuribor] = useState(1.482); 
 
     const handleModalClose = (e) => {
         setShow(false);
@@ -56,6 +54,7 @@ const Hipotecas = () => {
         document.getElementById('info-globus').style.animationIterationCount = '10';
     }
     const calculateVariable = () => {
+        const euribor = 1.482;
         setTaxes(Math.ceil(((housePrice - savings) * 9) / 100));
         setNotary(867);
         setRegistration(408);
@@ -66,7 +65,7 @@ const Hipotecas = () => {
         document.getElementById('info-globus').style.animationDuration = '1.5s';
         document.getElementById('info-globus').style.animationIterationCount = '10';
     }
-    const addPoints = () => {
+    /*const addPoints = () => {
         const pointsNumber = Array.from(housePrice.toString()).map(Number);
         console.log(pointsNumber);
         if (pointsNumber.length === 4) {
@@ -82,7 +81,7 @@ const Hipotecas = () => {
         //const puntos = Number(pointsNumber.join(''));
         console.log(pointsNumber);
         //console.log(puntos);
-    }
+    }*/
     const reset = () => {
         setHousePrice('');
         setLoan('');

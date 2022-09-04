@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import PA from './components/PA';
 import UsersList from './components/UsersList';
+import PropertyList from './components/PropertyList';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/about" exact element={<AboutUs />} />
               <Route path="/pa" exact element={<PA />} />
               <Route path="/addUser" exact element={<UsersList />} />
+              <Route path="/propertyList" exact element={<PropertyList />} />
             </Routes>
           </main>
         </BrowserRouter>
