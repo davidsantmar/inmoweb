@@ -301,14 +301,13 @@ hr{
             height: 3rem;
             width: 101.5%;
             font-family: 'Poppins';
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             font-size: 1.5rem;
         }
         .submit__button:hover{
             background-color: lightgreen;
             color: blue;
         }
-
     }
     .add--user--container{
         margin-bottom: 10rem;
@@ -328,6 +327,80 @@ hr{
         }
         a:link{
             text-decoration: none;
+        }
+    }
+    .properties--container{
+        padding: 1rem;   
+        .property__card{
+            border-radius: 20px;
+            border: solid 2px green;
+            padding: 1rem;
+            .modal__pa__background{
+                position: fixed;
+                right: 0;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                background-color: rgba(10, 10, 10, 0.86);
+                height: 100%;
+                .modal__pa__card{
+                    font-style: italic;
+                    margin: 0 auto;
+                    margin-top: 25rem;
+                    width: 20rem;
+                    height: 10rem;
+                    background-color: lightgray;
+                    border-radius: 30px;
+                    height: 10rem;
+                    overflow-y: "auto";
+                    .modal__pa__title{
+                        display: flex;
+                        justify-content: center;
+                        padding: 1rem;
+                        color: blue;
+                    }
+                    .modal--buttons--container{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        .modal__delete__button, .modal__cancel__button{
+                            border-radius: 10px;
+                            font-size: 1.5rem;
+                            font-family: 'Poppins';
+                            font-weight: bold;
+                            background-color: rgb(226, 246, 226);
+                        }
+                        .modal__delete__button:hover{
+                            background-color: red;
+                            color: black;
+                        }
+                        .modal__cancel__button:hover{
+                            background-color: lightgreen;
+                        }
+                    }
+                }
+            }           
+        }
+        .buttons--container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            .update__button, .delete__button{
+                background-color: rgb(226, 246, 226);
+                border-radius: 10px;
+                height: 2rem;
+                font-family: 'Poppins';
+                font-size: 1rem;
+            }
+            .update__button:hover{
+                background-color: lightgreen;
+                color: blue;
+            }
+            .delete__button:hover{
+                background-color: red;
+                color: black;
+                font-weight: bolder;
+            }
         }
     }
     .footer--container{
