@@ -43,7 +43,7 @@ const Header = () => {
             {isAuthenticated ? (
           <>
             <Link to='/pa' className="nav__link">
-                Posting Administrator
+                Admin
             </Link> 
             <button
               onClick={handleLogout}

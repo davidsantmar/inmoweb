@@ -41,7 +41,7 @@ const Contacto = () => {
         <div className='sub--title' data-testid='subTitle2'>
             <h2>CONTACT FORM</h2>
         </div>
-            <form className='form--container' 
+            <form className='contact--container' 
             onSubmit={onSubmit} 
             data-testid='form-container'>
                 <input
@@ -67,7 +67,7 @@ const Contacto = () => {
                 <br />
                 <br />
                 <textarea
-                    className='text__field'
+                    className='request__field'
                     name='message'
                     placeholder=' Your message'
                     value={toSend.message}

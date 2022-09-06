@@ -14,7 +14,9 @@ const PropertyList = () => {
   const [newRooms, setNewRooms] = useState(0);
   const [newExtras, setNewExtras] = useState('');
   const [newPrice, setNewPrice] = useState(0);
-  const [showModal, setShowModal] = useState(false);  
+  const [showModal, setShowModal] = useState(false); 
+  const [updateModal, setUpdateModal] = useState(false);  
+ 
 
   useEffect(() => {
     const getProperties = async () => {
@@ -43,8 +45,14 @@ const PropertyList = () => {
   const handleModalClose = (e) => {
     setShowModal(false);
   }
+  const handleUpdateModalClose = (e) => {
+    setUpdateModal(false);
+  }
     const handleModal = () => {  
         setShowModal(true);
+    }
+    const handleUpdateModal = () => {  
+        setUpdateModal(true);
     }
     const reset = () => {
         window.location.reload();
@@ -88,7 +96,7 @@ const PropertyList = () => {
             <br />
             <br />
             <div className='buttons--container'>        
-                <button className='update__button' onClick={updateProperty}>
+                <button className='update__button' onClick={handleUpdateModal}>
                     Update property<span className='check__symbol'>&nbsp;&#9989;</span>
                 </button>
                 <button className='delete__button' onClick={handleModal}>
@@ -106,7 +114,26 @@ const PropertyList = () => {
                         </div>
                     </div>
                 </div>
-            </div>       
+            </div>
+
+            <div hidden={!updateModal} className='update--modal'>
+                <div className='modal__update__background' onClick={handleUpdateModalClose}>
+                    <div className='modal__update__card'>
+                        <div className='inputs__container'>
+                            <input className='update__title' placeholder='Title' value={property.title} />
+                            <textarea className='update__description' placeholder='Description' />
+                            <input className='update__meters' placeholder='Meters' />
+                            <input className='update__rooms' placeholder='Rooms' />
+                            <input className='update__extras' placeholder='Extras' />
+                            <input className='update__price' placeholder='Price' />
+                        </div>
+                        <div className='modal--buttons--container'>
+                            <button className='modal__update__button' onClick={() => {updateProperty(property.id)}}>Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <br />
         </>
