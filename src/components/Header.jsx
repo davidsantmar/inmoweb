@@ -31,13 +31,13 @@ const Header = () => {
                 <img className='logo' src={logo} alt='logo'/>
             </Link>
             <Link to="/about" className="nav__link about__us__link" data-testid='about-us-link'>
-              <span className='nav__about__us'>Sobre nosotros</span>
+              <span className='nav__about__us'>About us</span>
             </Link>
             <Link to="/hipotecas" className="nav__link" data-testid='hipotecas-link'>
-                Hipotecas
+                Mortages
             </Link>
             <Link to="/contacto" className="nav__link" data-testid='contacto-link'>
-                Contacto
+                Contact
             </Link>
             
             {isAuthenticated ? (

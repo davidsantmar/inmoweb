@@ -1,9 +1,9 @@
 import './App.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
-import Inmuebles from './components/Inmuebles';
-import Contacto from './components/Contacto';
-import Hipotecas from './components/Hipotecas';
+import Properties from './components/Properties';
+import Contact from './components/Contact';
+import Mortgages from './components/Mortgages';
 import AboutUs from './components/AboutUs';
 import store from './redux/stores';
 import Header from './components/Header';
@@ -20,9 +20,9 @@ function App() {
           <Header />
           <main>
             <Routes>
-              <Route path="/" exact element={<Inmuebles />} />
-              <Route path="/hipotecas" exact element={<Hipotecas />} />
-              <Route path="/contacto" exact element={<Contacto />} />
+              <Route path="/" exact element={<Properties />} />
+              <Route path="/mortages" exact element={<Mortgages />} />
+              <Route path="/contact" exact element={<Contact />} />
               <Route path="/about" exact element={<AboutUs />} />
               <Route path="/pa" exact element={<PA />} />
               <Route path="/addUser" exact element={<UsersList />} />

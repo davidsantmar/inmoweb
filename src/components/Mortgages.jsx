@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Hipotecas = () => {
+const Mortages = () => {
     const [housePrice, setHousePrice] = useState('');
     //const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState('');
@@ -214,4 +214,4 @@ const Hipotecas = () => {
     );
 };
 
-export default Hipotecas;
+export default Mortages;

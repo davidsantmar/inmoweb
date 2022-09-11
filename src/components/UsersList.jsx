@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/actions/addUserActionCreator';
 import { addUserFirebase } from "../firebase/dbactions";
 import firebase from "firebase/compat/app";
-import { showUsers } from '../redux/actions/showUsersActionCreator';
 
 function UsersList() {
     const dispatch = useDispatch();

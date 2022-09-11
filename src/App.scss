@@ -188,6 +188,7 @@ hr{
             padding: .5rem;
             border: solid 2px green ;
             font-family: 'Poppins';
+            margin-bottom: -1rem;
         }
         .request__field{
             height: 8rem;
@@ -421,7 +422,7 @@ hr{
                     margin: 0 auto;
                     margin-top: 12rem;
                     width: 25rem;
-                    height: 30rem;
+                    height: 35rem;
                     background-color: lightgray;
                     border-radius: 10px;
                     overflow-y: "auto";
@@ -452,6 +453,8 @@ hr{
                     .modal--buttons--container{
                         display: flex;
                         justify-content: center;
+                        flex-direction: row;
+                        justify-content: space-around;
                         .modal__update__button{
                             border-radius: 10px;
                             font-family: 'Poppins';

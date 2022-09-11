@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import '../App.scss';
 import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-
+import {collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -15,8 +14,10 @@ const PropertyList = () => {
   const [newExtras, setNewExtras] = useState('');
   const [newPrice, setNewPrice] = useState(0);
   const [showModal, setShowModal] = useState(false); 
-  const [updateModal, setUpdateModal] = useState(false);  
- 
+  const [updateModal, setUpdateModal] = useState(false);
+  const [updatedId, setUpdatedId] = useState('');
+  const [deletedId, setDeletedId] = useState('');
+  const [updatedRef, setUpdatedRef] = useState(0);
 
   useEffect(() => {
     const getProperties = async () => {
@@ -34,25 +35,29 @@ const PropertyList = () => {
       meters: newMeters,
       rooms: newRooms,
       extras: newExtras,
-      price: newPrice
+      price: newPrice,
     };  //actualización 
-    await updateDoc(propertyDoc,newFields)
+    await updateDoc(propertyDoc,newFields);
   }
   const deleteProperty = async (id) => {
     const propertyDoc = doc(db, 'properties', id);
     await deleteDoc(propertyDoc);
   }
-  const handleModalClose = (e) => {
+  const handleDeleteModalClose = (e) => {
     setShowModal(false);
   }
   const handleUpdateModalClose = (e) => {
     setUpdateModal(false);
   }
-    const handleModal = () => {  
+    const handleDeleteModal = (id) => {  
         setShowModal(true);
+        setDeletedId(id);
     }
-    const handleUpdateModal = () => {  
+    const handleUpdateModal = (id, ref) => {      
         setUpdateModal(true);
+        setUpdatedId(id);
+        setUpdatedRef(ref);
+        document.getElementById('title').value = ref;
     }
     const reset = () => {
         window.location.reload();
@@ -80,7 +85,7 @@ const PropertyList = () => {
         return (
         <>
         <div className='property__card'>
-            <span>Property: {property.ref}</span>
+            <span>Reference: {property.ref}</span>
             <br />
             <span>Title: {property.title}</span>
             <br />
@@ -96,44 +101,55 @@ const PropertyList = () => {
             <br />
             <br />
             <div className='buttons--container'>        
-                <button className='update__button' onClick={handleUpdateModal}>
+                <button className='update__button' 
+                 onClick={() => {handleUpdateModal(property.id, property.ref)}}>
                     Update property<span className='check__symbol'>&nbsp;&#9989;</span>
                 </button>
-                <button className='delete__button' onClick={handleModal}>
+                <button className='delete__button' onClick={() => {handleDeleteModal(property.id)}}>
                     Delete property<span className='cross__symbol'>&nbsp;&#10060;</span>
                 </button>
             </div>
-            
-            <div hidden={!showModal} className='modal'>
-                <div className='modal__pa__background' onClick={handleModalClose}>
-                    <div className='modal__pa__card'>
-                        <h2 className='modal__pa__title'>Are you sure?</h2>
-                        <div className='modal--buttons--container'>
-                            <button className='modal__delete__button' onClick={() => {deleteProperty(property.id)}}>Delete</button>
-                            <button className='modal__cancel__button'>Cancel</button>
+            <div hidden={!showModal} className='modal'> 
+                    <div className='modal__pa__background' onClick={handleDeleteModalClose}>
+                        <div className='modal__pa__card'>
+                            <h2 className='modal__pa__title'>Are you sure?</h2>
+                            <div className='modal--buttons--container'>
+                                <button className='modal__delete__button' 
+                                    onClick={() => {deleteProperty(deletedId)}}
+                                >
+                                        Delete
+                                </button>
+                                <button className='modal__cancel__button'>Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div hidden={!updateModal} className='update--modal'>
-                <div className='modal__update__background' onClick={handleUpdateModalClose}>
+            <div hidden={!updateModal} className='update--modal' >
+                <div className='modal__update__background' >
                     <div className='modal__update__card'>
                         <div className='inputs__container'>
-                            <input className='update__title' placeholder='Title' value={property.title} />
-                            <textarea className='update__description' placeholder='Description' />
-                            <input className='update__meters' placeholder='Meters' />
-                            <input className='update__rooms' placeholder='Rooms' />
-                            <input className='update__extras' placeholder='Extras' />
-                            <input className='update__price' placeholder='Price' />
+                            <h3>Reference: {updatedRef}</h3>
+                            <input className='update__title' placeholder='Title' id='title'
+                                onChange={(event) => {setNewTitle(event.target.value);}} />
+                                
+                            <textarea className='update__description' placeholder='Description' 
+                                onChange={(event) => {setNewDescription(event.target.value);}} />
+                            <input className='update__meters' placeholder='Meters' 
+                                onChange={(event) => {setNewMeters(event.target.value);}} />
+                            <input className='update__rooms' placeholder='Rooms' 
+                                onChange={(event) => {setNewRooms(event.target.value);}}/>
+                            <input className='update__extras' placeholder='Extras' 
+                                onChange={(event) => {setNewExtras(event.target.value);}}/>
+                            <input className='update__price' placeholder='Price' 
+                                onChange={(event) => {setNewPrice(event.target.value);}}/>
                         </div>
                         <div className='modal--buttons--container'>
-                            <button className='modal__update__button' onClick={() => {updateProperty(property.id)}}>Update</button>
+                            <button className='modal__update__button' onClick={() => {updateProperty(updatedId)}}>Update</button>
+                            <button className='modal__update__button' onClick={handleUpdateModalClose}>Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <br />
         </>

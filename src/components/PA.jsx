@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../App.scss';
 import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import {collection, addDoc} from 'firebase/firestore';
 
 function PA() {
-  const [properties, setProperties] = useState([]);
   const propertiesCollectionsRef = collection(db, 'properties');
   const [newRef, setNewRef] = useState(0);
   const [newTitle, setNewTitle] = useState('');
@@ -14,10 +13,6 @@ function PA() {
   const [newRooms, setNewRooms] = useState(0);
   const [newExtras, setNewExtras] = useState('');
   const [newPrice, setNewPrice] = useState(0);
-
-  const [updatedTitle, setUpdatedTitle] = useState('');
-
-
   const createProperty = async () =>{
     await addDoc(propertiesCollectionsRef, {
       ref: Number(newRef), 
@@ -29,20 +24,6 @@ function PA() {
       price: newPrice,   
     })
   }
-  const updateTitle = async (id) => {
-    const propertyDoc = doc(db, 'properties', id);  //documento de la coleccion
-    const newFields = {title : updatedTitle};  //actualización 
-    await updateDoc(propertyDoc,newFields)
-  }
-
-useEffect(() => {
-    const getProperties = async () => {
-      const data = await getDocs(propertiesCollectionsRef);
-      setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
-  }
-    getProperties();  
-  }, []);
-
 
   return (
     <>
@@ -108,7 +89,6 @@ useEffect(() => {
           onChange={(event) => {
             setNewPrice(event.target.value);
         }}></input>
-
         <button onClick={createProperty} 
         className='submit__button' 
         type='submit'

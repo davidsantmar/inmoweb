@@ -5,7 +5,7 @@ import flat3 from '../images/flat3.jpeg';
 import flat4 from '../images/flat4.jpeg';
 import { Link } from "react-router-dom";
 
-const Inmuebles = () => {
+const Properties  = () => {
     const [firstFlat, setFirstFlat] = useState();
     const [secondFlat, setSecondFlat] = useState();
     const [thirdFlat, setThirdFlat] = useState();
@@ -114,4 +114,4 @@ const Inmuebles = () => {
     );
 };
 
-export default Inmuebles;
+export default Properties;

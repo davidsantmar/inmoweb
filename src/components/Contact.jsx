@@ -11,7 +11,7 @@ asignar datos de la cuenta de emailJS a método send
 unique id, template y private key
 */
 
-const Contacto = () => {
+const Contact = () => {
   const [toSend, setToSend] = useState({
       from_name: '',
       to_name: '',
@@ -102,4 +102,4 @@ const Contacto = () => {
     );
 };
 
-export default Contacto;
+export default Contact;
