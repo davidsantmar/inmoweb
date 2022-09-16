@@ -59,7 +59,7 @@ function UsersList() {
             <div className='reset' onClick={reset}></div>
         </div>
         <nav className='admin--container'>
-            <Link to='/pa' className = 'admin__button nav__link'>
+            <Link to='/createProperty' className = 'admin__button nav__link'>
                 CreateProperty
             </Link> 
             <Link to='/propertyList' className = 'admin__button nav__link'>

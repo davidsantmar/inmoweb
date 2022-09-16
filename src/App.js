@@ -8,7 +8,7 @@ import AboutUs from './components/AboutUs';
 import store from './redux/stores';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import PA from './components/PA';
+import CreateProperty from './components/CreateProperty';
 import UsersList from './components/UsersList';
 import PropertyList from './components/PropertyList';
 
@@ -21,10 +21,10 @@ function App() {
           <main>
             <Routes>
               <Route path="/" exact element={<Properties />} />
-              <Route path="/mortages" exact element={<Mortgages />} />
+              <Route path="/mortgages" exact element={<Mortgages />} />
               <Route path="/contact" exact element={<Contact />} />
               <Route path="/about" exact element={<AboutUs />} />
-              <Route path="/pa" exact element={<PA />} />
+              <Route path="/createProperty" exact element={<CreateProperty />} />
               <Route path="/addUser" exact element={<UsersList />} />
               <Route path="/propertyList" exact element={<PropertyList />} />
             </Routes>

@@ -33,16 +33,16 @@ const Header = () => {
             <Link to="/about" className="nav__link about__us__link" data-testid='about-us-link'>
               <span className='nav__about__us'>About us</span>
             </Link>
-            <Link to="/hipotecas" className="nav__link" data-testid='hipotecas-link'>
+            <Link to="/mortgages" className="nav__link" data-testid='hipotecas-link'>
                 Mortages
             </Link>
-            <Link to="/contacto" className="nav__link" data-testid='contacto-link'>
+            <Link to="/contact" className="nav__link" data-testid='contacto-link'>
                 Contact
             </Link>
             
             {isAuthenticated ? (
           <>
-            <Link to='/pa' className="nav__link">
+            <Link to='/createProperty' className="nav__link">
                 Admin
             </Link> 
             <button

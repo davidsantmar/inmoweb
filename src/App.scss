@@ -49,7 +49,6 @@ body{
 hr{
     width: 93.5%;
 }
-
 @media (max-width: 680px){
     .flats--grid{
         display: flex;
@@ -144,7 +143,6 @@ hr{
             animation-name: round;
             animation-duration: 1s;
             animation-iteration-count: 1;
-            border: solid 3px lightgreen;
         }
     }
     .text--container{
@@ -318,6 +316,40 @@ hr{
             font-family: 'Poppins';
             margin-bottom: 1rem;
         }
+        .pictures__field{
+            margin-bottom: 1rem;
+        }
+        .picture__square{
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            border-radius: 10px;
+            border:solid 2px green;
+            height: 12rem;
+            background-size: cover;
+            width: 100%;
+        }
+        .picture__container{
+            display: flex;
+            flex-direction: row;
+            .delete__button__container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-left: 1rem;
+                .delete__button{
+                    border-radius: 10px;
+                    height: 4rem;
+                    width: 3.5rem;
+                    margin-bottom: 1rem;
+                    background-image: url('./images/trashcan.png');
+                    background-size: cover;
+                    border: solid 2px green;
+                }
+                .delete__button:hover{
+                    border: solid 5px red;
+                }
+            }
+        }
         .title__field:hover, .name__field:hover, .rooms__field:hover, 
         .meters__field:hover, .ref__field:hover, 
         .extras__field:hover, .price__field:hover{
@@ -350,6 +382,10 @@ hr{
             background-color: rgb(226, 246, 226);
             border-radius: 10px;
             font-family: 'Poppins';
+            border: solid black 2px;
+            padding: .1rem;
+            font-weight: bold;
+            color: black;
         }
         .admin__button:hover{
             background-color: lightgreen;
@@ -365,6 +401,12 @@ hr{
             border-radius: 20px;
             border: solid 2px green;
             padding: 1rem;
+            .picture--container{
+                width: 10rem;
+                height: 5rem;
+                border: solid 2px green;
+                background-size: cover;
+            }
             .modal__pa__background{
                 position: fixed;
                 right: 0;
@@ -473,7 +515,7 @@ hr{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
-            .update__button, .delete__button{
+            .update__button{
                 background-color: rgb(226, 246, 226);
                 border-radius: 10px;
                 height: 2rem;
@@ -484,10 +526,18 @@ hr{
                 background-color: lightgreen;
                 color: blue;
             }
+            .delete__button{
+                border-radius: 10px;
+                height: 4rem;
+                width: 3.5rem;
+                margin-bottom: 1rem;
+                background-image: url('./images/trashcan.png');
+                background-size: cover;
+                border: solid 2px green;
+    
+            }
             .delete__button:hover{
-                background-color: red;
-                color: black;
-                font-weight: bolder;
+                border: solid 5px red;
             }
         }
     }
@@ -524,3 +574,12 @@ hr{
     from{ transform: rotate(0deg); }
     to{ transform: rotate(-360deg); }
 }
+::-webkit-file-upload-button {  //css for upload button
+    color: black;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: white;
+    border: solid 2px green;
+    font-family: 'Poppins';
+    font-weight: bold;
+  }

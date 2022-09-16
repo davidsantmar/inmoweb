@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import '../App.scss';
 import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, deleteDoc, doc} from 'firebase/firestore';
+import {storage} from '../firebase/index';
+import {ref, uploadBytes, listAll, getDownloadURL} from 'firebase/storage';
+import {v4} from 'uuid';
 
-function PA() {
+
+
+function CreateProperty() {
   const propertiesCollectionsRef = collection(db, 'properties');
   const [newRef, setNewRef] = useState(0);
   const [newTitle, setNewTitle] = useState('');
@@ -13,6 +18,29 @@ function PA() {
   const [newRooms, setNewRooms] = useState(0);
   const [newExtras, setNewExtras] = useState('');
   const [newPrice, setNewPrice] = useState(0);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
+  const imageListRef = ref(storage, 'images/');
+
+
+  const uploadImage = () => {
+    if (imageUpload === null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {  //actualización del front sin reload page
+        setImageList((prev) => [...prev, url]);
+      });
+    });
+  };
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
   const createProperty = async () =>{
     await addDoc(propertiesCollectionsRef, {
       ref: Number(newRef), 
@@ -21,8 +49,14 @@ function PA() {
       meters: newMeters,
       rooms: newRooms,
       extras: newExtras,
-      price: newPrice,   
+      price: newPrice,
     })
+  }
+  const deletePicture = (url) => {
+    db.database().ref(`ìmages/${url}`).remove();
+  }
+  const reset = () => {
+    window.location.reload();
   }
 
   return (
@@ -30,6 +64,7 @@ function PA() {
     <div className="PA--form">
          <div className='sub--title' data-testid='subTitle'>
             <h1>CREATE PROPERTY</h1>
+            <div className='reset' onClick={reset}></div>
         </div>
         <nav className='admin--container'>
             <Link to='/propertyList' className = 'admin__button nav__link'>
@@ -89,12 +124,38 @@ function PA() {
           onChange={(event) => {
             setNewPrice(event.target.value);
         }}></input>
+        
+
+            <input  className='pictures__field' placeholder='new image' type='file' 
+              onChange={(event) => {setImageUpload(event.target.files[0])}}
+            > 
+            </input>
+            <button onClick={uploadImage} className='submit__button'>Upload image</button>
+              <div>
+                {imageList.map((url) => {
+                  return(
+                  <>
+                    <div className='picture__container'>
+                    <img src={url} className='picture__square' id='picture'>
+                    </img>
+                    <div className='delete__button__container'>
+                      <button className='delete__button'
+                        onClick={()=>{deletePicture(url)}}
+                      > 
+                      </button>
+                    </div>
+                    </div>     
+                  </>
+                  )
+                }
+                )}
+              </div>
         <button onClick={createProperty} 
-        className='submit__button' 
-        type='submit'
-        data-testid='submit-button'
+          className='submit__button' 
+          type='submit'
+          data-testid='submit-button'
         >
-          Post
+          POST!
         </button>
       </div>
     </div>
@@ -102,4 +163,4 @@ function PA() {
   );
 }
 
-export default PA;
+export default CreateProperty;

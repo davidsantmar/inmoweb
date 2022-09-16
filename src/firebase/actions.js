@@ -1,4 +1,5 @@
-import { authentication } from ".";
+import { authentication } from '.';
+
 
 export async function firebaseLogin() {
   const provider = new authentication.auth.GoogleAuthProvider();
