@@ -35,7 +35,7 @@ const PropertyList = () => {
   }, []);
 
 
-  const updateProperty = async (id) => {
+  /*const updateProperty = async (id) => {
     const propertyDoc = doc(db, 'properties', id);  //documento de la coleccion
     const newFields = {
       title: newTitle,
@@ -47,7 +47,7 @@ const PropertyList = () => {
       picture: newPicture,
     };  //actualización 
     await updateDoc(propertyDoc,newFields);
-  }
+  }*/
     const deleteProperty = async (id) => {
         const propertyDoc = doc(db, 'properties', id);
         await deleteDoc(propertyDoc);
@@ -55,17 +55,18 @@ const PropertyList = () => {
     const handleDeleteModalClose = (e) => {
         setShowModal(false);
     }
-    const handleUpdateModalClose = (e) => {
+    /*const handleUpdateModalClose = (e) => {
         setUpdateModal(false);
-    }
-    const handleDeleteModal = (id) => {  
-        setShowModal(true);
-        setDeletedId(id);
     }
     const handleUpdateModal = (id, ref, title, description, meters, rooms, extras, price) => {      
         setUpdateModal(true);
         updateFields(id, ref, title, description, meters, rooms, extras, price);
-    } 
+    }*/
+    const handleDeleteModal = (id) => {  
+        setShowModal(true);
+        setDeletedId(id);
+    }
+     
     const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
         setUpdatedId(id);
         setUpdatedRef(ref);
@@ -119,21 +120,23 @@ const PropertyList = () => {
             <br />
             
             <br />
-            <div className='buttons--container'>        
-                <button className='update__button' 
+            <div className='buttons--container'>
+                      
+                {/*<button className='update__button' 
                     onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
                     property.description, property.meters, property.rooms, property.extras, 
                     property.price)}}
                 >
                     Update property<span className='check__symbol'>&nbsp;&#9989;</span>
+                </button>*/}
+                <button className='delete__button' 
+                    onClick={() => {handleDeleteModal(property.id)}}
+                >
                 </button>
             <div>
         </div>      
-        <button className='delete__button' 
-            onClick={() => {handleDeleteModal(property.id)}}
-        >
-        </button>
-            </div>
+        
+        </div>
             <div hidden={!showModal} className='modal'> 
                 <div className='modal__pa__background' onClick={handleDeleteModalClose}>
                     <div className='modal__pa__card'>
@@ -170,8 +173,10 @@ const PropertyList = () => {
                                 onChange={(event) => {setNewPrice(event.target.value);}}/>
                         </div>
                         <div className='modal--buttons--container'>
+                            {/*
                             <button className='modal__update__button' onClick={() => {updateProperty(updatedId)}}>Update</button>
                             <button className='modal__update__button' onClick={handleUpdateModalClose}>Close</button>
+                            */}
                         </div>
                     </div>
                 </div>

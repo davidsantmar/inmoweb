@@ -2,7 +2,7 @@ import { useState, useEffect} from 'react';
 import '../App.scss';
 import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, addDoc, deleteDoc, doc} from 'firebase/firestore';
+import {collection, addDoc} from 'firebase/firestore';
 import {storage} from '../firebase/index';
 import {ref, uploadBytes, listAll, getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid';
@@ -51,10 +51,22 @@ function CreateProperty() {
       extras: newExtras,
       price: newPrice,
     })
+    reset();
   }
   const deletePicture = (url) => {
-    db.database().ref(`ìmages/${url}`).remove();
-  }
+    //1.
+    let pictureRef = storage.refFromURL(url);
+   //2.
+    pictureRef.delete()
+      .then(() => {
+        //3.
+        setImageList(imageList.filter((image) => image !== url));
+        alert("Picture was deleted successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const reset = () => {
     window.location.reload();
   }
@@ -136,7 +148,7 @@ function CreateProperty() {
                   return(
                   <>
                     <div className='picture__container'>
-                    <img src={url} className='picture__square' id='picture'>
+                    <img src={url} className='picture__square' id='picture' alt='flat'>
                     </img>
                     <div className='delete__button__container'>
                       <button className='delete__button'
