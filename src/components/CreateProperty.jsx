@@ -23,9 +23,10 @@ function CreateProperty() {
   const imageListRef = ref(storage, 'images/');
 
 
+  
   const uploadImage = () => {
     if (imageUpload === null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    const imageRef = ref(storage, `images/${newRef}/${imageUpload.name}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {  //actualización del front sin reload page
         setImageList((prev) => [...prev, url]);
@@ -61,7 +62,6 @@ function CreateProperty() {
       .then(() => {
         //3.
         setImageList(imageList.filter((image) => image !== url));
-        alert("Picture was deleted successfully!");
       })
       .catch((err) => {
         console.log(err);
@@ -70,7 +70,6 @@ function CreateProperty() {
   const reset = () => {
     window.location.reload();
   }
-
   return (
     <>
     <div className="PA--form">
@@ -136,32 +135,30 @@ function CreateProperty() {
           onChange={(event) => {
             setNewPrice(event.target.value);
         }}></input>
-        
-
-            <input  className='pictures__field' placeholder='new image' type='file' 
-              onChange={(event) => {setImageUpload(event.target.files[0])}}
-            > 
-            </input>
-            <button onClick={uploadImage} className='submit__button'>Upload image</button>
-              <div>
-                {imageList.map((url) => {
-                  return(
-                  <>
-                    <div className='picture__container'>
-                    <img src={url} className='picture__square' id='picture' alt='flat'>
-                    </img>
-                    <div className='delete__button__container'>
-                      <button className='delete__button'
-                        onClick={()=>{deletePicture(url)}}
-                      > 
-                      </button>
-                    </div>
-                    </div>     
-                  </>
-                  )
-                }
-                )}
-              </div>
+        <input  className='pictures__field' placeholder='new image' type='file' 
+          onChange={(event) => {setImageUpload(event.target.files[0])}}
+        > 
+        </input>
+        <button onClick={uploadImage} className='submit__button'>Upload image</button>
+          <div>
+            {imageList.map((url, i) => {
+              return(
+              <>
+                <div className='picture__container' key={i}>
+                  <img src={url} className='picture__square' id='picture' alt='flat'>
+                  </img>
+                  <div className='delete__button__container'>
+                    <button className='delete__button'
+                      onClick={()=>{deletePicture(url)}}
+                    > 
+                    </button>
+                  </div>
+                </div>     
+              </>
+              )
+            }
+            )}
+          </div>
         <button onClick={createProperty} 
           className='submit__button' 
           type='submit'

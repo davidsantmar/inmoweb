@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import '../App.scss';
 import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { ref, listAll, getStorage, getDownloadURL } from 'firebase/storage';
+
+
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -34,6 +37,19 @@ const PropertyList = () => {
     getProperties();  
   }, []);
 
+  const listing = () => {
+    const storage = getStorage();
+    getDownloadURL(ref(storage, 'images/101/Bandera_de_España.png'))
+        .then((url) => {
+        // Or inserted into an <img> element
+        const img = document.getElementById('picture');
+        console.log(url);
+        img.setAttribute('src', url);
+        })
+        .catch((error) => {
+            alert('An error has ocurred.');
+    });
+  }
 
   /*const updateProperty = async (id) => {
     const propertyDoc = doc(db, 'properties', id);  //documento de la coleccion
@@ -67,7 +83,7 @@ const PropertyList = () => {
         setDeletedId(id);
     }
      
-    const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
+    /*const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
         setUpdatedId(id);
         setUpdatedRef(ref);
         setUpdatedTitle(title);
@@ -76,11 +92,12 @@ const PropertyList = () => {
         setUpdatedRooms(rooms);
         setUpdatedExtras(extras);
         setUpdatedPrice(price);
-    }
+    }*/
     const reset = () => {
         window.location.reload();
     }
-
+   
+    listing();
     return (
         <>
         <div className='sub--title' data-testid='subTitle'>
@@ -99,42 +116,37 @@ const PropertyList = () => {
             {properties.sort(function (a, b) {
                 return a.ref - b.ref;            //map sorted
             })
-      .map((property) => { 
-        return (
-        <>
-        <div className='property__card' key={property.id}>
-            <span>Reference: {property.ref}</span>
-            <br />
-            <span>Title: {property.title}</span>
-            <br />
-            <span>Description: {property.description}</span>
-            <br />
-            <span>Meters: {property.meters}</span>
-            <br />
-            <span>Rooms: {property.rooms}</span>
-            <br />
-            <span>Extras: {property.extras}</span>
-            <br />
-            <span>Price: {property.price}</span>
-            <br />
-            <br />
-            
-            <br />
-            <div className='buttons--container'>
-                      
-                {/*<button className='update__button' 
-                    onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
-                    property.description, property.meters, property.rooms, property.extras, 
-                    property.price)}}
-                >
-                    Update property<span className='check__symbol'>&nbsp;&#9989;</span>
-                </button>*/}
-                <button className='delete__button' 
-                    onClick={() => {handleDeleteModal(property.id)}}
-                >
-                </button>
-            <div>
-        </div>      
+            .map((property, i) => { 
+            return (
+            <>
+            <div className='property__card' key={i}>
+                <span>Reference: {property.ref}</span>
+                <span>Title: {property.title}</span>
+                <span>Description: {property.description}</span>
+                <span>Meters: {property.meters}</span>
+                <span>Rooms: {property.rooms}</span>
+                <span>Extras: {property.extras}</span>
+                <span>Price: {property.price}</span>
+                <div className='footer__card__container'>
+                    <span className='left__arrow'>&#9664;</span>
+                    <img className='picture__carousel' id='picture' />
+                   {/*hay que enviarle property.ref para apuntar a la carpeta*/}
+                    
+                    <span className='right__arrow'>&#9654;</span>
+                    {/*<button className='update__button' 
+                        onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
+                        property.description, property.meters, property.rooms, property.extras, 
+                        property.price)}}
+                    >
+                        Update property<span className='check__symbol'>&nbsp;&#9989;</span>
+                    </button>*/}
+                        <button className='delete__button' 
+                            onClick={() => {handleDeleteModal(property.id)}}
+                        >
+                        </button>
+                    
+                <div>
+            </div>      
         
         </div>
             <div hidden={!showModal} className='modal'> 
