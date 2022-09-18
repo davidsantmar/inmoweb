@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import housePriceReducer from "./housePriceReducer";
 import authReducer from "./authReducer";
 import addUserReducer from "./addUserReducer";
+import addImageReducer from './addImageReducer';
 
 const rootReducer = combineReducers({
-    housePriceReducer: housePriceReducer,
+    addImage: addImageReducer,
     auth: authReducer,
     addUser: addUserReducer,
 });

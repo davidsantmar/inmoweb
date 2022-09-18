@@ -398,15 +398,45 @@ hr{
     .properties--container{
         padding: 1rem;   
         .property__card{
+            display: flex;
+            flex-direction: column;
             border-radius: 20px;
             border: solid 2px green;
             padding: 1rem;
-            .picture--container{
-                width: 10rem;
+            height: 22rem;
+            .footer__card__container{
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
                 height: 5rem;
-                border: solid 2px green;
-                background-size: cover;
+                margin-top: 3rem;
+                align-items: center;
+                .left__arrow, .right__arrow{
+                    color: green;   
+                    font-size: 2rem;             
+                }
+                .left__arrow:hover, .right__arrow:hover{
+                   color: lightgreen;
+                }
+                .picture__carousel{
+                    height: 10rem;
+                    border: solid 1px green;
+                    width: 60%;
+                    border-radius: 10px;
+                }
+                .delete__button{
+                    border-radius: 10px;
+                    height: 4rem;
+                    width: 3.5rem;
+                    background-image: url('./images/trashcan.png');
+                    background-size: cover;
+                    border: solid 2px green;
+                }
+                .delete__button:hover{
+                    border: solid 5px red;
+                }
             }
+            
             .modal__pa__background{
                 position: fixed;
                 right: 0;
@@ -511,7 +541,7 @@ hr{
                 }
             }         
         }
-        .buttons--container{
+        /*.buttons--container{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -534,12 +564,11 @@ hr{
                 background-image: url('./images/trashcan.png');
                 background-size: cover;
                 border: solid 2px green;
-    
             }
             .delete__button:hover{
                 border: solid 5px red;
             }
-        }
+        }*/
     }
     .footer--container{
         display: flex;
