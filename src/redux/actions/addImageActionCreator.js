@@ -1,5 +1,5 @@
 import addImageActionTypes from './addImageActionTypes';
 
-export function addImage(image){
-    return { type: addImageActionTypes.ADD_IMAGE, image }
+export function addImage(){
+    return { type: addImageActionTypes.ADD_IMAGE }
 }

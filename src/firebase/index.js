@@ -3,6 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCoJ83BBe6IeYpllpjHT6idZzvHv9sBO5I',
   authDomain: "inmoweb-app.firebaseapp.com",
@@ -19,6 +20,7 @@ firebase.initializeApp(firebaseConfig);
 export const authentication = firebase;
 export const db = firebase.firestore();
 export const storage = firebase.storage();
+export const imagesData = firebase.firestore();
 
 //export const db = getFirestore(app);
 //export const storage = getStorage(app);
