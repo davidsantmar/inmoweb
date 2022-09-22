@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import '../App.scss';
-import { db } from '../firebase/index';
+import { db, storage, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { ref, listAll, getStorage, getDownloadURL } from 'firebase/storage';
-
-
+import { ref, getStorage, getDownloadURL, deleteObject } from 'firebase/storage';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const propertiesCollectionsRef = collection(db, 'properties');
+  const imagesDataCollections = collection(imagesData, 'pictures');
+
+  const [pictures, setPictures] = useState([]);
+
+
+  const [reference, setReference] = useState(null);
+  const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [newMeters, setNewMeters] = useState(0);
@@ -28,27 +33,39 @@ const PropertyList = () => {
   const [updatedRooms, setUpdatedRooms] = useState(newRooms);
   const [updatedExtras, setUpdatedExtras] = useState(newExtras);
   const [updatedPrice, setUpdatedPrice] = useState(newPrice);
+  
+  const picturesNames = [];
+  const picturesRefs = [];
+
 
   useEffect(() => {
     const getProperties = async () => {
       const data = await getDocs(propertiesCollectionsRef);
       setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+      //showPictures();
+      const picturesData = await getDocs(imagesDataCollections);
+      setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
     }
     getProperties();  
   }, []);
+  pictures.map((picture, i) => {
+    picturesNames.push(picture.name);
+    picturesRefs.push(picture.refe);
 
-  const listing = () => {
-    const storage = getStorage();
-    getDownloadURL(ref(storage, 'images/101/Bandera_de_España.png'))
-        .then((url) => {
-        // Or inserted into an <img> element
-        const img = document.getElementById('picture');
-        console.log(url);
-        img.setAttribute('src', url);
-        })
-        .catch((error) => {
-            alert('An error has ocurred.');
-    });
+  })
+  console.log(picturesNames);
+  console.log(picturesRefs);
+
+
+
+  const showPictures = () => {
+    //listing();
+    //const storage = getStorage();
+   
+        getDownloadURL(ref(storage, `images/${picturesRefs[1]}/${picturesNames[1]}`)).then(function(url) {
+            const img = document.getElementById('picture');
+            img.setAttribute('src', url);
+        });
   }
 
   /*const updateProperty = async (id) => {
@@ -78,9 +95,15 @@ const PropertyList = () => {
         setUpdateModal(true);
         updateFields(id, ref, title, description, meters, rooms, extras, price);
     }*/
-    const handleDeleteModal = (id) => {  
+    const handleDeleteModal = (id, refe) => { 
+        const storage = getStorage(); 
         setShowModal(true);
         setDeletedId(id);
+        deleteObject(ref(storage, `images/${id}`)).then(() => {
+            alert('file deleted!');
+        }).catch((error) => {
+            console.log('error deleting');
+        });
     }
      
     /*const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
@@ -96,8 +119,10 @@ const PropertyList = () => {
     const reset = () => {
         window.location.reload();
     }
-   
-    listing();
+   //console.log(arr);
+
+
+    showPictures();
     return (
         <>
         <div className='sub--title' data-testid='subTitle'>
@@ -114,7 +139,7 @@ const PropertyList = () => {
         </nav>
         <div className='properties--container'>
             {properties.sort(function (a, b) {
-                return a.ref - b.ref;            //map sorted
+                return a.ref - b.ref;     //map sorted
             })
             .map((property, i) => { 
             return (
@@ -129,10 +154,19 @@ const PropertyList = () => {
                 <span>Price: {property.price}</span>
                 <div className='footer__card__container'>
                     <span className='left__arrow'>&#9664;</span>
-                    <img className='picture__carousel' id='picture' />
-                   {/*hay que enviarle property.ref para apuntar a la carpeta*/}
-                    
+                    <img className='picture__carousel' id='picture' />                    
                     <span className='right__arrow'>&#9654;</span>
+                    {/*<div>
+                        {pictures.map((picture, i) => {
+                            
+                            return(
+                                <>
+                                    <span>{picture.refe}</span><br />
+                                    <span>{picture.name}</span><br />
+                                </>
+                            )
+                        })}
+                    </div>/*}   //mapa con todos los datos
                     {/*<button className='update__button' 
                         onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
                         property.description, property.meters, property.rooms, property.extras, 
@@ -140,14 +174,15 @@ const PropertyList = () => {
                     >
                         Update property<span className='check__symbol'>&nbsp;&#9989;</span>
                     </button>*/}
-                        <button className='delete__button' 
-                            onClick={() => {handleDeleteModal(property.id)}}
-                        >
-                        </button>
-                    
+                    <button className='delete__button' 
+                        onClick={() => {handleDeleteModal(property.id, property.ref)}}
+                    >
+                    </button>
                 <div>
-            </div>      
-        
+            </div>  
+
+            
+
         </div>
             <div hidden={!showModal} className='modal'> 
                 <div className='modal__pa__background' onClick={handleDeleteModalClose}>

@@ -1,16 +1,16 @@
 import { useState, useEffect} from 'react';
 import '../App.scss';
-import { db } from '../firebase/index';
+import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import {collection, addDoc} from 'firebase/firestore';
-import {storage} from '../firebase/index';
-import {ref, uploadBytes, listAll, getDownloadURL} from 'firebase/storage';
-import {v4} from 'uuid';
-
-
+import { collection, addDoc } from 'firebase/firestore';
+import { storage} from '../firebase/index';
+import {ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
+import { addImage } from '../redux/actions/addImageActionCreator'
 
 function CreateProperty() {
   const propertiesCollectionsRef = collection(db, 'properties');
+  const imagesDataCollections = collection(imagesData, 'pictures');
+
   const [newRef, setNewRef] = useState(0);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -22,16 +22,16 @@ function CreateProperty() {
   const [imageList, setImageList] = useState([]);
   const imageListRef = ref(storage, 'images/');
 
-
-  
   const uploadImage = () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${newRef}/${imageUpload.name}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {  //actualización del front sin reload page
         setImageList((prev) => [...prev, url]);
+        addImage(url);
       });
     });
+    console.log(imageUpload.name);
   };
   useEffect(() => {
     listAll(imageListRef).then((response) => {
@@ -52,16 +52,21 @@ function CreateProperty() {
       extras: newExtras,
       price: newPrice,
     })
+    addImages();
     reset();
   }
-  const deletePicture = (url) => {
-    //1.
+  const addImages = async () => {
+    await addDoc(imagesDataCollections, {
+      refe: Number(newRef), 
+      name: imageUpload.name,
+    })
+  }
+  const deletePicture = (url, reference, name) => {
     let pictureRef = storage.refFromURL(url);
-   //2.
     pictureRef.delete()
       .then(() => {
-        //3.
         setImageList(imageList.filter((image) => image !== url));
+        deleteObject(ref(storage, `images/${reference}/${name}`));
       })
       .catch((err) => {
         console.log(err);
@@ -149,7 +154,7 @@ function CreateProperty() {
                   </img>
                   <div className='delete__button__container'>
                     <button className='delete__button'
-                      onClick={()=>{deletePicture(url)}}
+                      onClick={()=>{deletePicture(url, newRef, imageUpload.name)}}
                     > 
                     </button>
                   </div>
