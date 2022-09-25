@@ -371,9 +371,6 @@ hr{
             color: blue;
         }
     }
-    .add--user--container{
-        margin-bottom: 10rem;
-    }
     .admin--container{
         display: flex;
         justify-content: space-around;
@@ -611,6 +608,35 @@ hr{
             color: #ED1D24;
           }
       }
+    .add--user--container{
+        margin-bottom: 10rem;
+        padding: 1rem;
+        .email__field{
+            height: 2rem;
+            font-size: 2rem;
+            border-radius: 10px;
+            padding: .5rem;
+            border: solid 2px green ;
+            font-family: 'Poppins';
+            margin-right: 1rem;
+            width: 74%;
+        }
+        .email__field:hover{
+            border: solid 4px green ;
+        }
+        .submit__button{
+            background-color: rgb(226, 246, 226);
+            border-radius: 10px;
+            height: 3.2rem;
+            font-family: 'Poppins';
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .submit__button:hover{
+            background-color: lightgreen;
+            color: blue;
+        }
+    }
     input::-webkit-outer-spin-button,  //hide input arrows
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
