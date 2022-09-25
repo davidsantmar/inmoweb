@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import '../App.scss';
-import { db, storage, imagesData } from '../firebase/index';
+import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { ref, getStorage, getDownloadURL, deleteObject } from 'firebase/storage';
+import { ref, getStorage, getDownloadURL, deleteObject, listAll } from 'firebase/storage';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -33,42 +33,51 @@ const PropertyList = () => {
   const [updatedRooms, setUpdatedRooms] = useState(newRooms);
   const [updatedExtras, setUpdatedExtras] = useState(newExtras);
   const [updatedPrice, setUpdatedPrice] = useState(newPrice);
-  
   const picturesNames = [];
   const picturesRefs = [];
-
 
   useEffect(() => {
     const getProperties = async () => {
       const data = await getDocs(propertiesCollectionsRef);
       setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
-      //showPictures();
       const picturesData = await getDocs(imagesDataCollections);
       setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
     }
     getProperties();  
   }, []);
-  pictures.map((picture, i) => {
-    picturesNames.push(picture.name);
-    picturesRefs.push(picture.refe);
+    pictures.map((picture) => {
+        picturesNames.push(picture.name);
+        picturesRefs.push(picture.refe);
+    })
 
-  })
-  console.log(picturesNames);
-  console.log(picturesRefs);
+  const showPictures = (reference) => {
+        for (let i = 0; i <= picturesRefs.length; i ++){
+            if (picturesRefs[i] === reference){
+                const storage = getStorage();
+                const listRef = ref(storage, `images/${picturesRefs[i]}/`);
+                listAll(listRef)
+                    .then((res) => {
+                    res.items.forEach((itemRef) => {
+                        getDownloadURL(itemRef).then(function(url) {
+                            const rootElement = document.getElementById(reference);
+                            const element = document.createElement('img');
+                            rootElement.append(element);
+                            element.style.border = 'solid 2px green';
+                            element.style.height = '5rem';
+                            element.style.width = '5rem';
+                            element.style.borderRadius = '10px';
+                            element.style.marginRight = '1rem';
 
-
-
-  const showPictures = () => {
-    //listing();
-    //const storage = getStorage();
-   
-        getDownloadURL(ref(storage, `images/${picturesRefs[1]}/${picturesNames[1]}`)).then(function(url) {
-            const img = document.getElementById('picture');
-            img.setAttribute('src', url);
-        });
+                            element.src = url;
+                        });
+                        
+                    })
+                })
+            }
+        }
   }
-
-  /*const updateProperty = async (id) => {
+  /* -------- UPDATE FUNCTIONS -----------
+  const updateProperty = async (id) => {
     const propertyDoc = doc(db, 'properties', id);  //documento de la coleccion
     const newFields = {
       title: newTitle,
@@ -80,7 +89,25 @@ const PropertyList = () => {
       picture: newPicture,
     };  //actualización 
     await updateDoc(propertyDoc,newFields);
-  }*/
+  }
+  const handleUpdateModalClose = (e) => {
+        setUpdateModal(false);
+    }
+    const handleUpdateModal = (id, ref, title, description, meters, rooms, extras, price) => {      
+        setUpdateModal(true);
+        updateFields(id, ref, title, description, meters, rooms, extras, price);
+    }
+    const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
+        setUpdatedId(id);
+        setUpdatedRef(ref);
+        setUpdatedTitle(title);
+        setUpdatedDescription(description);
+        setUpdatedMeters(meters);
+        setUpdatedRooms(rooms);
+        setUpdatedExtras(extras);
+        setUpdatedPrice(price);
+    }
+    */
     const deleteProperty = async (id) => {
         const propertyDoc = doc(db, 'properties', id);
         await deleteDoc(propertyDoc);
@@ -88,14 +115,8 @@ const PropertyList = () => {
     const handleDeleteModalClose = (e) => {
         setShowModal(false);
     }
-    /*const handleUpdateModalClose = (e) => {
-        setUpdateModal(false);
-    }
-    const handleUpdateModal = (id, ref, title, description, meters, rooms, extras, price) => {      
-        setUpdateModal(true);
-        updateFields(id, ref, title, description, meters, rooms, extras, price);
-    }*/
-    const handleDeleteModal = (id, refe) => { 
+    
+    const handleDeleteModal = (id) => { 
         const storage = getStorage(); 
         setShowModal(true);
         setDeletedId(id);
@@ -105,24 +126,10 @@ const PropertyList = () => {
             console.log('error deleting');
         });
     }
-     
-    /*const updateFields = (id, ref, title, description, meters, rooms, extras, price) => {
-        setUpdatedId(id);
-        setUpdatedRef(ref);
-        setUpdatedTitle(title);
-        setUpdatedDescription(description);
-        setUpdatedMeters(meters);
-        setUpdatedRooms(rooms);
-        setUpdatedExtras(extras);
-        setUpdatedPrice(price);
-    }*/
     const reset = () => {
         window.location.reload();
     }
-   //console.log(arr);
 
-
-    showPictures();
     return (
         <>
         <div className='sub--title' data-testid='subTitle'>
@@ -141,49 +148,43 @@ const PropertyList = () => {
             {properties.sort(function (a, b) {
                 return a.ref - b.ref;     //map sorted
             })
-            .map((property, i) => { 
+            .map((property) => { 
             return (
             <>
-            <div className='property__card' key={i}>
-                <span>Reference: {property.ref}</span>
-                <span>Title: {property.title}</span>
-                <span>Description: {property.description}</span>
-                <span>Meters: {property.meters}</span>
-                <span>Rooms: {property.rooms}</span>
-                <span>Extras: {property.extras}</span>
-                <span>Price: {property.price}</span>
-                <div className='footer__card__container'>
-                    <span className='left__arrow'>&#9664;</span>
-                    <img className='picture__carousel' id='picture' />                    
-                    <span className='right__arrow'>&#9654;</span>
-                    {/*<div>
-                        {pictures.map((picture, i) => {
-                            
-                            return(
-                                <>
-                                    <span>{picture.refe}</span><br />
-                                    <span>{picture.name}</span><br />
-                                </>
-                            )
-                        })}
-                    </div>/*}   //mapa con todos los datos
-                    {/*<button className='update__button' 
-                        onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
-                        property.description, property.meters, property.rooms, property.extras, 
-                        property.price)}}
-                    >
-                        Update property<span className='check__symbol'>&nbsp;&#9989;</span>
-                    </button>*/}
-                    <button className='delete__button' 
-                        onClick={() => {handleDeleteModal(property.id, property.ref)}}
-                    >
+                <div className='property__card' id='card'>
+                    <span>Reference: {property.ref}</span>
+                    <span>Title: {property.title}</span>
+                    <span>Description: {property.description}</span>
+                    <span>Meters: {property.meters}</span>
+                    <span>Rooms: {property.rooms}</span>
+                    <span>Extras: {property.extras}</span>
+                    <span>Price: {property.price}</span>
+                    <button className='show__pictures__button' onClick={() => showPictures(property.ref)}>
+                        Show pictures posted
                     </button>
-                <div>
-            </div>  
+                    <div className='footer__card__container'>
+                        <div className='properties__pictures' id={property.ref}></div>
 
-            
+                        {/* --------   UPDATE TO DEVELOP -----------
+                        <button className='update__button' 
+                            onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
+                            property.description, property.meters, property.rooms, property.extras, 
+                            property.price)}}
+                        >
+                            Update property<span className='check__symbol'>&nbsp;&#9989;</span>
+                        </button>*/}
+                    <div>
+                    <div className='trash__div'>
+                        <button className='delete__button' 
+                                onClick={() => {handleDeleteModal(property.id, property.ref)}}
+                            >
+                        </button>
+                    </div>
+                </div>  
+            </div>
 
-        </div>
+
+
             <div hidden={!showModal} className='modal'> 
                 <div className='modal__pa__background' onClick={handleDeleteModalClose}>
                     <div className='modal__pa__card'>
@@ -233,7 +234,9 @@ const PropertyList = () => {
         </>
         );
       })}
+      
     </div>
+
     </>
     );
 };
