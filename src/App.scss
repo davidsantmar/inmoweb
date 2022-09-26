@@ -608,33 +608,107 @@ hr{
             color: #ED1D24;
           }
       }
-    .add--user--container{
-        margin-bottom: 10rem;
-        padding: 1rem;
-        .email__field{
-            height: 2rem;
-            font-size: 2rem;
-            border-radius: 10px;
-            padding: .5rem;
-            border: solid 2px green ;
-            font-family: 'Poppins';
-            margin-right: 1rem;
-            width: 74%;
+    .users--list{
+        .add--user--container{
+            padding: 1rem;
+            .email__field{
+                height: 2rem;
+                font-size: 2rem;
+                border-radius: 10px;
+                padding: .5rem;
+                border: solid 2px green ;
+                font-family: 'Poppins';
+                margin-right: 1rem;
+                width: 74%;
+            }
+            .email__field:hover{
+                border: solid 4px green ;
+            }
+            .add__symbol{
+                color:green; 
+                font-weight: bolder;
+            }
+            .add__symbol:hover{
+                border:  4px green ;
+            }
+            .submit__button{
+                background-color: rgb(226, 246, 226);
+                border-radius: 10px;
+                height: 3.2rem;
+                font-family: 'Poppins';
+                margin-bottom: 1rem;
+                font-size: 2rem;
+            }
+            .submit__button:hover{
+                background-color: lightgreen;
+                color: blue;
+            }
         }
-        .email__field:hover{
-            border: solid 4px green ;
+        .users{
+            display: flex;
+            padding: 1rem;
+            flex-direction: column;
+            .user__view{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                .user__email{
+                    font-size: 1.5rem;
+                    margin-right: 1rem;
+                }
+                .delete__user{
+                    background-color: rgb(226, 246, 226);
+                    font-weight: bolder;
+                    border-radius: 5px;
+                }
+                .delete__user:hover{
+                    border: solid 4px red ;
+                }
+            }
         }
-        .submit__button{
-            background-color: rgb(226, 246, 226);
-            border-radius: 10px;
-            height: 3.2rem;
-            font-family: 'Poppins';
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-        .submit__button:hover{
-            background-color: lightgreen;
-            color: blue;
+        .modal__pa__background{
+            position: fixed;
+            right: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: rgba(10, 10, 10, 0.86);
+            height: 100%;
+            .modal__pa__card{
+                font-style: italic;
+                margin: 0 auto;
+                margin-top: 25rem;
+                width: 20rem;
+                background-color: lightgray;
+                border-radius: 20px;
+                height: 10rem;
+                overflow-y: "auto";
+                .modal__pa__title{
+                    display: flex;
+                    justify-content: center;
+                    padding: 1rem;
+                    color: blue;
+                }
+                .modal--buttons--container{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    .modal__delete__button, .modal__cancel__button{
+                        border-radius: 10px;
+                        font-size: 1.5rem;
+                        font-family: 'Poppins';
+                        font-weight: bold;
+                        background-color: rgb(226, 246, 226);
+                    }
+                    .modal__delete__button:hover{
+                        background-color: red;
+                        color: black;
+                    }
+                    .modal__cancel__button:hover{
+                        background-color: lightgreen;
+                    }
+                }
+            }
         }
     }
     input::-webkit-outer-spin-button,  //hide input arrows

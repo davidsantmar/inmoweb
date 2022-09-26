@@ -9,10 +9,7 @@ const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const propertiesCollectionsRef = collection(db, 'properties');
   const imagesDataCollections = collection(imagesData, 'pictures');
-
   const [pictures, setPictures] = useState([]);
-
-
   const [reference, setReference] = useState(null);
   const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
@@ -45,10 +42,10 @@ const PropertyList = () => {
     }
     getProperties();  
   }, []);
-    pictures.map((picture) => {
-        picturesNames.push(picture.name);
-        picturesRefs.push(picture.refe);
-    })
+pictures.map((picture) => {
+    picturesNames.push(picture.name);
+    picturesRefs.push(picture.refe);
+})
 
   const showPictures = (reference) => {
         for (let i = 0; i <= picturesRefs.length; i ++){
@@ -109,22 +106,12 @@ const PropertyList = () => {
     }
     */
     const deleteProperty = async (id) => {
+        setShowModal(true);
         const propertyDoc = doc(db, 'properties', id);
         await deleteDoc(propertyDoc);
     }
     const handleDeleteModalClose = (e) => {
         setShowModal(false);
-    }
-    
-    const handleDeleteModal = (id) => { 
-        const storage = getStorage(); 
-        setShowModal(true);
-        setDeletedId(id);
-        deleteObject(ref(storage, `images/${id}`)).then(() => {
-            alert('file deleted!');
-        }).catch((error) => {
-            console.log('error deleting');
-        });
     }
     const reset = () => {
         window.location.reload();
@@ -140,7 +127,7 @@ const PropertyList = () => {
             <Link to='/createProperty' className = 'admin__button nav__link'>
                 CreateProperty
             </Link> 
-            <Link to='/addUser' className = 'admin__button nav__link'>
+            <Link to='/usersList' className = 'admin__button nav__link'>
                 Users management
             </Link> 
         </nav>
@@ -176,8 +163,8 @@ const PropertyList = () => {
                     <div>
                     <div className='trash__div'>
                         <button className='delete__button' 
-                                onClick={() => {handleDeleteModal(property.id, property.ref)}}
-                            >
+                            onClick={() => {deleteProperty(property.id)}}
+                        >
                         </button>
                     </div>
                 </div>  
@@ -202,7 +189,7 @@ const PropertyList = () => {
                     </div>
                 </div>
             </div>
-            <div hidden={!updateModal} className='update--modal' >
+           {/*<div hidden={!updateModal} className='update--modal' >
                 <div className='modal__update__background' >
                     <div className='modal__update__card'>
                         <div className='inputs__container'>
@@ -221,14 +208,14 @@ const PropertyList = () => {
                                 onChange={(event) => {setNewPrice(event.target.value);}}/>
                         </div>
                         <div className='modal--buttons--container'>
-                            {/*
+                            {
                             <button className='modal__update__button' onClick={() => {updateProperty(updatedId)}}>Update</button>
                             <button className='modal__update__button' onClick={handleUpdateModalClose}>Close</button>
-                            */}
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
         <br />
         </>

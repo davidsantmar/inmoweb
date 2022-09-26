@@ -21,6 +21,7 @@ export const authentication = firebase;
 export const db = firebase.firestore();
 export const storage = firebase.storage();
 export const imagesData = firebase.firestore();
+export const usersData = firebase.firestore();
 
 //export const db = getFirestore(app);
 //export const storage = getStorage(app);

@@ -25,7 +25,7 @@ function App() {
               <Route path="/contact" exact element={<Contact />} />
               <Route path="/about" exact element={<AboutUs />} />
               <Route path="/createProperty" exact element={<CreateProperty />} />
-              <Route path="/addUser" exact element={<UsersList />} />
+              <Route path="/usersList" exact element={<UsersList />} />
               <Route path="/propertyList" exact element={<PropertyList />} />
             </Routes>
           </main>

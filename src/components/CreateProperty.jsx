@@ -86,7 +86,7 @@ function CreateProperty() {
             <Link to='/propertyList' className = 'admin__button nav__link'>
                 Property list
             </Link> 
-            <Link to='/addUser' className = 'admin__button nav__link'>
+            <Link to='/usersList' className = 'admin__button nav__link'>
                 Users management
             </Link> 
         </nav>

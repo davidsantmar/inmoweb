@@ -1,59 +1,46 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addUser } from '../redux/actions/addUserActionCreator';
-import { addUserFirebase } from "../firebase/dbactions";
-import firebase from "firebase/compat/app";
+import { usersData } from '../firebase/index';
+import { collection, addDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { ref, getStorage, deleteObject } from 'firebase/storage';
+
 
 function UsersList() {
-    const dispatch = useDispatch();
-    const [emails, setEmails] = useState([]);
-    const [user, setUser] = useState("");
-    const grantedEmails = firebase.firestore().collection('users_admin');
-    
-    function handleChange(event) {
-      setUser(event.target.value);
-    }
-    const handleEnterPressed = (event) => {
-      if(event.key === 'Enter'){
-          handleClick();        
-      }
-    }
-    function getDatos(){
-      const users = [];
-      grantedEmails
-      .get()
-      .then((results) => {
-        const data = results.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        for (let i = 0; i <= data.length; i++){
-          users.push(data[i].user);
-        }
-        //return data;
+  const [user, setUser] = useState('');
+  const [users, setUsers] = useState([]);
+  const usersCollectionsRef = collection(usersData, 'users_admin');
+  const [showModal, setShowModal] = useState(false); 
+  const [deletedUser, setDeletedUser] = useState('');
 
-      });
-      console.log(users);//habemus array
-      //setEmails(emails => [...emails, users]);
-      setEmails([...emails, users]); //no funciona
-      console.log(emails);
-      return users;
+  const handleEnterPressed = (event) => {
+    if(event.key === 'Enter'){
+        handleClick();        
     }
-    function handleClick() {
-      dispatch(addUser(user));
-      setUser(" ");
-      addUserFirebase('admin', {user: user})
-    }
-    function showUsers() {
-      dispatch(showUsers(getDatos()));
-      console.log(showUsers(getDatos()));
-    }
-    const reset = () => {
-      window.location.reload();
   }
-    return (
+  const handleClick = async () => {
+    await addDoc(usersCollectionsRef, {
+      user: user,
+    })
+    reset();
+  }
+  const showUsers = async () => {
+      const data = await getDocs(usersCollectionsRef);
+      setUsers(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+  }
+  const deleteUser = async (id) => {
+    setShowModal(true);
+    const userDoc = doc(usersData, 'users_admin', id);
+    await deleteDoc(userDoc);  
+  }
+  const handleDeleteModalClose = (e) => {
+    setShowModal(false);
+  }
+  const reset = () => {
+    window.location.reload();
+  }
+  return(
       <>
+      <div className='users--list'>
         <div className='sub--title' data-testid='subTitle'>
             <h1>USERS LIST</h1>
             <div className='reset' onClick={reset}></div>
@@ -70,8 +57,9 @@ function UsersList() {
           <input
             type='text'
             className='email__field'
-            onChange={handleChange}
-            value={user}
+            onChange={(event) => {
+              setUser(event.target.value);
+            }}     
             placeholder='Type new user'
             onKeyPress={handleEnterPressed}
           />
@@ -80,18 +68,53 @@ function UsersList() {
             onClick={handleClick}
             className='submit__button'
           >
-            Add
+            <strong className='add__symbol'>&#x2B;</strong>
           </button>
           <button
             className='submit__button'
             type="button"
             onClick={showUsers}
           >
-            Show users
+            Show granted users
           </button>
         </div>
-      </>
+        <div className='users'>
+          {users.map((user, i) =>{
+            return(
+              <>
+                <div className='user__view' key={i}>
+                  <span className='user__email'>{user.user}</span>
+                  <button className='delete__user' 
+                    onClick={() => deleteUser(user.id)}
+                  >
+                    &#10060;
+                  </button>
+                </div>
+              </>
+            )
+          })
+        }
+        </div>
+        <div hidden={!showModal} className='modal'> 
+                <div className='modal__pa__background' onClick={handleDeleteModalClose}>
+                    <div className='modal__pa__card'>
+                        <h2 className='modal__pa__title'>Are you sure?</h2>
+                        <div className='modal--buttons--container'>
+                            <button className='modal__delete__button' 
+                                onClick={() => {deleteUser(deletedUser)}}
+                            >
+                                Delete
+                            </button>
+                            <button className='modal__cancel__button'>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </>
     );
-  }
+};
   
-  export default UsersList;
+export default UsersList;
