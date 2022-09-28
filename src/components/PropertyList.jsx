@@ -3,13 +3,14 @@ import '../App.scss';
 import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { ref, getStorage, getDownloadURL, deleteObject, listAll } from 'firebase/storage';
+import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const propertiesCollectionsRef = collection(db, 'properties');
   const imagesDataCollections = collection(imagesData, 'pictures');
   const [pictures, setPictures] = useState([]);
+  const [showModal, setShowModal] = useState(false); 
   const [reference, setReference] = useState(null);
   const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
@@ -19,7 +20,6 @@ const PropertyList = () => {
   const [newExtras, setNewExtras] = useState('');
   const [newPrice, setNewPrice] = useState(0);
   const [newPicture, setNewPicture] = useState('');
-  const [showModal, setShowModal] = useState(false); 
   const [updateModal, setUpdateModal] = useState(false);
   const [updatedId, setUpdatedId] = useState('');
   const [deletedId, setDeletedId] = useState('');
@@ -64,10 +64,8 @@ pictures.map((picture) => {
                             element.style.width = '5rem';
                             element.style.borderRadius = '10px';
                             element.style.marginRight = '1rem';
-
                             element.src = url;
                         });
-                        
                     })
                 })
             }
@@ -105,10 +103,17 @@ pictures.map((picture) => {
         setUpdatedPrice(price);
     }
     */
-    const deleteProperty = async (id) => {
+    const actionModal = () => {
         setShowModal(true);
+    }
+    const deleteProperty = async (id) => {
         const propertyDoc = doc(db, 'properties', id);
         await deleteDoc(propertyDoc);
+        deletePictureData(id);
+    }
+    const deletePictureData = async (id) => {
+        const pictureDoc = doc(imagesData, 'pictures', id);
+        await deleteDoc(pictureDoc);
     }
     const handleDeleteModalClose = (e) => {
         setShowModal(false);
@@ -163,22 +168,19 @@ pictures.map((picture) => {
                     <div>
                     <div className='trash__div'>
                         <button className='delete__button' 
-                            onClick={() => {deleteProperty(property.id)}}
+                            onClick={actionModal}
                         >
                         </button>
                     </div>
                 </div>  
             </div>
-
-
-
             <div hidden={!showModal} className='modal'> 
                 <div className='modal__pa__background' onClick={handleDeleteModalClose}>
                     <div className='modal__pa__card'>
                         <h2 className='modal__pa__title'>Are you sure?</h2>
                         <div className='modal--buttons--container'>
                             <button className='modal__delete__button' 
-                                onClick={() => {deleteProperty(deletedId)}}
+                                onClick={() => {deleteProperty(property.id)}}
                             >
                                 Delete
                             </button>

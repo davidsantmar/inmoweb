@@ -52,10 +52,17 @@ function CreateProperty() {
       extras: newExtras,
       price: newPrice,
     })
-    addImages();
+    addImages(ref);
     reset();
   }
-  const addImages = async () => {
+  const addImages = async (id) => {
+    /*const docRef = doc(imagesData, 'pictures', id)
+    await setDoc(docRef, {
+      refe: Number(newRef), 
+      name: imageUpload.name,
+    }, { merge: true })*/
+
+
     await addDoc(imagesDataCollections, {
       refe: Number(newRef), 
       name: imageUpload.name,
