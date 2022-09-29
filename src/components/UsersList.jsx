@@ -43,7 +43,6 @@ function UsersList() {
       <div className='users--list'>
         <div className='sub--title' data-testid='subTitle'>
             <h1>USERS LIST</h1>
-            <div className='reset' onClick={reset}></div>
         </div>
         <nav className='admin--container'>
             <Link to='/createProperty' className = 'admin__button nav__link'>

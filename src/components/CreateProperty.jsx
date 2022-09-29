@@ -56,13 +56,6 @@ function CreateProperty() {
     reset();
   }
   const addImages = async (id) => {
-    /*const docRef = doc(imagesData, 'pictures', id)
-    await setDoc(docRef, {
-      refe: Number(newRef), 
-      name: imageUpload.name,
-    }, { merge: true })*/
-
-
     await addDoc(imagesDataCollections, {
       refe: Number(newRef), 
       name: imageUpload.name,
@@ -87,7 +80,6 @@ function CreateProperty() {
     <div className="PA--form">
          <div className='sub--title' data-testid='subTitle'>
             <h1>CREATE PROPERTY</h1>
-            <div className='reset' onClick={reset}></div>
         </div>
         <nav className='admin--container'>
             <Link to='/propertyList' className = 'admin__button nav__link'>

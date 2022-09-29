@@ -30,6 +30,7 @@ const PropertyList = () => {
   const [updatedRooms, setUpdatedRooms] = useState(newRooms);
   const [updatedExtras, setUpdatedExtras] = useState(newExtras);
   const [updatedPrice, setUpdatedPrice] = useState(newPrice);
+  const [counter, setCounter] = useState(0);
   const picturesNames = [];
   const picturesRefs = [];
 
@@ -48,6 +49,7 @@ pictures.map((picture) => {
 })
 
   const showPictures = (reference) => {
+    if (counter === 0) {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
@@ -70,6 +72,7 @@ pictures.map((picture) => {
                 })
             }
         }
+    }
   }
   /* -------- UPDATE FUNCTIONS -----------
   const updateProperty = async (id) => {
@@ -141,6 +144,7 @@ pictures.map((picture) => {
                 return a.ref - b.ref;     //map sorted
             })
             .map((property) => { 
+                showPictures(property.ref)
             return (
             <>
                 <div className='property__card' id='card'>
@@ -151,9 +155,6 @@ pictures.map((picture) => {
                     <span>Rooms: {property.rooms}</span>
                     <span>Extras: {property.extras}</span>
                     <span>Price: {property.price}</span>
-                    <button className='show__pictures__button' onClick={() => showPictures(property.ref)}>
-                        Show pictures posted
-                    </button>
                     <div className='footer__card__container'>
                         <div className='properties__pictures' id={property.ref}></div>
 

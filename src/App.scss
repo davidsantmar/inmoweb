@@ -50,73 +50,79 @@ hr{
     width: 93.5%;
 }
 @media (max-width: 680px){
-    .flats--grid{
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;  
-        font-size: 1.5rem;
-        font-weight: bold;
-        background-color: rgb(247, 242, 242);
-        font-family: 'Poppins';
-        color: grey;
-            .card__picture__container{
-                display: flex;
-                justify-content: center;
-                .card__picture{
-                    border-radius: 10px;
-                    border: solid 1px black;
-                }
+    .properties{
+        .filter--container{
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem;
+            .cheaper__button{
+                color: blue;
+                border-radius: 10px;
+                margin-right: 1rem;
+                font-size: 1rem;
             }
-            .money{
-                margin-left: 1rem;
+            .cheaper__button:hover{
+                background-color: green;
+                color: white;
             }
-            .card__features{
-                .m2{
-                    font-weight: lighter;
+        }
+        .flats--grid{
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;  
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Poppins';
+            color: grey;
+            .property--card{
+                background-color: rgb(247, 242, 242);
+                margin-bottom: 2rem;
+                padding: 1rem;
+                border-radius: 10px;
+                .properties__pictures{
+                    display: flex;
+                    flex-direction: row;
+                    overflow: scroll;
+                    margin-bottom: 1rem;
+                    margin-top: 1rem;
                 }
-                .rooms{
-                    font-family: 'Poppins';
-                    font-weight: bolder;
+                .money{
                     margin-left: 1rem;
                 }
-            }
-            .card__hr{
-                width: 100%;
-            }
-            .card__contact{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                .nav__link{
-                    text-decoration: none;
-                    color: black;
+                .card__features{
+                    .m2{
+                        font-weight: lighter;
+                    }
+                    .rooms{
+                        font-family: 'Poppins';
+                        font-weight: bolder;
+                        margin-left: 1rem;
+                    }
                 }
-                .nav__link:hover{
-                    color: green;
+                .card__hr{
+                    width: 100%;
+                }
+                .card__contact{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    .nav__link{
+                        text-decoration: none;
+                        color: black;
+                    }
+                    .nav__link:hover{
+                        color: green;
+                    }
+                }
+                .card__hr { 
+                    margin:1rem 0 1rem 0; 
+                    padding:0; 
+                    background-color: blue; 
+                    border: 0; 
+                    height:3px;        
                 }
             }
-            .card__hr { 
-                margin:1rem 0 1rem 0; 
-                padding:0; 
-                background-color: blue; 
-                border: 0; 
-                height:3px;        
-            }
-    }
-    .filter--container{
-        display: flex;
-        justify-content: flex-end;
-        padding: 1rem;
-    }
-    .cheaper__button, .relevance__button{
-        color: blue;
-        border-radius: 10px;
-        margin-right: 1rem;
-        font-size: 1rem;
-    }
-    .cheaper__button:hover, .relevance__button:hover{
-        background-color: green;
-        color: white;
+        }
     }
     .sub--title{
         display: flex;
@@ -174,6 +180,7 @@ hr{
         display: flex;
         flex-direction: column;
         padding: 1rem;
+        background-color: rgb(247, 242, 242);
         .request__field, .name__field, .email__field{
             height: 2rem;
             font-size: 2rem;
@@ -555,34 +562,6 @@ hr{
                 }
             }         
         }
-        /*.buttons--container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            .update__button{
-                background-color: rgb(226, 246, 226);
-                border-radius: 10px;
-                height: 2rem;
-                font-family: 'Poppins';
-                font-size: 1rem;
-            }
-            .update__button:hover{
-                background-color: lightgreen;
-                color: blue;
-            }
-            .delete__button{
-                border-radius: 10px;
-                height: 4rem;
-                width: 3.5rem;
-                margin-bottom: 1rem;
-                background-image: url('./images/trashcan.png');
-                background-size: cover;
-                border: solid 2px green;
-            }
-            .delete__button:hover{
-                border: solid 5px red;
-            }
-        }*/
     }
     .footer--container{
         display: flex;
@@ -705,7 +684,7 @@ hr{
                 }
             }
         }
-    }
+    }  
     input::-webkit-outer-spin-button,  //hide input arrows
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;

@@ -3,34 +3,35 @@ import { useState, useEffect } from 'react';
 import '../App.scss';
 import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
 
 
 const Properties  = () => {
     const [properties, setProperties] = useState([]);
-const propertiesCollectionsRef = collection(db, 'properties');
-const imagesDataCollections = collection(imagesData, 'pictures');
-const [pictures, setPictures] = useState([]);
-const picturesNames = [];
-const picturesRefs = [];
+    const propertiesCollectionsRef = collection(db, 'properties');
+    const imagesDataCollections = collection(imagesData, 'pictures');
+    const [pictures, setPictures] = useState([]);
+    const picturesNames = [];
+    const picturesRefs = [];
 
-  useEffect(() => {
-    const getProperties = async () => {
-      const data = await getDocs(propertiesCollectionsRef);
-      setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
-      const picturesData = await getDocs(imagesDataCollections);
-      setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
+    useEffect(() => {
+        const getProperties = async () => {
+        const data = await getDocs(propertiesCollectionsRef);
+        setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+        const picturesData = await getDocs(imagesDataCollections);
+        setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
 
-      
+        
 
-    }
-    getProperties();  
-  }, []);
-pictures.map((picture) => {
-    picturesNames.push(picture.name);
-    picturesRefs.push(picture.refe);
-})
+        }
+        getProperties();  
+    }, []);
+    pictures.map((picture) => {
+        picturesNames.push(picture.name);
+        picturesRefs.push(picture.refe);
+    })
+
 
   const showPictures = (reference) => {
         for (let i = 0; i <= picturesRefs.length; i ++){
@@ -45,8 +46,8 @@ pictures.map((picture) => {
                             const element = document.createElement('img');
                             rootElement.append(element);
                             element.style.border = 'solid 2px green';
-                            element.style.height = '5rem';
-                            element.style.width = '5rem';
+                            element.style.height = '22rem';
+                            element.style.width = '100%';
                             element.style.borderRadius = '10px';
                             element.style.marginRight = '1rem';
                             element.src = url;
@@ -68,59 +69,47 @@ pictures.map((picture) => {
             </div>
             <div className='filter--container' data-testid='filter-container'>
                 <button className='cheaper__button'  data-testid='cheaper-button'>Cheaper</button>
-                <button className='relevance__button' data-testid='relevance-button'>Relevance</button>
             </div>
             <div className='flats--grid' data-testid='flats-grid'>
                 {properties.sort(function (a, b) {
                     return a.ref - b.ref;     //map sorted
                 })
                 .map((property) => { 
+                    showPictures(property.ref)
                 return (
                 <>
-                    <div className='card__picture__container'>
-                        <div className='card__picture'>
+                    <div className='property--card'>
+                        <div className='properties__pictures' id={property.ref}></div>
+                        <div className='card__title'>
+                            {property.title}                    
+                        </div>
+                        <div className='card__description'>
+                            {property.description}                    
+                        </div>
+                        <i class='fa fa-money' style={{color: 'green'}}><span className='money'>{property.price} €</span></i>
+                        <div className='card__features'>
+                            <i class='fa fa-bed' style={{color: 'blue'}}><span className='rooms'>{property.rooms}</span></i><br />
+                            {property.meters} <span className='m2'>&#13217;</span><br />
+                            Extras: {property.extras}</div>
+                        <div className='card__reference'>
+                            Ref: {property.ref}                    
+                        </div>
+                        <hr className='card__hr'/>
+                        <div className='card__contact'>
+                            <Link to="/contact" className='nav__link' onClick={() => window.scrollTo(0, 0)}>
+                                Contact
+                                <span className='contact__icon'>&#128196;</span>
+                            </Link>
+                            <Link to="/mortgages" className='nav__link' onClick={() => window.scrollTo(0, 0)}>
+                                Mortgage calculator
+                                <span className='money__icon'>&#128181;</span>
+                            </Link>
                         </div>
                     </div>
-                    <div className='card__title'>
-                        Title: {property.title}                    
-                    </div>
-                    <div className='card__description'>
-                       Description: {property.description}                    
-                    </div>
-                    <i class="fa fa-money"><span className='money'>{property.price} €</span></i>
-                    <div className='card__features'>
-                        <i class="fa fa-bed"><span className='rooms'>{property.rooms}</span></i><br />
-                        {property.meters} <span className='m2'>&#13217;</span><br />
-                        Extras: {property.extras}</div>
-                    <div className='card__reference'>
-                        Ref: {property.ref}                    
-                    </div>
-                    <hr className='card__hr'/>
-                    <div className='card__contact'>
-                        <Link to="/contact" className='nav__link'>
-                            Contact
-                            <span className='contact__icon'>&#128196;</span>
-                        </Link>
-                        <Link to="/mortgages" className='nav__link'>
-                            Mortgage calculator
-                            <span className='money__icon'>&#128181;</span>
-                        </Link>
-                    </div>
-                
-
-
-
-
-
-                    
-                    
-            
-          
-            </>
-            );
-        })}
-        
-        </div>
+                    </>
+                    );
+                })}
+            </div>
         </div>
         </>
         );
