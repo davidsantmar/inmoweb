@@ -77,7 +77,7 @@ function CreateProperty() {
   }
   return (
     <>
-    <div className="PA--form">
+    <div className="create--property">
          <div className='sub--title' data-testid='subTitle'>
             <h1>CREATE PROPERTY</h1>
         </div>

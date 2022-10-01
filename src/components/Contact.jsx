@@ -38,66 +38,68 @@ const Contact = () => {
     };
     return (
         <>
-        <div className='sub--title' data-testid='subTitle2'>
-            <h2>CONTACT FORM</h2>
-        </div>
-            <form className='contact--container' 
-            onSubmit={onSubmit} 
-            data-testid='form-container'>
-                <input
-                    className='name__field'
-                    type='text'
-                    name='from_name'
-                    placeholder=' Type your name'
-                    value={toSend.from_name}
-                    onChange={handleChange}
-                    data-testid='name-field'
-                />
-                <br />
-                <br />
-                <input
-                    className='email__field'
-                    type='text'
-                    name='reply_to'
-                    placeholder=' Your email'
-                    value={toSend.reply_to}
-                    onChange={handleChange}
-                    data-testid='email-field'
-                />
-                <br />
-                <br />
-                <textarea
-                    className='request__field'
-                    name='message'
-                    placeholder=' Your message'
-                    value={toSend.message}
-                    onChange={handleChange}
-                    data-testid='message-field'
-                />
-                <br />
-                <br />
-                <button 
-                    className='submit__button' 
-                    type='submit'
-                    data-testid='submit-button'
-                >
-                    SUBMIT
-                </button>
-            </form>
-            <div className='sub--title' data-testid='subTitle1'>
-                <h4>CONTACT DETAILS</h4>
+        <div className='contact'>
+            <div className='sub--title' data-testid='subTitle2'>
+                <h2>CONTACT FORM</h2>
             </div>
-            <div className='contact--details' data-testid='contact-details'>
-                Pl. Catalunya, 1<br />
-                Barcelona <br />
-                Spain<br />
-                loremipsum@loremipsum.com<br />
-                935551122<br />
-            </div>
-            <div class="google--map" data-testid='google-map'>
-                <iframe className='map__frame' title='google-map'
-                src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
-                </iframe>
+                <form className='contact--container' 
+                onSubmit={onSubmit} 
+                data-testid='form-container'>
+                    <input
+                        className='name__field'
+                        type='text'
+                        name='from_name'
+                        placeholder=' Type your name'
+                        value={toSend.from_name}
+                        onChange={handleChange}
+                        data-testid='name-field'
+                    />
+                    <br />
+                    <br />
+                    <input
+                        className='email__field'
+                        type='text'
+                        name='reply_to'
+                        placeholder=' Your email'
+                        value={toSend.reply_to}
+                        onChange={handleChange}
+                        data-testid='email-field'
+                    />
+                    <br />
+                    <br />
+                    <textarea
+                        className='request__field'
+                        name='message'
+                        placeholder=' Your message'
+                        value={toSend.message}
+                        onChange={handleChange}
+                        data-testid='message-field'
+                    />
+                    <br />
+                    <br />
+                    <button 
+                        className='submit__button' 
+                        type='submit'
+                        data-testid='submit-button'
+                    >
+                        SUBMIT
+                    </button>
+                </form>
+                <div className='sub--title' data-testid='subTitle1'>
+                    <h4>CONTACT DETAILS</h4>
+                </div>
+                <div className='contact--details' data-testid='contact-details'>
+                    Pl. Catalunya, 1<br />
+                    Barcelona <br />
+                    Spain<br />
+                    loremipsum@loremipsum.com<br />
+                    935551122<br />
+                </div>
+                <div class="google--map" data-testid='google-map'>
+                    <iframe className='map__frame' title='google-map'
+                    src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
+                </div>
             </div>
         </>
     );

@@ -99,11 +99,12 @@ const Mortages = () => {
 
     return (
         <>
+        <div className='mortgages'>
             <div className='sub--title' data-testid='subTitle2'>
                 <h1>MORTGAGE SIMULATOR</h1>
                 <div className='reset' onClick={reset}></div>
             </div>
-            <form>
+            <form className='mortgage--form'>
                 <div className='mortgage--title' data-testid='house-price-title'>
                     House price
                     <input  type='tel' className='house__price__input' 
@@ -210,6 +211,7 @@ const Mortages = () => {
                     {monthlyFee + ' €'}
                 </div>
             </div>
+        </div>
         </>
     );
 };

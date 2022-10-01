@@ -4,6 +4,7 @@ import background1 from '../images/background1.png';
 const AboutUs = () => {
     return (
         <>
+        <div className='about--us'>
             <div className='sub--title' data-testid='subTitle'>
                 <h2>
                     WE ARE THE BEST REAL ESTATE
@@ -20,6 +21,7 @@ const AboutUs = () => {
             <div className='image--container'>
                 <img className='background1' src={background1} alt='delivering-keys' data-testid='backgroundImage'/>
             </div>
+        </div>
         </>
     );
 };
