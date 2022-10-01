@@ -92,6 +92,7 @@ const Contact = () => {
                 Barcelona <br />
                 Spain<br />
                 loremipsum@loremipsum.com<br />
+                935551122<br />
             </div>
             <div class="google--map" data-testid='google-map'>
                 <iframe className='map__frame' title='google-map'
