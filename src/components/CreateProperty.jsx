@@ -31,7 +31,6 @@ function CreateProperty() {
         addImage(url);
       });
     });
-    console.log(imageUpload.name);
   };
   useEffect(() => {
     listAll(imageListRef).then((response) => {
@@ -41,7 +40,7 @@ function CreateProperty() {
         });
       });
     });
-  }, []);
+  });
   const createProperty = async () =>{
     await addDoc(propertiesCollectionsRef, {
       ref: Number(newRef), 

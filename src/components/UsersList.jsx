@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usersData } from '../firebase/index';
 import { collection, addDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { ref, getStorage, deleteObject } from 'firebase/storage';
+//import { ref, getStorage, deleteObject } from 'firebase/storage';
 
 
 function UsersList() {

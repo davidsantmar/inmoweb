@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../App.scss';
-import { db, imagesData } from '../firebase/index';
+import { db, imagesData, storage } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
@@ -8,10 +8,10 @@ import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const propertiesCollectionsRef = collection(db, 'properties');
-  const imagesDataCollections = collection(imagesData, 'pictures');
+  const picturesDataCollections = collection(imagesData, 'pictures');
   const [pictures, setPictures] = useState([]);
   const [showModal, setShowModal] = useState(false); 
-  const [reference, setReference] = useState(null);
+  /*const [reference, setReference] = useState(null);
   const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -29,8 +29,8 @@ const PropertyList = () => {
   const [updatedMeters, setUpdatedMeters] = useState(newMeters);
   const [updatedRooms, setUpdatedRooms] = useState(newRooms);
   const [updatedExtras, setUpdatedExtras] = useState(newExtras);
-  const [updatedPrice, setUpdatedPrice] = useState(newPrice);
-  const [counter, setCounter] = useState(0);
+  const [updatedPrice, setUpdatedPrice] = useState(newPrice);*/
+  //const [counter, setCounter] = useState(0);
   const picturesNames = [];
   const picturesRefs = [];
 
@@ -38,7 +38,7 @@ const PropertyList = () => {
     const getProperties = async () => {
       const data = await getDocs(propertiesCollectionsRef);
       setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
-      const picturesData = await getDocs(imagesDataCollections);
+      const picturesData = await getDocs(picturesDataCollections);
       setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
     }
     getProperties();  
@@ -49,7 +49,7 @@ pictures.map((picture) => {
 })
 
   const showPictures = (reference) => {
-    if (counter === 0) {
+    //if (counter === 0) {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
@@ -72,7 +72,7 @@ pictures.map((picture) => {
                 })
             }
         }
-    }
+    //}
   }
   /* -------- UPDATE FUNCTIONS -----------
   const updateProperty = async (id) => {
@@ -109,14 +109,43 @@ pictures.map((picture) => {
     const actionModal = () => {
         setShowModal(true);
     }
-    const deleteProperty = async (id) => {
+    const deleteProperty = async (id, refe) => {
         const propertyDoc = doc(db, 'properties', id);
         await deleteDoc(propertyDoc);
-        deletePictureData(id);
+        console.log(refe);
+        deletePictureData(refe);  //borrado pictures
+        deleteImages(refe);
     }
-    const deletePictureData = async (id) => {
-        const pictureDoc = doc(imagesData, 'pictures', id);
-        await deleteDoc(pictureDoc);
+    const deletePictureData =  (refe) => {
+        // Create a root reference
+        var storageRef = storage.ref();
+        // Create a reference 
+        var imageData = storageRef.child('pictures');
+
+        // Now we get the references of these files
+        imageData.listAll().then(function (result) {
+            result.items.forEach(function (file) {
+                console.log(file.id)
+                
+            });
+        }).catch(function (error) {
+            // Handle any errors
+        });
+    }
+    const deleteImages =  (refe) => {
+        // Create a root reference
+        var storageRef = storage.ref();
+        // Create a reference 
+        var imageRef = storageRef.child(`images/${refe}/`);
+
+        // Now we get the references of these files
+        imageRef.listAll().then(function (result) {
+            result.items.forEach(function (file) {
+                file.delete();
+            });
+        }).catch(function (error) {
+            // Handle any errors
+        });    
     }
     const handleDeleteModalClose = (e) => {
         setShowModal(false);
@@ -182,7 +211,7 @@ pictures.map((picture) => {
                         <h2 className='modal__pa__title'>Are you sure?</h2>
                         <div className='modal--buttons--container'>
                             <button className='modal__delete__button' 
-                                onClick={() => {deleteProperty(property.id)}}
+                                onClick={() => {deleteProperty(property.id, property.ref)}}
                             >
                                 Delete
                             </button>

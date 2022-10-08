@@ -34,7 +34,7 @@ const Header = () => {
               <span className='nav__about__us'>About us</span>
             </Link>
             <Link to="/mortgages" className="nav__link" data-testid='hipotecas-link'>
-                Mortages
+                Mortgages
             </Link>
             <Link to="/contact" className="nav__link" data-testid='contacto-link'>
                 Contact

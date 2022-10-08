@@ -21,9 +21,6 @@ const Properties  = () => {
         setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
         const picturesData = await getDocs(imagesDataCollections);
         setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
-
-        
-
         }
         getProperties();  
     }, []);
@@ -32,8 +29,7 @@ const Properties  = () => {
         picturesRefs.push(picture.refe);
     })
 
-
-  const showPictures = (reference) => {
+    const showPictures = (reference) => {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
@@ -56,7 +52,18 @@ const Properties  = () => {
                 })
             }
         }
-  }
+    }
+    const orderFlats =  (list) => {
+         list.sort(function (a, b) {
+            return a.price - b.price;     //map sorted
+        })
+        console.log('sorted!')
+    }
+    const orderByRef = (list) => {
+        list.sort (function (a, b) {
+            return  a.ref - b.ref;
+        })
+    }
   
     return (
         <>
@@ -65,11 +72,16 @@ const Properties  = () => {
                 <h1>PROPERTIES</h1>
             </div>
             <div className='filter--container' data-testid='filter-container'>
-                <button className='cheaper__button'  data-testid='cheaper-button'>Cheaper</button>
+                <button className='cheaper__button' 
+                    onClick={() =>{orderFlats(properties)}} 
+                    data-testid='cheaper-button'
+                >
+                    Cheaper
+                </button>
             </div>
             <div className='flats--grid' data-testid='flats-grid'>
-                {properties.sort(function (a, b) {
-                    return a.ref - b.ref;     //map sorted
+                {properties.sort (function (a, b) {
+                    return  a.ref - b.ref;
                 })
                 .map((property) => { 
                     showPictures(property.ref)
@@ -111,93 +123,4 @@ const Properties  = () => {
         </>
         );
     };
-
-
-
-            {/*<div className='flats--grid' data-testid='flats-grid'>
-                <div className='card' id='2' data-price='20000'>
-                    <div className='card__picture__container'>
-                        <div className='card__picture'>
-                            <img className='flat1' src={flat1} alt='flat'/>
-                        </div>
-                    </div>
-                    <div className='card__description'>
-                        Fantastic flat in Balmes street
-                    </div>
-                    <span className='card__price'>300.000 €</span>
-                    <div className='card__features'>4 hab.  110 m2  elevator</div>
-                    <hr className='card__hr'/>
-                    <div className='card__contact'>
-                        <Link to="/contacto" className='nav__link'>
-                            Contacto
-                            <span className='contact__icon'>&#128196;</span>
-                        </Link>
-                        <Link to="/hipotecas" className='nav__link'>
-                            Mortgage calculator
-                            <span className='money__icon'>&#128181;</span>
-                        </Link>
-                    </div>
-                </div>
-                <div className='card' id='2' data-price='20000'>
-                    <div className='card__picture__container'>
-                        <div className='card__picture'>
-                            <img className='flat2' src={flat2} alt='flat'/>
-                        </div>
-                    </div>
-                    <div className='card__description'>
-                        Fantastic flat in Balmes street
-                    </div>
-                    <span className='card__price' >200.000 €</span>
-                    <div className='card__features'>4 hab.  110 m2  elevator</div>
-                    <hr className='card__hr'/>
-                    <div className='card__contact'>
-                        <Link to="/contacto" className='nav__link'>
-                            Contacto
-                            <span className='contact__icon'>&#128196;</span>
-                        </Link>
-                    </div>
-                </div>
-                <div className='card' id='3'>
-                    <div className='card__picture__container'>
-                        <div className='card__picture'>
-                            <img className='flat3' src={flat3} alt='flat'/>
-                        </div>
-                    </div>
-                    <div className='card__description'>
-                        Fantastic flat in Balmes street
-                    </div>
-                    <span className='card__price'>410.000 €</span>
-                    <div className='card__features'>4 hab.  110 m2  elevator</div>
-                    <hr className='card__hr'/>
-                    <div className='card__contact'>
-                        <Link to="/contacto" className='nav__link'>
-                            Contacto
-                            <span className='contact__icon'>&#128196;</span>
-                        </Link>
-                    </div>
-                </div>
-                <div className='card' id='4'>
-                    <div className='card__picture__container'>
-                        <div className='card__picture'>
-                            <img className='flat4' src={flat4} alt='flat'/>
-                        </div>
-                    </div>
-                    <div className='card__description'>
-                        Fantastic flat in Balmes street
-                    </div>
-                    <span className='card__price'>420.000 €</span>
-                    <div className='card__features'>4 hab.  110 m2  elevator</div>
-                    <hr className='card__hr'/>
-                    <div className='card__contact'>
-                        <Link to="/contacto" className='nav__link'>
-                            Contacto
-                            <span className='contact__icon'>&#128196;</span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-            </>
-    );*/}
-
-
 export default Properties;
