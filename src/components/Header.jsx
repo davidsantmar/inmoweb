@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
-import { useDispatch, useSelector} from "react-redux";
-import { login, logout } from "../redux/actions/authActionCreator";
+import { useDispatch, useSelector} from 'react-redux';
+import { login, logout } from '../redux/actions/authActionCreator';
 import { firebaseLogin } from '../firebase/actions';
 
 

@@ -1,16 +1,18 @@
 import { useState, useEffect} from 'react';
 import '../App.scss';
-import { db, imagesData } from '../firebase/index';
+import { db } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, doc, setDoc} from 'firebase/firestore';
 import { storage} from '../firebase/index';
 import {ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
-import { addImage } from '../redux/actions/addImageActionCreator'
+import { addImage } from '../redux/actions/addImageActionCreator';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/authActionCreator';
+
 
 function CreateProperty() {
   const propertiesCollectionsRef = collection(db, 'properties');
-  const imagesDataCollections = collection(imagesData, 'pictures');
-
   const [newRef, setNewRef] = useState(0);
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -21,12 +23,22 @@ function CreateProperty() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
   const imageListRef = ref(storage, 'images/');
+  const auth = getAuth();
+  const dispatch = useDispatch();
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      dispatch(login());
+    } else {
+      console.log('logout');
+    }
+  });
   const uploadImage = () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${newRef}/${imageUpload.name}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {  //actualización del front sin reload page
+      getDownloadURL(snapshot.ref).then((url) => {  //actualización de images en front sin reload page
         setImageList((prev) => [...prev, url]);
         addImage(url);
       });
@@ -55,10 +67,6 @@ function CreateProperty() {
     reset();
   }
   const addImages = async () => {
-    /*await addDoc(imagesDataCollections, {
-      refe: Number(newRef), 
-      name: imageUpload.name,
-    })*/
     await setDoc(doc(db, 'pictures', newRef), {
       refe: Number(newRef), 
       name: imageUpload.name,
@@ -96,6 +104,7 @@ function CreateProperty() {
         <input className='ref__field'
           type='number'
           placeholder='Reference'
+          id='ref-field'
           data-testid='ref-field'
           onChange={(event) => {
           setNewRef(event.target.value);
@@ -103,12 +112,14 @@ function CreateProperty() {
         <input className='title__field'
           type='text'
           placeholder='Title'
+          id='title-field'
           data-testid='ref-field' 
           onChange={(event) => {
           setNewTitle(event.target.value);
         }}></input>
         <textarea className='text__field'
           type='text-area'
+          id='description-field'
           placeholder='Description'
           data-testid='text-field'
           onChange={(event) => {
@@ -117,6 +128,7 @@ function CreateProperty() {
         <input className='meters__field'
           type='number'
           placeholder='Meters'
+          id='meters-field'
           data-testid='meters-field'
           onChange={(event) => {
             setNewMeters(event.target.value);
@@ -124,6 +136,7 @@ function CreateProperty() {
         <input className='rooms__field'
           type='number'
           placeholder='Rooms'
+          id='rooms-field'
           data-testid='rooms-field'
           onChange={(event) => {
             setNewRooms(event.target.value);
@@ -131,6 +144,7 @@ function CreateProperty() {
         <input className='extras__field'
           type='text'
           placeholder='Extras'
+          id='extras-field'
           data-testid='extras-field'
           onChange={(event) => {
             setNewExtras(event.target.value);
@@ -138,11 +152,12 @@ function CreateProperty() {
         <input className='price__field'
           type='number'
           placeholder='Price'
+          id='price-field'
           data-testid='price-field'
           onChange={(event) => {
             setNewPrice(event.target.value);
         }}></input>
-        <input  className='pictures__field' placeholder='new image' type='file' 
+        <input  className='pictures__field' placeholder='new image' id='pictures-field' type='file' 
           onChange={(event) => {setImageUpload(event.target.files[0])}}
         > 
         </input>
@@ -151,7 +166,7 @@ function CreateProperty() {
             {imageList.map((url, i) => {
               return(
               <>
-                <div className='picture__container' key={i}>
+                <div className='picture__container' id='picture-container' key={i}>
                   <img src={url} className='picture__square' id='picture' alt='flat'>
                   </img>
                   <div className='delete__button__container'>

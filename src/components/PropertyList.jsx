@@ -107,26 +107,21 @@ pictures.map((picture) => {
     }
     */
     const actionModal = (id, refe) => {
-        console.log(id);
-        console.log(refe);
         setDeletedId(id);
         setDeletedRef(refe);
         setShowModal(true);
     }
     const deleteProperty = async (id, refe) => {
-        //const propertyDoc = doc(db, 'properties', id);
-        //await deleteDoc(propertyDoc);
         const propertyDoc = doc(db, (`properties/${id}/`));   
-        console.log(id);
-        console.log(refe);
         await deleteDoc(propertyDoc);
-        deletePictureData(refe);  //delete picturesData & refs
+        deletePictureData(refe);  //delete picturesData (refs)
         deleteImages(refe);       //delere images
+
+        
     }
     const deletePictureData = async (refe) => {
         const pictureDoc = doc(db, (`pictures/${refe}/`));   
         await deleteDoc(pictureDoc);
-
     }
     const deleteImages =  (refe) => {
         // Create a root reference
@@ -139,7 +134,7 @@ pictures.map((picture) => {
                 file.delete();
             });
         }).catch(function (error) {
-            // Handle any errors
+            alert('An error has ocurred.')
         });    
     }
     const handleDeleteModalClose = (e) => {

@@ -6,6 +6,7 @@ export async function firebaseLogin() {
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
   const data = await authentication.auth().signInWithPopup(provider);
   return data?.additionalUserInfo?.profile.email;
+  
 }
 
 export function firebaseLogout() {

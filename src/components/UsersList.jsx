@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usersData } from '../firebase/index';
 import { collection, addDoc, getDocs, doc, deleteDoc } from 'firebase/firestore';
-//import { ref, getStorage, deleteObject } from 'firebase/storage';
-
+import { useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/authActionCreator';
 
 function UsersList() {
   const [user, setUser] = useState('');
@@ -11,6 +13,24 @@ function UsersList() {
   const usersCollectionsRef = collection(usersData, 'users_admin');
   const [showModal, setShowModal] = useState(false); 
   const [deletedUser, setDeletedUser] = useState('');
+  const auth = getAuth();
+  const dispatch = useDispatch();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      dispatch(login());
+    } else {
+      console.log('logout');
+    }
+  });
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionsRef);
+      setUsers(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+    }
+    getUsers();
+   }, []);
 
   const handleEnterPressed = (event) => {
     if(event.key === 'Enter'){
@@ -22,10 +42,6 @@ function UsersList() {
       user: user,
     })
     reset();
-  }
-  const showUsers = async () => {
-      const data = await getDocs(usersCollectionsRef);
-      setUsers(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
   }
   const deleteUser = async (id) => {
     setShowModal(true);
@@ -69,16 +85,10 @@ function UsersList() {
           >
             <strong className='add__symbol'>&#x2B;</strong>
           </button>
-          <button
-            className='submit__button'
-            type="button"
-            onClick={showUsers}
-          >
-            Show granted users
-          </button>
         </div>
         <div className='users'>
-          {users.map((user, i) =>{
+          {users
+          .map((user, i) =>{
             return(
               <>
                 <div className='user__view' key={i}>
