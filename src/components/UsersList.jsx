@@ -16,7 +16,7 @@ function UsersList() {
   const auth = getAuth();
   const dispatch = useDispatch();
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, (user) => {  //keep user after refresh
     if (user) {
       const uid = user.uid;
       dispatch(login());
@@ -46,13 +46,14 @@ function UsersList() {
   const deleteUser = async (id) => {
     setShowModal(true);
     const userDoc = doc(usersData, 'users_admin', id);
-    await deleteDoc(userDoc);  
+    await deleteDoc(userDoc);
+    reset();
   }
   const handleDeleteModalClose = (e) => {
     setShowModal(false);
   }
-  const reset = () => {
-    window.location.reload();
+  const reset = async () => {
+    await window.location.reload();
   }
   return(
       <>

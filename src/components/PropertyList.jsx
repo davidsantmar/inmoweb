@@ -4,6 +4,9 @@ import { db, imagesData, storage } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/authActionCreator';
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
@@ -13,6 +16,8 @@ const PropertyList = () => {
   const [showModal, setShowModal] = useState(false);
   const [deletedID, setDeletedId] = useState('');
   const [deletedRef, setDeletedRef] = useState(null);
+  const auth = getAuth();
+  const dispatch = useDispatch();
   /*const [reference, setReference] = useState(null);
   const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
@@ -45,6 +50,14 @@ const PropertyList = () => {
     }
     getProperties();  
   }, []);
+  onAuthStateChanged(auth, (user) => {  //keep user after refresh
+    if (user) {
+      const uid = user.uid;
+      dispatch(login());
+    } else {
+      console.log('logout');
+    }
+  });
 pictures.map((picture) => {
     picturesNames.push(picture.name);
     picturesRefs.push(picture.refe);
@@ -115,9 +128,8 @@ pictures.map((picture) => {
         const propertyDoc = doc(db, (`properties/${id}/`));   
         await deleteDoc(propertyDoc);
         deletePictureData(refe);  //delete picturesData (refs)
-        deleteImages(refe);       //delere images
-
-        
+        deleteImages(refe);       //delete images
+        reset();
     }
     const deletePictureData = async (refe) => {
         const pictureDoc = doc(db, (`pictures/${refe}/`));   
