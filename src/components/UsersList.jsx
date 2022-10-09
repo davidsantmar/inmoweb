@@ -43,6 +43,10 @@ function UsersList() {
     })
     reset();
   }
+  const actionModal = (id) => {
+    setDeletedUser(id);
+    setShowModal(true);
+}
   const deleteUser = async (id) => {
     setShowModal(true);
     const userDoc = doc(usersData, 'users_admin', id);
@@ -52,8 +56,8 @@ function UsersList() {
   const handleDeleteModalClose = (e) => {
     setShowModal(false);
   }
-  const reset = async () => {
-    await window.location.reload();
+  const reset = () => {
+     window.location.reload();
   }
   return(
       <>
@@ -95,7 +99,7 @@ function UsersList() {
                 <div className='user__view' key={i}>
                   <span className='user__email'>{user.user}</span>
                   <button className='delete__user' 
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => actionModal(user.id)}
                   >
                     &#10060;
                   </button>
