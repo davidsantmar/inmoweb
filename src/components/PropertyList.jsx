@@ -10,7 +10,9 @@ const PropertyList = () => {
   const propertiesCollectionsRef = collection(db, 'properties');
   const picturesDataCollections = collection(imagesData, 'pictures');
   const [pictures, setPictures] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
+  const [deletedID, setDeletedId] = useState('');
+  const [deletedRef, setDeletedRef] = useState(null);
   /*const [reference, setReference] = useState(null);
   const [pictureName, setPictureName] = useState('');
   const [newTitle, setNewTitle] = useState('');
@@ -49,7 +51,6 @@ pictures.map((picture) => {
 })
 
   const showPictures = (reference) => {
-    //if (counter === 0) {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
@@ -72,7 +73,6 @@ pictures.map((picture) => {
                 })
             }
         }
-    //}
   }
   /* -------- UPDATE FUNCTIONS -----------
   const updateProperty = async (id) => {
@@ -106,38 +106,33 @@ pictures.map((picture) => {
         setUpdatedPrice(price);
     }
     */
-    const actionModal = () => {
+    const actionModal = (id, refe) => {
+        console.log(id);
+        console.log(refe);
+        setDeletedId(id);
+        setDeletedRef(refe);
         setShowModal(true);
     }
     const deleteProperty = async (id, refe) => {
-        const propertyDoc = doc(db, 'properties', id);
-        await deleteDoc(propertyDoc);
+        //const propertyDoc = doc(db, 'properties', id);
+        //await deleteDoc(propertyDoc);
+        const propertyDoc = doc(db, (`properties/${id}/`));   
+        console.log(id);
         console.log(refe);
-        deletePictureData(refe);  //borrado pictures
-        deleteImages(refe);
+        await deleteDoc(propertyDoc);
+        deletePictureData(refe);  //delete picturesData & refs
+        deleteImages(refe);       //delere images
     }
-    const deletePictureData =  (refe) => {
-        // Create a root reference
-        var storageRef = storage.ref();
-        // Create a reference 
-        var imageData = storageRef.child('pictures');
+    const deletePictureData = async (refe) => {
+        const pictureDoc = doc(db, (`pictures/${refe}/`));   
+        await deleteDoc(pictureDoc);
 
-        // Now we get the references of these files
-        imageData.listAll().then(function (result) {
-            result.items.forEach(function (file) {
-                console.log(file.id)
-                
-            });
-        }).catch(function (error) {
-            // Handle any errors
-        });
     }
     const deleteImages =  (refe) => {
         // Create a root reference
-        var storageRef = storage.ref();
+        let storageRef = storage.ref();
         // Create a reference 
-        var imageRef = storageRef.child(`images/${refe}/`);
-
+        let imageRef = storageRef.child(`images/${refe}/`);
         // Now we get the references of these files
         imageRef.listAll().then(function (result) {
             result.items.forEach(function (file) {
@@ -199,7 +194,7 @@ pictures.map((picture) => {
                     <div>
                     <div className='trash__div'>
                         <button className='delete__button' 
-                            onClick={actionModal}
+                            onClick={() => {actionModal(property.id, property.ref)}}
                         >
                         </button>
                     </div>
@@ -211,7 +206,7 @@ pictures.map((picture) => {
                         <h2 className='modal__pa__title'>Are you sure?</h2>
                         <div className='modal--buttons--container'>
                             <button className='modal__delete__button' 
-                                onClick={() => {deleteProperty(property.id, property.ref)}}
+                                onClick={() => {deleteProperty(deletedID, deletedRef)}}
                             >
                                 Delete
                             </button>

@@ -2,7 +2,7 @@ import { useState, useEffect} from 'react';
 import '../App.scss';
 import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, setDoc} from 'firebase/firestore';
 import { storage} from '../firebase/index';
 import {ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import { addImage } from '../redux/actions/addImageActionCreator'
@@ -51,11 +51,15 @@ function CreateProperty() {
       extras: newExtras,
       price: newPrice,
     })
-    addImages(ref);
+    addImages();
     reset();
   }
-  const addImages = async (id) => {
-    await addDoc(imagesDataCollections, {
+  const addImages = async () => {
+    /*await addDoc(imagesDataCollections, {
+      refe: Number(newRef), 
+      name: imageUpload.name,
+    })*/
+    await setDoc(doc(db, 'pictures', newRef), {
       refe: Number(newRef), 
       name: imageUpload.name,
     })
