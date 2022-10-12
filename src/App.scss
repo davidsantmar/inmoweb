@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+html {
+    position: relative;
+    min-height: 100%;
+}
 body{
     font-family: 'Poppins';
     color: black;
@@ -52,6 +56,7 @@ hr{
 
 @media (max-width: 680px){
     .properties{
+        margin-bottom: 1rem;
         .sub--title{
             display: flex;
             justify-content: space-evenly;
@@ -119,10 +124,13 @@ hr{
                     justify-content: space-between;
                     .nav__link{
                         text-decoration: none;
-                        color: black;
+                        padding: 1rem;
+                        color: grey;
+                        background-color: rgb(226, 246, 226);
+                        border-radius: 10px;
                     }
                     .nav__link:hover{
-                        color: green;
+                        background-color: lightgreen;
                     }
                 }
                 .card__hr { 
@@ -342,7 +350,8 @@ hr{
             }
         }
     }
-    .create--property{
+    .create--property{     
+        margin-bottom: 1rem;
         .sub--title{
             display: flex;
             justify-content: space-evenly;
@@ -445,6 +454,7 @@ hr{
         }
     }
     .property--list{
+        margin-bottom: 1rem;
         .sub--title{
             display: flex;
             justify-content: center;
@@ -649,6 +659,8 @@ hr{
         display: flex;
         justify-content: center;
         width: 100%;
+        position: absolute;
+        bottom: 0;
         .contact--title{
             background-color: rgb(226, 246, 226);
         }
@@ -657,7 +669,6 @@ hr{
             font-size: .5rem;
             background-color: white;
             border-radius: 10px;
-            margin-top: 1rem;
             margin-bottom: 1rem;
           }
           .go--container{
@@ -696,6 +707,8 @@ hr{
         }
         .add--user--container{
             padding: 1rem;
+            display: flex;
+            justify-content: center;
             .email__field{
                 height: 2rem;
                 font-size: 2rem;
@@ -729,6 +742,12 @@ hr{
                 background-color: lightgreen;
                 color: blue;
             }
+        }
+        .granted_users_title{
+            display: flex;
+            justify-content: center;
+            background-color: rgb(226, 246, 226);
+
         }
         .users{
             display: flex;

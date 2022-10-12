@@ -67,10 +67,10 @@ function UsersList() {
         </div>
         <nav className='admin--container'>
             <Link to='/createProperty' className = 'admin__button nav__link'>
-                CreateProperty
+                &nbsp;CreateProperty&nbsp;
             </Link> 
             <Link to='/propertyList' className = 'admin__button nav__link'>
-                Property list
+            &nbsp;Property list&nbsp;
             </Link> 
         </nav>
         <div className='add--user--container'>
@@ -90,6 +90,9 @@ function UsersList() {
           >
             <strong className='add__symbol'>&#x2B;</strong>
           </button>
+        </div>
+        <div className='granted_users_title'>
+          <h3>Granted users</h3>
         </div>
         <div className='users'>
           {users

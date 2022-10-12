@@ -94,10 +94,10 @@ function CreateProperty() {
         </div>
         <nav className='admin--container'>
             <Link to='/propertyList' className = 'admin__button nav__link'>
-                Property list
+              &nbsp;Property list&nbsp;
             </Link> 
             <Link to='/usersList' className = 'admin__button nav__link'>
-                Users management
+              &nbsp;Users management&nbsp;
             </Link> 
         </nav>
       <div className='create--property--container' data-testid='form-container'>

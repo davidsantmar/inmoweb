@@ -165,10 +165,10 @@ pictures.map((picture) => {
             </div>
             <nav className='admin--container'>
                 <Link to='/createProperty' className = 'admin__button nav__link'>
-                    CreateProperty
+                    &nbsp;CreateProperty&nbsp;
                 </Link> 
                 <Link to='/usersList' className = 'admin__button nav__link'>
-                    Users management
+                    &nbsp;Users management&nbsp;
                 </Link> 
             </nav>
             <div className='properties--container'>
@@ -217,7 +217,9 @@ pictures.map((picture) => {
                             >
                                 Delete
                             </button>
-                            <button className='modal__cancel__button'>
+                            <button className='modal__cancel__button'
+                                onClick={reset}
+                            >
                                 Cancel
                             </button>
                         </div>
