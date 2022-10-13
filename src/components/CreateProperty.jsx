@@ -28,7 +28,6 @@ function CreateProperty() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
       dispatch(login());
     } else {
       console.log('logout');

@@ -98,7 +98,7 @@ hr{
                 .properties__pictures{
                     display: flex;
                     flex-direction: row;
-                    overflow: scroll;
+                    overflow: auto;
                     margin-bottom: 1rem;
                     margin-top: 1rem;
                 }
@@ -241,7 +241,7 @@ hr{
                 background-color: lightgray;
                 border-radius: 30px;
                 height: 20rem;
-                overflow-y: "auto";
+                overflow-y: 'auto';
               }
               .modal__title{
                   display: flex;
@@ -514,8 +514,7 @@ hr{
                     .properties__pictures{
                         display: flex;
                         flex-direction: row;
-                        overflow: scroll;
-                        overflow: hidden;
+                        overflow: auto;
                         margin-bottom: 1rem;
                         margin-top: 1rem;
                     }
@@ -565,7 +564,7 @@ hr{
                         background-color: lightgray;
                         border-radius: 20px;
                         height: 10rem;
-                        overflow-y: "auto";
+                        overflow-y: 'auto';
                         .modal__pa__title{
                             display: flex;
                             justify-content: center;
@@ -609,7 +608,7 @@ hr{
                         height: 35rem;
                         background-color: lightgray;
                         border-radius: 10px;
-                        overflow-y: "auto";
+                        overflow-y: 'auto';
                         .inputs__container{
                             display: flex;
                             flex-direction: column;
@@ -788,7 +787,7 @@ hr{
                 background-color: lightgray;
                 border-radius: 20px;
                 height: 10rem;
-                overflow-y: "auto";
+                overflow-y: 'auto';
                 .modal__pa__title{
                     display: flex;
                     justify-content: center;

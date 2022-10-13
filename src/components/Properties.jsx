@@ -5,6 +5,7 @@ import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
+import { getQueriesForElement } from '@testing-library/react';
 
 
 const Properties  = () => {
@@ -12,6 +13,8 @@ const Properties  = () => {
     const propertiesCollectionsRef = collection(db, 'properties');
     const imagesDataCollections = collection(imagesData, 'pictures');
     const [pictures, setPictures] = useState([]);
+    const [order, setOrder] = useState('');
+    const [reference, setReference] = useState(null);
     const picturesNames = [];
     const picturesRefs = [];
 
@@ -23,12 +26,13 @@ const Properties  = () => {
         setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
         }
         getProperties();  
+        setOrder('ref');
+
     }, []);
     pictures.map((picture) => {
         picturesNames.push(picture.name);
         picturesRefs.push(picture.refe);
     })
-
     const showPictures = (reference) => {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
@@ -53,15 +57,22 @@ const Properties  = () => {
             }
         }
     }
-    const orderFlats =  (list) => {
-         list.sort(function (a, b) {
-            return a.price - b.price;     //map sorted
-        })
-        console.log('sorted!')
+    const reset = () => {
+        window.location.reload();
+    }
+    const orderByPrice = (reference) => {
+        //reset();
+        setOrder('price');
+        showPictures(reference);
+        //showPictures(reference);
+
     }
     const orderByRef = (list) => {
         list.sort (function (a, b) {
-            return  a.ref - b.ref;
+            return  a[order] - b[order];
+        })
+        .map((property) => { 
+            showPictures(property[order]);  
         })
     }
   
@@ -73,7 +84,7 @@ const Properties  = () => {
             </div>
             <div className='filter--container' data-testid='filter-container'>
                 <button className='cheaper__button' 
-                    onClick={() =>{orderFlats(properties)}} 
+                    onClick={orderByPrice} 
                     data-testid='cheaper-button'
                 >
                     Cheaper
@@ -81,10 +92,11 @@ const Properties  = () => {
             </div>
             <div className='flats--grid' data-testid='flats-grid'>
                 {properties.sort (function (a, b) {
-                    return  a.ref - b.ref;
+                    return  a[order] - b[order];
                 })
                 .map((property) => { 
-                    showPictures(property.ref)
+                showPictures(property[order]);
+                
                 return (
                 <>
                     <div className='property--card'>
