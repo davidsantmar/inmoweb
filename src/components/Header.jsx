@@ -1,26 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { login, logout } from '../redux/actions/authActionCreator';
 import { firebaseLogin } from '../firebase/actions';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase/index';
 
 
 const Header = () => {
+    const [users, setUsers] = useState([]);    
+    const usersCollection = collection(db, 'users_admin');
     const dispatch = useDispatch();
     const { isAuthenticated } = useSelector((state) => {
         return {
           isAuthenticated: state.auth.isAuthenticated
         };
-      });
+    });
+    useEffect(() => {
+      const getUsers = async () => {
+        const data = await getDocs(usersCollection);
+        setUsers(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+      }
+      getUsers();  
+    }, []);
 
-    async function handleLogin(){   
+    async function handleLogin(){
+      const usuarios = [];
+      const emails = [];
       const email = await firebaseLogin();
-      if (email === 'davidsantmar@gmail.com'){ //user granted
+      for(let i=0; i < users.length; i++){
+        usuarios.push(users[i]);
+      }
+      for(let i=0; i < usuarios.length; i++){
+        emails.push(usuarios[i].user);
+      }
+      if (emails.includes(email)){
         dispatch(login());
-      }    
+      }else{
+        alert('User not authorised.')
+      }
     }
-    
     function handleLogout() {
       dispatch(logout());
     }

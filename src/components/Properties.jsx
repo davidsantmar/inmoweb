@@ -5,7 +5,6 @@ import { db, imagesData } from '../firebase/index';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
-import { getQueriesForElement } from '@testing-library/react';
 
 
 const Properties  = () => {
@@ -17,6 +16,7 @@ const Properties  = () => {
     const [reference, setReference] = useState(null);
     const picturesNames = [];
     const picturesRefs = [];
+   
 
     useEffect(() => {
         const getProperties = async () => {
@@ -73,7 +73,9 @@ const Properties  = () => {
         })
         .map((property) => { 
             showPictures(property[order]);  
+            
         })
+
     }
   
     return (
@@ -95,14 +97,13 @@ const Properties  = () => {
                     return  a[order] - b[order];
                 })
                 .map((property) => { 
-                showPictures(property[order]);
-                
+                    showPictures(property[order]);
                 return (
                 <>
                     <div className='property--card'>
                         <div className='properties__pictures' id={property.ref}></div>
                         <div className='card__title'>
-                            {property.title}                    
+                            {property.title}
                         </div>
                         <div className='card__description'>
                             {property.description}                    

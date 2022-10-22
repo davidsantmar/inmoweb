@@ -129,7 +129,7 @@ pictures.map((picture) => {
         await deleteDoc(propertyDoc);
         deletePictureData(refe);  //delete picturesData (refs)
         deleteImages(refe);       //delete images
-        reset();
+        //reset();
     }
     const deletePictureData = async (refe) => {
         const pictureDoc = doc(db, (`pictures/${refe}/`));   
