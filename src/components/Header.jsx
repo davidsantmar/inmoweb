@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../images/logo.png';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
@@ -42,6 +42,7 @@ const Header = () => {
     }
     function handleLogout() {
       dispatch(logout());
+      
     }
     return (
         <>
@@ -63,14 +64,13 @@ const Header = () => {
                 <Link to='/createProperty' className="nav__link">
                     Admin
                 </Link> 
-                <button
-                  onClick={handleLogout}
+                <Link to="/" onClick={handleLogout}
                   type="button"
                   className="logout__button" 
                   data-testid='logout-button'
                 >
                   Logout
-                </button>
+                </Link>
               </>
               ) : (
               <button

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import '../App.scss';
 import { db, imagesData, storage } from '../firebase/index';
 import { Link } from 'react-router-dom';
@@ -37,7 +37,6 @@ const PropertyList = () => {
   const [updatedRooms, setUpdatedRooms] = useState(newRooms);
   const [updatedExtras, setUpdatedExtras] = useState(newExtras);
   const [updatedPrice, setUpdatedPrice] = useState(newPrice);*/
-  //const [counter, setCounter] = useState(0);
   const picturesNames = [];
   const picturesRefs = [];
   useEffect(() => {
@@ -121,6 +120,7 @@ const PropertyList = () => {
         setDeletedId(id);
         setDeletedRef(refe);
         setShowModal(true);
+        deleteImages(refe);  
     }
     const deleteProperty = async (id, refe) => {
         const propertyDoc = doc(db, (`properties/${id}/`));   
@@ -134,10 +134,12 @@ const PropertyList = () => {
         await deleteDoc(pictureDoc);
     }
     const deleteImages =  (refe) => {
+        console.log(refe);
         // Create a root reference
         let storageRef = storage.ref();
         // Create a reference 
         let imageRef = storageRef.child(`images/${refe}/`);
+        console.log(imageRef)
         // Now we get the references of these files
         imageRef.listAll().then(function (result) {
             result.items.forEach(function (file) {
@@ -175,7 +177,7 @@ const PropertyList = () => {
                 .map((property) => { 
                     showPictures(property.ref)
                 return (
-                <>
+                <Fragment key={property.id}>
                     <div className='property__card' id='card'>
                         <span>Reference: {property.ref}</span>
                         <span>Title: {property.title}</span>
@@ -251,7 +253,7 @@ const PropertyList = () => {
                             </div>
                         </div> */}
                     </div>
-                </>
+                </Fragment>
                 );
                 })}
             </div>
