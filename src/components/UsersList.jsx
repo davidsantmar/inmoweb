@@ -92,7 +92,7 @@ function UsersList() {
           </button>
         </div>
         <div className='granted_users_title'>
-          <h3>Granted users</h3>
+          <h2>GRANTED USERS</h2>
         </div>
         <div className='users'>
           {users

@@ -129,7 +129,7 @@ pictures.map((picture) => {
         await deleteDoc(propertyDoc);
         deletePictureData(refe);  //delete picturesData (refs)
         deleteImages(refe);       //delete images
-        //reset();
+        reset();
     }
     const deletePictureData = async (refe) => {
         const pictureDoc = doc(db, (`pictures/${refe}/`));   
@@ -173,7 +173,7 @@ pictures.map((picture) => {
             </nav>
             <div className='properties--container'>
             {properties.sort(function (a, b) {
-                return a.ref - b.ref;     //map sorted
+                return a.ref - b.ref;    
             })
             .map((property) => { 
                 showPictures(property.ref)

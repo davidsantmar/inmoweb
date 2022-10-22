@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import '../App.scss';
 import { db, imagesData } from '../firebase/index';
@@ -13,21 +13,18 @@ const Properties  = () => {
     const imagesDataCollections = collection(imagesData, 'pictures');
     const [pictures, setPictures] = useState([]);
     const [order, setOrder] = useState('');
-    const [reference, setReference] = useState(null);
+    const picturesToDelete = [];
     const picturesNames = [];
     const picturesRefs = [];
-   
-
     useEffect(() => {
         const getProperties = async () => {
-        const data = await getDocs(propertiesCollectionsRef);
-        setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
-        const picturesData = await getDocs(imagesDataCollections);
-        setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
+            const data = await getDocs(propertiesCollectionsRef);
+            setProperties(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+            const picturesData = await getDocs(imagesDataCollections);
+            setPictures(picturesData.docs.map((doc) => ({...doc.data(), id:doc.id})));
         }
         getProperties();  
         setOrder('ref');
-
     }, []);
     pictures.map((picture) => {
         picturesNames.push(picture.name);
@@ -38,10 +35,12 @@ const Properties  = () => {
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
                 const listRef = ref(storage, `images/${picturesRefs[i]}/`);
+                let index = 0;
                 listAll(listRef)
                     .then((res) => {
                     res.items.forEach((itemRef) => {
                         getDownloadURL(itemRef).then(function(url) {
+                            index = index + 1;
                             const rootElement = document.getElementById(reference);
                             const element = document.createElement('img');
                             rootElement.append(element);
@@ -50,32 +49,20 @@ const Properties  = () => {
                             element.style.width = '100%';
                             element.style.borderRadius = '10px';
                             element.style.marginRight = '1rem';
+                            element.id = picturesRefs[i] + '-' + index; 
                             element.src = url;
+                            picturesToDelete.push(picturesRefs[i] + '-' + index);
                         });
                     })
                 })
             }
         }
     }
-    const reset = () => {
-        window.location.reload();
-    }
-    const orderByPrice = (reference) => {
-        //reset();
+    const orderByPrice = () => {
+        for (let i = 0; i < picturesToDelete.length; i++) {
+            document.getElementById(picturesToDelete[i]).remove();
+        }
         setOrder('price');
-        showPictures(reference);
-        //showPictures(reference);
-
-    }
-    const orderByRef = (list) => {
-        list.sort (function (a, b) {
-            return  a[order] - b[order];
-        })
-        .map((property) => { 
-            showPictures(property[order]);  
-            
-        })
-
     }
   
     return (
@@ -97,10 +84,10 @@ const Properties  = () => {
                     return  a[order] - b[order];
                 })
                 .map((property) => { 
-                    showPictures(property[order]);
-                return (
-                <>
-                    <div className='property--card'>
+                    showPictures(property.ref);
+                return (                        //to solve error 'Each child in a list should have a unique "key" prop' use <Fragment> with key
+                <Fragment key={property.id}>   
+                    <div className='property--card' >
                         <div className='properties__pictures' id={property.ref}></div>
                         <div className='card__title'>
                             {property.title}
@@ -108,9 +95,9 @@ const Properties  = () => {
                         <div className='card__description'>
                             {property.description}                    
                         </div>
-                        <i class='fa fa-money' style={{color: 'green'}}><span className='money'>{property.price} €</span></i>
+                        <i className='fa fa-money' style={{color: 'green'}}><span className='money'>{property.price} €</span></i>
                         <div className='card__features'>
-                            <i class='fa fa-bed' style={{color: 'blue'}}><span className='rooms'>{property.rooms}</span></i><br />
+                            <i className='fa fa-bed' style={{color: 'blue'}}><span className='rooms'>{property.rooms}</span></i><br />
                             {property.meters} <span className='m2'>&#13217;</span><br />
                             Extras: {property.extras}</div>
                         <div className='card__reference'>
@@ -128,12 +115,12 @@ const Properties  = () => {
                             </Link>
                         </div>
                     </div>
-                    </>
-                    );
+                </Fragment>
+                );
                 })}
             </div>
         </div>
         </>
-        );
-    };
+    );
+};
 export default Properties;

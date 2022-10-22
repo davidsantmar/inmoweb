@@ -95,7 +95,7 @@ const Contact = () => {
                     loremipsum@loremipsum.com<br />
                     935551122<br />
                 </div>
-                <div class="google--map" data-testid='google-map'>
+                <div className='google--map' data-testid='google-map'>
                     <iframe className='map__frame' title='google-map'
                     src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
                     </iframe>
