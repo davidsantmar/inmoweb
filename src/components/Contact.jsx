@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
-
 /*
 para envio  de form a email usando cliente emailJS:
 crear cuenta con emailJS
@@ -10,7 +9,6 @@ crear form y métodos
 asignar datos de la cuenta de emailJS a método send
 unique id, template y private key
 */
-
 const Contact = () => {
   const [toSend, setToSend] = useState({
       from_name: '',
@@ -54,8 +52,6 @@ const Contact = () => {
                         onChange={handleChange}
                         data-testid='name-field'
                     />
-                    <br />
-                    <br />
                     <input
                         className='email__field'
                         type='text'
@@ -65,8 +61,6 @@ const Contact = () => {
                         onChange={handleChange}
                         data-testid='email-field'
                     />
-                    <br />
-                    <br />
                     <textarea
                         className='request__field'
                         name='message'
@@ -75,8 +69,6 @@ const Contact = () => {
                         onChange={handleChange}
                         data-testid='message-field'
                     />
-                    <br />
-                    <br />
                     <button 
                         className='submit__button' 
                         type='submit'
@@ -86,14 +78,16 @@ const Contact = () => {
                     </button>
                 </form>
                 <div className='sub--title' data-testid='subTitle1'>
-                    <h4>CONTACT DETAILS</h4>
+                    <h2>CONTACT DETAILS</h2>
                 </div>
                 <div className='contact--details' data-testid='contact-details'>
-                    Pl. Catalunya, 1<br />
-                    Barcelona <br />
-                    Spain<br />
-                    loremipsum@loremipsum.com<br />
-                    935551122<br />
+                    <ul className='details__list'>
+                        <li>Pl. Catalunya, 1</li>
+                        <li>Barcelona</li>
+                        <li>Spain</li>
+                        <li>loremipsum@loremipsum.com</li>
+                        <li>935551122</li>
+                    </ul>
                 </div>
                 <div className='google--map' data-testid='google-map'>
                     <iframe className='map__frame' title='google-map'

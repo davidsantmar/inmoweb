@@ -25,7 +25,6 @@ const Mortages = () => {
     }
     function handleChangeHousePrice(event) {
         setHousePrice(event.target.value);
-        //addPoints();
     }
     function handleChangeSavings(event) {
         setSavings(event.target.value);
@@ -65,23 +64,6 @@ const Mortages = () => {
         document.getElementById('info-globus').style.animationDuration = '1.5s';
         document.getElementById('info-globus').style.animationIterationCount = '10';
     }
-    /*const addPoints = () => {
-        const pointsNumber = Array.from(housePrice.toString()).map(Number);
-        console.log(pointsNumber);
-        if (pointsNumber.length === 4) {
-            pointsNumber.splice(1, 0, '.');
-        } else if (pointsNumber.length === 5) {
-            pointsNumber.splice(2, 1, '.');
-        } else if (pointsNumber.length === 6) {
-            pointsNumber.splice(3, 2, '.');
-        } else if (pointsNumber.length === 7) {
-            pointsNumber.splice(2, 1, '.');
-            pointsNumber.splice(5, 4, '.');
-        }
-        //const puntos = Number(pointsNumber.join(''));
-        console.log(pointsNumber);
-        //console.log(puntos);
-    }*/
     const reset = () => {
         setHousePrice('');
         setLoan('');
@@ -96,7 +78,6 @@ const Mortages = () => {
         setTaxes('');
         setBillsAndTaxes('');
     }
-
     return (
         <>
         <div className='mortgages'>

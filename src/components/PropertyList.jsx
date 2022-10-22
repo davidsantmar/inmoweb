@@ -40,7 +40,6 @@ const PropertyList = () => {
   //const [counter, setCounter] = useState(0);
   const picturesNames = [];
   const picturesRefs = [];
-
   useEffect(() => {
     const getProperties = async () => {
       const data = await getDocs(propertiesCollectionsRef);
@@ -58,11 +57,10 @@ const PropertyList = () => {
       console.log('logout');
     }
   });
-pictures.map((picture) => {
-    picturesNames.push(picture.name);
-    picturesRefs.push(picture.refe);
-})
-
+    pictures.map((picture) => {
+        picturesNames.push(picture.name);
+        picturesRefs.push(picture.refe);
+    })
   const showPictures = (reference) => {
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
@@ -155,114 +153,110 @@ pictures.map((picture) => {
     const reset = () => {
         window.location.reload();
     }
-
     return (
         <>
-        <div className='property--list'>
-            <div className='sub--title' data-testid='subTitle'>
-                <h1>PROPERTY LIST</h1>
-                <div className='reset' onClick={reset}></div>
-            </div>
-            <nav className='admin--container'>
-                <Link to='/createProperty' className = 'admin__button nav__link'>
-                    &nbsp;CreateProperty&nbsp;
-                </Link> 
-                <Link to='/usersList' className = 'admin__button nav__link'>
-                    &nbsp;Users management&nbsp;
-                </Link> 
-            </nav>
-            <div className='properties--container'>
-            {properties.sort(function (a, b) {
-                return a.ref - b.ref;    
-            })
-            .map((property) => { 
-                showPictures(property.ref)
-            return (
-            <>
-                <div className='property__card' id='card'>
-                    <span>Reference: {property.ref}</span>
-                    <span>Title: {property.title}</span>
-                    <span>Description: {property.description}</span>
-                    <span>Meters: {property.meters}</span>
-                    <span>Rooms: {property.rooms}</span>
-                    <span>Extras: {property.extras}</span>
-                    <span>Price: {property.price}</span>
-                    <div className='footer__card__container'>
-                        <div className='properties__pictures' id={property.ref}></div>
-
-                        {/* --------   UPDATE TO DEVELOP -----------
-                        <button className='update__button' 
-                            onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
-                            property.description, property.meters, property.rooms, property.extras, 
-                            property.price)}}
-                        >
-                            Update property<span className='check__symbol'>&nbsp;&#9989;</span>
-                        </button>*/}
-                    <div>
-                    <div className='trash__div'>
-                        <button className='delete__button' 
-                            onClick={() => {actionModal(property.id, property.ref)}}
-                        >
-                        </button>
-                    </div>
-                </div>  
-            </div>
-            <div hidden={!showModal} className='modal'> 
-                <div className='modal__pa__background' onClick={handleDeleteModalClose}>
-                    <div className='modal__pa__card'>
-                        <h2 className='modal__pa__title'>Are you sure?</h2>
-                        <div className='modal--buttons--container'>
-                            <button className='modal__delete__button' 
-                                onClick={() => {deleteProperty(deletedID, deletedRef)}}
-                            >
-                                Delete
-                            </button>
-                            <button className='modal__cancel__button'
-                                onClick={reset}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
+            <div className='property--list'>
+                <div className='sub--title' data-testid='subTitle'>
+                    <h1>PROPERTY LIST</h1>
+                    <div className='reset' onClick={reset}></div>
                 </div>
-            </div>
-           {/*<div hidden={!updateModal} className='update--modal' >
-                <div className='modal__update__background' >
-                    <div className='modal__update__card'>
-                        <div className='inputs__container'>
-                            <h3>Reference: {updatedRef}</h3>
-                            <input className='update__title' defaultValue={updatedTitle} id='title' type='text'
-                                onChange={(event) => {setNewTitle(event.target.value);}} />
-                            <textarea className='update__description' defaultValue={updatedDescription} type='textarea' 
-                                onChange={(event) => {setNewDescription(event.target.value);}} />
-                            <input className='update__meters' defaultValue={updatedMeters} type='number'
-                                onChange={(event) => {setNewMeters(event.target.value);}} />
-                            <input className='update__rooms' defaultValue={updatedRooms} type='number'
-                                onChange={(event) => {setNewRooms(event.target.value);}}/>
-                            <input className='update__extras' defaultValue={updatedExtras} type='text'
-                                onChange={(event) => {setNewExtras(event.target.value);}}/>
-                            <input className='update__price' defaultValue={updatedPrice}  type='number'
-                                onChange={(event) => {setNewPrice(event.target.value);}}/>
-                        </div>
-                        <div className='modal--buttons--container'>
-                            {
-                            <button className='modal__update__button' onClick={() => {updateProperty(updatedId)}}>Update</button>
-                            <button className='modal__update__button' onClick={handleUpdateModalClose}>Close</button>
-                            }
+                <nav className='admin--container'>
+                    <Link to='/createProperty' className = 'admin__button nav__link'>
+                        &nbsp;CreateProperty&nbsp;
+                    </Link> 
+                    <Link to='/usersList' className = 'admin__button nav__link'>
+                        &nbsp;Users management&nbsp;
+                    </Link> 
+                </nav>
+                <div className='properties--container'>
+                {properties.sort(function (a, b) {
+                    return a.ref - b.ref;    
+                })
+                .map((property) => { 
+                    showPictures(property.ref)
+                return (
+                <>
+                    <div className='property__card' id='card'>
+                        <span>Reference: {property.ref}</span>
+                        <span>Title: {property.title}</span>
+                        <span>Description: {property.description}</span>
+                        <span>Meters: {property.meters}</span>
+                        <span>Rooms: {property.rooms}</span>
+                        <span>Extras: {property.extras}</span>
+                        <span>Price: {property.price}</span>
+                        <div className='footer__card__container'>
+                            <div className='properties__pictures' id={property.ref}>
+                            </div>
+                            {/* --------   UPDATE TO DEVELOP -----------
+                            <button className='update__button' 
+                                onClick={() => {handleUpdateModal(property.id, property.ref, property.title, 
+                                property.description, property.meters, property.rooms, property.extras, 
+                                property.price)}}
+                            >
+                                Update property<span className='check__symbol'>&nbsp;&#9989;</span>
+                            </button>*/}
+                        <div>
+                            <div className='trash__div'>
+                                <button className='delete__button' 
+                                    onClick={() => {actionModal(property.id, property.ref)}}
+                                >
+                                </button>
+                            </div>
+                        </div>  
+                    </div>
+                    <div hidden={!showModal} className='modal'> 
+                        <div className='modal__pa__background' onClick={handleDeleteModalClose}>
+                            <div className='modal__pa__card'>
+                                <h2 className='modal__pa__title'>Are you sure?</h2>
+                                <div className='modal--buttons--container'>
+                                    <button className='modal__delete__button' 
+                                        onClick={() => {deleteProperty(deletedID, deletedRef)}}
+                                    >
+                                        Delete
+                                    </button>
+                                    <button className='modal__cancel__button'
+                                        onClick={reset}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div> */}
+                    {/*<div hidden={!updateModal} className='update--modal' >
+                            <div className='modal__update__background' >
+                                <div className='modal__update__card'>
+                                    <div className='inputs__container'>
+                                        <h3>Reference: {updatedRef}</h3>
+                                        <input className='update__title' defaultValue={updatedTitle} id='title' type='text'
+                                            onChange={(event) => {setNewTitle(event.target.value);}} />
+                                        <textarea className='update__description' defaultValue={updatedDescription} type='textarea' 
+                                            onChange={(event) => {setNewDescription(event.target.value);}} />
+                                        <input className='update__meters' defaultValue={updatedMeters} type='number'
+                                            onChange={(event) => {setNewMeters(event.target.value);}} />
+                                        <input className='update__rooms' defaultValue={updatedRooms} type='number'
+                                            onChange={(event) => {setNewRooms(event.target.value);}}/>
+                                        <input className='update__extras' defaultValue={updatedExtras} type='text'
+                                            onChange={(event) => {setNewExtras(event.target.value);}}/>
+                                        <input className='update__price' defaultValue={updatedPrice}  type='number'
+                                            onChange={(event) => {setNewPrice(event.target.value);}}/>
+                                    </div>
+                                    <div className='modal--buttons--container'>
+                                        {
+                                        <button className='modal__update__button' onClick={() => {updateProperty(updatedId)}}>Update</button>
+                                        <button className='modal__update__button' onClick={handleUpdateModalClose}>Close</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div> */}
+                    </div>
+                </>
+                );
+                })}
+            </div>
         </div>
-        <br />
         </>
-        );
-      })}
-      
-            </div>
-        </div>
-
-    </>
     );
 };
 

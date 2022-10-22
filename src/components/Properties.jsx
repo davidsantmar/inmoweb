@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL, listAll } from 'firebase/storage';
 
-
 const Properties  = () => {
     const [properties, setProperties] = useState([]);
     const propertiesCollectionsRef = collection(db, 'properties');
@@ -64,7 +63,6 @@ const Properties  = () => {
         }
         setOrder('price');
     }
-  
     return (
         <>
         <div className='properties'>
@@ -98,7 +96,8 @@ const Properties  = () => {
                         <i className='fa fa-money' style={{color: 'green'}}><span className='money'>{property.price} €</span></i>
                         <div className='card__features'>
                             <i className='fa fa-bed' style={{color: 'blue'}}><span className='rooms'>{property.rooms}</span></i><br />
-                            {property.meters} <span className='m2'>&#13217;</span><br />
+                            {property.meters} 
+                            <span className='m2'>&#13217;</span><br />
                             Extras: {property.extras}</div>
                         <div className='card__reference'>
                             Ref: {property.ref}                    
@@ -123,4 +122,5 @@ const Properties  = () => {
         </>
     );
 };
+
 export default Properties;

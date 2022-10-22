@@ -25,7 +25,6 @@ function CreateProperty() {
   const imageListRef = ref(storage, 'images/');
   const auth = getAuth();
   const dispatch = useDispatch();
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(login());

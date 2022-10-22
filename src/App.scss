@@ -33,7 +33,7 @@ body{
         background-color: lightgreen;
         color: blue;
     }
-    .login__button{
+    .login__button, .logout__button{
         display: flex;
         align-items: center;
         font-weight: 600;
@@ -49,11 +49,14 @@ body{
         background-color: lightgreen;
         color: blue;
     }
+    .logout__button:hover{
+        background-color: lightcoral;
+        color: blue;
+    }
 }
 hr{
     width: 93.5%;
 }
-
 @media (max-width: 680px){
     .properties{
         margin-bottom: 1rem;
@@ -113,6 +116,7 @@ hr{
                         font-family: 'Poppins';
                         font-weight: bolder;
                         margin-left: 1rem;
+                        margin-bottom: 1rem;
                     }
                 }
                 .card__hr{
@@ -313,14 +317,14 @@ hr{
                 padding: .5rem;
                 border: solid 2px green ;
                 font-family: 'Poppins';
-                margin-bottom: -1rem;
+                margin-bottom:2rem;
             }
             .request__field{
                 height: 8rem;
             }
             .name__field:hover, .email__field:hover, 
             .request__field:hover{
-                border: solid 4px green ;
+                border: solid 4px green;
             }
             .submit__button{
                 background-color: rgb(226, 246, 226);
@@ -340,12 +344,15 @@ hr{
             display: flex;
             justify-content: center;
             flex-direction: column;
-            padding: 1rem;
+            .details__list{
+                list-style-type: none;
+            }
         }
         .google--map{
             padding: 1rem;
             .map__frame{
                 width: 100%;
+                height:20rem;
                 border-radius: 10px;
             }
         }
@@ -492,6 +499,7 @@ hr{
                 border-radius: 20px;
                 border: solid 2px green;
                 padding: 1rem;
+                margin-bottom: 2rem;
                 .show__pictures__button{
                     background-color: rgb(226, 246, 226);
                     border-radius: 10px;
@@ -830,7 +838,7 @@ hr{
     from{ transform: rotate(0deg); }
     to{ transform: rotate(-360deg); }
 }
-::-webkit-file-upload-button {  //css for upload button
+::-webkit-file-upload-button {  //css for upload image button
     color: black;
     padding: 1em;
     border-radius: 10px;

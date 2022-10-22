@@ -15,7 +15,6 @@ function UsersList() {
   const [deletedUser, setDeletedUser] = useState('');
   const auth = getAuth();
   const dispatch = useDispatch();
-
   onAuthStateChanged(auth, (user) => {  //keep user after refresh
     if (user) {
       const uid = user.uid;

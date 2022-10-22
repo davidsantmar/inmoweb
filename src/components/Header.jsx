@@ -8,7 +8,6 @@ import { firebaseLogin } from '../firebase/actions';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/index';
 
-
 const Header = () => {
     const [users, setUsers] = useState([]);    
     const usersCollection = collection(db, 'users_admin');
@@ -25,7 +24,6 @@ const Header = () => {
       }
       getUsers();  
     }, []);
-
     async function handleLogin(){
       const usuarios = [];
       const emails = [];
@@ -47,44 +45,43 @@ const Header = () => {
     }
     return (
         <>
-        <nav className='header--container' data-testid='header-container'>
-            <Link to="/" className="nav__link" data-testid='logo-link'>
-                <img className='logo' src={logo} alt='logo'/>
-            </Link>
-            <Link to="/about" className="nav__link about__us__link" data-testid='about-us-link'>
-              <span className='nav__about__us'>About us</span>
-            </Link>
-            <Link to="/mortgages" className="nav__link" data-testid='hipotecas-link'>
-                Mortgages
-            </Link>
-            <Link to="/contact" className="nav__link" data-testid='contacto-link'>
-                Contact
-            </Link>
-            
-            {isAuthenticated ? (
-          <>
-            <Link to='/createProperty' className="nav__link">
-                Admin
-            </Link> 
-            <button
-              onClick={handleLogout}
-              type="button"
-              className="login__button" 
-              data-testid='login-button'
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={handleLogin}
-            type="button"
-            className="login__button" 
-          >
-            Login
-          </button>
-        )}
-        </nav>
+          <nav className='header--container' data-testid='header-container'>
+              <Link to="/" className="nav__link" data-testid='logo-link'>
+                  <img className='logo' src={logo} alt='logo'/>
+              </Link>
+              <Link to="/about" className="nav__link about__us__link" data-testid='about-us-link'>
+                <span className='nav__about__us'>About us</span>
+              </Link>
+              <Link to="/mortgages" className="nav__link" data-testid='hipotecas-link'>
+                  Mortgages
+              </Link>
+              <Link to="/contact" className="nav__link" data-testid='contacto-link'>
+                  Contact
+              </Link>
+              {isAuthenticated ? (
+              <>
+                <Link to='/createProperty' className="nav__link">
+                    Admin
+                </Link> 
+                <button
+                  onClick={handleLogout}
+                  type="button"
+                  className="logout__button" 
+                  data-testid='logout-button'
+                >
+                  Logout
+                </button>
+              </>
+              ) : (
+              <button
+                onClick={handleLogin}
+                type="button"
+                className="login__button" 
+              >
+                Login
+              </button>
+            )}
+          </nav>
         </>
     );
 };
