@@ -12,7 +12,6 @@ const Properties  = () => {
     const imagesDataCollections = collection(imagesData, 'pictures');
     const [pictures, setPictures] = useState([]);
     const [order, setOrder] = useState('');
-    const picturesToDelete = [];
     const picturesNames = [];
     const picturesRefs = [];
     useEffect(() => {
@@ -29,38 +28,69 @@ const Properties  = () => {
         picturesNames.push(picture.name);
         picturesRefs.push(picture.refe);
     })
+    
     const showPictures = (reference) => {
+        let imageListing = [];
         for (let i = 0; i <= picturesRefs.length; i ++){
             if (picturesRefs[i] === reference){
                 const storage = getStorage();
                 const listRef = ref(storage, `images/${picturesRefs[i]}/`);
-                let index = 0;
+                let imagesArr = [];
+                let counter = 1;
+                let imagesIds = [];
                 listAll(listRef)
                     .then((res) => {
-                    res.items.forEach((itemRef) => {
-                        getDownloadURL(itemRef).then(function(url) {
-                            index = index + 1;
-                            const rootElement = document.getElementById(reference);
-                            const element = document.createElement('img');
-                            rootElement.append(element);
-                            element.style.border = 'solid 2px green';
-                            element.style.height = '22rem';
-                            element.style.width = '100%';
-                            element.style.borderRadius = '10px';
-                            element.style.marginRight = '1rem';
-                            element.id = picturesRefs[i] + '-' + index; 
-                            element.src = url;
-                            picturesToDelete.push(picturesRefs[i] + '-' + index);
-                        });
-                    })
-                })
+                        res.items.forEach((itemRef) => {
+                            getDownloadURL(itemRef).then(function(url) {
+                                imageListing.push(url);
+                                imagesArr = imageListing.sort();
+                                solveProm(imagesArr)
+                                    .then((res) => {
+                                        const rootElement = document.getElementById(reference);  
+                                        for (let h = 0; h <= 1; h++){
+                                            const element = document.createElement('img');
+                                            rootElement.append(element);  
+                                            element.id = reference + '-' + counter;
+                                            element.style.width = '40rem';
+                                            element.style.height = '20rem';
+                                            element.style.marginRight = '1rem'
+                                            element.style.border = '2px solid green'
+                                            element.style.borderRadius = '20px';
+                                            element.src = res[h];
+                                            element.style.backgroundSize = 'cover';
+                                            counter = counter + 1;
+                                            imagesIds.push(element.id);
+                                        }
+                                        removeDupli(imagesIds);
+                                    })              
+                            });
+                        })
+                    })  
             }
         }
     }
+    const removeDupli = async (idsArr) => {
+        solveProm(idsArr)
+            .then((res) => {
+                const half = res.slice(res.length/2, res.length);
+                for (let k = 0; k < half.length; k ++) {
+                    const idExist = document.getElementById(half[k]);
+                    if (idExist !== null){
+                        document.getElementById(half[k]).remove();
+                    }
+                }
+            })
+    }
+    const solveProm = async (arr) => {
+        const promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(arr), 300)
+          });
+        
+        const result = await promise;
+        return result;        
+    }
+
     const orderByPrice = () => {
-        for (let i = 0; i < picturesToDelete.length; i++) {
-            document.getElementById(picturesToDelete[i]).remove();
-        }
         setOrder('price');
     }
     return (
@@ -82,7 +112,7 @@ const Properties  = () => {
                     return  a[order] - b[order];
                 })
                 .map((property) => { 
-                    showPictures(property.ref);
+                    showPictures(property[order]);
                 return (                        //to solve error 'Each child in a list should have a unique "key" prop' use <Fragment> with key
                 <Fragment key={property.id}>   
                     <div className='property--card' >
@@ -100,7 +130,7 @@ const Properties  = () => {
                             <span className='m2'>&#13217;</span><br />
                             Extras: {property.extras}</div>
                         <div className='card__reference'>
-                            Ref: {property.ref}                    
+                            Ref: {property.ref}   
                         </div>
                         <hr className='card__hr'/>
                         <div className='card__contact'>

@@ -25,6 +25,7 @@ function CreateProperty() {
   const imageListRef = ref(storage, 'images/');
   const auth = getAuth();
   const dispatch = useDispatch();
+  const [imageOrder, setImageOrder] = useState(1);
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(login());
@@ -34,13 +35,15 @@ function CreateProperty() {
   });
   const uploadImage = () => {
     if (imageUpload === null) return;
-    const imageRef = ref(storage, `images/${newRef}/${imageUpload.name}`);
+    setImageOrder(0);
+    const imageRef = ref(storage, `images/${newRef}/order${imageOrder}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {  //actualización de images en front sin reload page
         setImageList((prev) => [...prev, url]);
-        addImage(url);
+        addImage();  //addImage(url);
       });
     });
+    setImageOrder(imageOrder + 1); //10 images max 0-9
   };
   useEffect(() => {
     listAll(imageListRef).then((response) => {
@@ -159,7 +162,7 @@ function CreateProperty() {
           onChange={(event) => {setImageUpload(event.target.files[0])}}
         > 
         </input>
-        <button onClick={uploadImage} className='submit__button'>Upload image</button>
+        <button onClick={uploadImage} className='submit__button'>Upload image</button><sub>max 10 images</sub>
           <div>
             {imageList.map((url, i) => {
               return(
