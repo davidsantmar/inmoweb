@@ -392,6 +392,10 @@ hr{
                     background: url('./images/twitlogo.jpeg');
                     background-size: contain;
                 }
+                .face:hover, .insta:hover, .twit:hover{
+                    border-radius: 20px;
+                    border: solid 4px green;
+                }
             }
         }
         .google--map{
