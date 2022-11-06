@@ -83,7 +83,7 @@ const Properties  = () => {
     }
     const solveProm = async (arr) => {
         const promise = new Promise((resolve, reject) => {
-            setTimeout(() => resolve(arr), 300)
+            setTimeout(() => resolve(arr), 100)
           });
         
         const result = await promise;

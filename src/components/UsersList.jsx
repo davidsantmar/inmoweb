@@ -66,10 +66,10 @@ function UsersList() {
         </div>
         <nav className='admin--container'>
             <Link to='/createProperty' className = 'admin__button nav__link'>
-                &nbsp;CreateProperty&nbsp;
+                &nbsp;Create property&nbsp;&#127968;
             </Link> 
             <Link to='/propertyList' className = 'admin__button nav__link'>
-            &nbsp;Property list&nbsp;
+            &nbsp;Property list&nbsp;&#128221;
             </Link> 
         </nav>
         <div className='add--user--container'>

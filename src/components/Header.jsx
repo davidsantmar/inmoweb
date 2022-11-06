@@ -69,7 +69,7 @@ const Header = () => {
                   className="logout__button" 
                   data-testid='logout-button'
                 >
-                  Logout
+                  <span className='off__symbol'>&#x23FB;</span>
                 </Link>
               </>
               ) : (
@@ -78,7 +78,7 @@ const Header = () => {
                 type="button"
                 className="login__button" 
               >
-                Login
+                <span className='on__symbol'>&#x23FB;</span>
               </button>
             )}
           </nav>

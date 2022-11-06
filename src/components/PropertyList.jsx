@@ -164,10 +164,10 @@ const PropertyList = () => {
                 </div>
                 <nav className='admin--container'>
                     <Link to='/createProperty' className = 'admin__button nav__link'>
-                        &nbsp;CreateProperty&nbsp;
+                        &nbsp;Create property&nbsp;&#127968;
                     </Link> 
                     <Link to='/usersList' className = 'admin__button nav__link'>
-                        &nbsp;Users management&nbsp;
+                        &nbsp;Users management&nbsp;&#128105;&#128104;
                     </Link> 
                 </nav>
                 <div className='properties--container'>

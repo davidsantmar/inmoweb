@@ -87,110 +87,122 @@ const Mortages = () => {
             </div>
             <form className='mortgage--form'>
                 <div className='mortgage--title' data-testid='house-price-title'>
-                    House price
+                    <div className='form__title'>
+                        <span>House price</span>
+                    </div>
                     <input  type='tel' className='house__price__input' 
                     value={housePrice}
                     onChange={handleChangeHousePrice} data-testid='mortgage-input'
                     pattern="\d*" maxLength="8"/>
                 </div>
                 <div className='mortgage--title' data-testid='savings-title'>
-                    Savings
+                    <div className='form__title'>
+                        <span>Savings</span>
+                    </div>                    
                     <input type='tel' className='savings__input'  
                     value={savings} onChange={handleChangeSavings} data-testid='mortgage-input'
                     pattern="\d*" maxLength="6"/>
                 </div>
                 <div className='mortgage--title' data-testid='years-title'>
-                    Years
+                    <div className='form__title'>
+                        <span>Years</span>
+                    </div>
                     <input type='tel' className='years__input'  
                     value={years} data-testid='mortgage-input' onChange={handleChangeYears}
                     pattern="\d*" maxLength="2"/>
                 </div>
                 <div className='mortgage--title' data-testid='interest-title'>
-                    Interest rate
+                    <div className='form__title'>
+                        <span>Interest rate</span>
+                    </div>
                     <br />
-                    <label>Fixed</label>
-                    <input type='radio' value='fixed' id='fixed' className='mortgage--interest' name='interest'></input>
-                    <label>Variable</label>
-                    <input type='radio' value='variable' id='variable' name='interest'></input>
-                    <input type='number' className='interest__input'  
-                    value={interest} data-testid='mortgage-input' onChange={handleChangeInterest}
-                    id='interest'  />
+                    <div className='interest__section'>
+                        <label>Fixed</label>
+                        <input type='radio' value='fixed' id='fixed' className='mortgage--interest' name='interest'></input>
+                        <label>Variable</label>
+                        <input type='radio' value='variable' id='variable' name='interest'></input>
+                        <input type='number' className='interest__input'  
+                        value={interest} data-testid='mortgage-input' onChange={handleChangeInterest}
+                        id='interest'  />
+                    </div>
                 </div>
-
                 <div className='calculate--container'>
-                        <a  href='#figures' className='calculate' onClick={calculate}>
-                        Calculate
-                        </a>
+                    <a  href='#figures' className='calculate' onClick={calculate}>
+                    Calculate
+                    </a>
                 </div>
             </form>
             <hr />
-            <div className='figures--container' id='figures'>
-                <div data-testid='bills-title'>
-                    Bills and taxes: &nbsp;
-                    <span className='info__globus' onClick={handleModal} id='info-globus'>
-                        &nbsp;&nbsp;i&nbsp;&nbsp;
-                    </span>
-                </div>
-                <div>
-                    {billsAndTaxes + ' €'}
-                </div>
-                
-                <div hidden={!show}>
-                    <div className='modal__background' onClick={handleModalClose}>
-                        <div className='modal__card'>
-                            <h2 className='modal__title'>Total bills</h2>
-                            <ul>
-                                <div className='listed__items__container'>
-                                    <li className='listed__items'>
-                                        Notary:
-                                        <span className='listed__numbers'>{notary + ' €'}</span>
-                                    </li>
+            <div className='results'>
+                <div className='bills'>
+                    <div className='figures--container' id='figures'>
+                        <div className='bills__title' data-testid='bills-title'>
+                            Bills and taxes: &nbsp;
+                            <span className='info__globus' onClick={handleModal} id='info-globus'>
+                                &nbsp;&nbsp;i&nbsp;&nbsp;
+                            </span>
+                        </div>
+                        <div>
+                            {billsAndTaxes + ' €'}
+                        </div>
+                        <div hidden={!show}>
+                            <div className='modal__background' onClick={handleModalClose}>
+                                <div className='modal__card'>
+                                    <h2 className='modal__title'>Total bills</h2>
+                                    <ul>
+                                        <div className='listed__items__container'>
+                                            <li className='listed__items'>
+                                                Notary:
+                                                <span className='listed__numbers'>{notary + ' €'}</span>
+                                            </li>
+                                        </div>
+                                        <div className='listed__items__container'>
+                                            <li className='listed__items'>
+                                                Registration:
+                                                <span className='listed__numbers'>{registration + ' €'}</span>
+                                            </li>
+                                        </div>
+                                        <div className='listed__items__container'>
+                                            <li className='listed__items'>
+                                                Agency:
+                                                <span className='listed__numbers'>{agency + ' €'}</span>
+                                            </li>
+                                        </div>
+                                        <div className='listed__items__container'>
+                                            <li className='listed__items'>
+                                                Taxes:
+                                                <span className='listed__numbers'>{taxes + ' €'}</span>
+                                            </li>
+                                        </div>
+                                        <div className='listed__items__container'>
+                                            <li className='listed__items total__amount'>
+                                                Total amount:
+                                                <span className='listed__numbers'>{billsAndTaxes + ' €'}</span>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                    <span className='modal__footer'>Non-binding indicative calculation</span>
                                 </div>
-                                <div className='listed__items__container'>
-                                    <li className='listed__items'>
-                                        Registration:
-                                        <span className='listed__numbers'>{registration + ' €'}</span>
-                                    </li>
-                                </div>
-                                <div className='listed__items__container'>
-                                    <li className='listed__items'>
-                                        Agency:
-                                        <span className='listed__numbers'>{agency + ' €'}</span>
-                                    </li>
-                                </div>
-                                <div className='listed__items__container'>
-                                    <li className='listed__items'>
-                                        Taxes:
-                                        <span className='listed__numbers'>{taxes + ' €'}</span>
-                                    </li>
-                                </div>
-                                <div className='listed__items__container'>
-                                    <li className='listed__items total__amount'>
-                                        Total amount:
-                                        <span className='listed__numbers'>{billsAndTaxes + ' €'}</span>
-                                    </li>
-                                </div>
-                            </ul>
-                            <span className='modal__footer'>Non-binding indicative calculation</span>
+                            </div>
                         </div>
                     </div>
+                    <div className='figures--container'>
+                    <div className='bills__title' data-testid='loan-title'>
+                        Loan amount:
+                    </div>
+                    <div>
+                        {loan + ' €'}
+                    </div>
                 </div>
-            </div>
-            <div className='figures--container'>
-                <div data-testid='loan-title'>
-                    Loan amount:
+                <div className='figures--container'>
+                    <span className='monthly__fee__title' data-testid='monthly-title'>
+                        Monthly fee:
+                    </span>
+                    <div className='monthly__fee'>
+                        {monthlyFee + ' €'}
+                    </div>
                 </div>
-                <div>
-                    {loan + ' €'}
-                </div>
-            </div>
-            <div className='figures--container'>
-                <span className='monthly__fee__title' data-testid='monthly-title'>
-                    Monthly fee:
-                </span>
-                <div>
-                    {monthlyFee + ' €'}
-                </div>
+                </div>                
             </div>
         </div>
         </>

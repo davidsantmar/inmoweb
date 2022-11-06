@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { send } from 'emailjs-com';
+
 /*
 para envio  de form a email usando cliente emailJS:
 crear cuenta con emailJS
@@ -88,10 +89,15 @@ const Contact = () => {
                         <li>loremipsum@loremipsum.com</li>
                         <li>935551122</li>
                     </ul>
+                    <div className='social__media'>
+                        <a className='insta' href='https://www.instagram.com' target="_blank" alt='instagram logo'></a>
+                        <a className='face' href='https://www.facebook.com' target="_blank" alt='facebook logo'></a>
+                        <a className='twit' href='https://www.twitter.com' target="_blank" alt='twitter logo'></a>
+                    </div>
                 </div>
                 <div className='google--map' data-testid='google-map'>
                     <iframe className='map__frame' title='google-map'
-                    src="https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                    src='https://maps.google.com/maps?q=plaza%20catalunya,%201%20Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed'>
                     </iframe>
                 </div>
             </div>

@@ -95,10 +95,10 @@ function CreateProperty() {
         </div>
         <nav className='admin--container'>
             <Link to='/propertyList' className = 'admin__button nav__link'>
-              &nbsp;Property list&nbsp;
+              &nbsp;Property list&nbsp;&#128221;
             </Link> 
             <Link to='/usersList' className = 'admin__button nav__link'>
-              &nbsp;Users management&nbsp;
+              &nbsp;Users management&nbsp;&#128105;&#128104;
             </Link> 
         </nav>
       <div className='create--property--container' data-testid='form-container'>
@@ -158,11 +158,13 @@ function CreateProperty() {
           onChange={(event) => {
             setNewPrice(event.target.value);
         }}></input>
-        <input  className='pictures__field' placeholder='new image' id='pictures-field' type='file' 
-          onChange={(event) => {setImageUpload(event.target.files[0])}}
-        > 
-        </input>
-        <button onClick={uploadImage} className='submit__button'>Upload image</button><sub>max 10 images</sub>
+        <div className='select__images'>
+          <input  className='pictures__field' id='pictures-field' type='file' 
+            onChange={(event) => {setImageUpload(event.target.files[0])}}
+          >
+          </input>
+        </div>
+        <button onClick={uploadImage} className='submit__button'>Upload image</button>
           <div>
             {imageList.map((url, i) => {
               return(

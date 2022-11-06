@@ -28,6 +28,7 @@ body{
         text-decoration: none;
         padding: .5rem;
         border-radius: 10px;
+        font-size: 1.5rem;
     }
     .nav__link:hover{
         background-color: lightgreen;
@@ -45,6 +46,14 @@ body{
         background-color: lightgray;
         border-radius: 10px;
         text-decoration: none;
+        .on__symbol{
+            font-size: 2.5rem;
+            color: rgb(8, 223, 8);
+        }
+        .off__symbol{
+            font-size: 2.5rem;
+            color: red;
+        }
     }
     .login__button:hover{
         background-color: lightgreen;
@@ -58,7 +67,7 @@ body{
 hr{
     width: 93.5%;
 }
-@media (max-width: 680px){
+@media (max-width: 2800px){
     .properties{
         margin-bottom: 1rem;
         .sub--title{
@@ -149,6 +158,10 @@ hr{
         }
     }
     .mortgages{
+        background-color: rgb(247, 242, 242);
+        border-radius: 40px;
+        box-shadow: 5px 10px lightgray;
+        padding: 1rem;  
         .sub--title{
             display: flex;
             justify-content: space-evenly;
@@ -179,13 +192,13 @@ hr{
                 padding: 1rem;
                 .house__price__input, .savings__input, 
                 .years__input, .interest__input{
-                height: 3rem;
-                font-size: 2rem;
-                border-radius: 10px;
-                border: solid 2px green ;
-                font-family: 'Poppins';
-                width: 100%;
-                text-align: center;
+                    height: 3rem;
+                    font-size: 2rem;
+                    border-radius: 10px;
+                    border: solid 2px green ;
+                    font-family: 'Poppins';
+                    width: 100%;
+                    text-align: center;
                 }
                 .house__price__input:hover, .savings__input:hover, 
                 .years__input:hover, .interest__input:hover{
@@ -291,6 +304,7 @@ hr{
             justify-content: center;
             flex-direction: column;
             padding: 1rem;
+            font-size: 1.5rem;
         }
         .image--container{
             .background1{
@@ -299,6 +313,10 @@ hr{
         }
     }
     .contact{
+        background-color: rgb(247, 242, 242);
+        border-radius: 40px;
+        box-shadow: 5px 10px lightgray;
+        padding: 2rem; 
         .sub--title{
             display: flex;
             justify-content: space-evenly;
@@ -343,10 +361,37 @@ hr{
         }
         .contact--details{
             display: flex;
-            justify-content: center;
-            flex-direction: column;
+            justify-content: space-between;
+            flex-direction: row;
             .details__list{
+                display: flex;
+                flex-direction: column;
                 list-style-type: none;
+            }
+            .social__media{
+                display: flex;
+                flex-direction: row;
+                padding: 3rem;
+                .face{
+                    height: 3rem;
+                    width: 3rem;
+                    background: url('./images/facelogo.png');
+                    margin-right: 1rem;
+                    background-size: contain;
+                }
+                .insta{
+                    height: 3rem;
+                    width: 3rem;
+                    background: url('./images/instalogo.png');
+                    margin-right: 1rem;
+                    background-size: contain;
+                }
+                .twit{
+                    height: 3rem;
+                    width: 3rem;
+                    background: url('./images/twitlogo.jpeg');
+                    background-size: contain;
+                }
             }
         }
         .google--map{
@@ -380,6 +425,7 @@ hr{
                 font-weight: bold;
                 color: black;
                 border: none;
+                font-size: 1.5rem;
             }
             .admin__button:hover{
                 background-color: lightgreen;
@@ -483,6 +529,7 @@ hr{
                 font-weight: bold;
                 color: black;
                 border: none;
+                font-size: 1.5rem;
             }
             .admin__button:hover{
                 background-color: lightgreen;
@@ -704,6 +751,7 @@ hr{
                 font-weight: bold;
                 color: black;
                 border: none;
+                font-size: 1.5rem;
             }
             .admin__button:hover{
                 background-color: lightgreen;
@@ -831,6 +879,130 @@ hr{
         margin: 0;
     }
 }
+@media (min-width: 1000px){
+    .mortgages{
+        .mortgage--form{
+            display: flex;
+            .mortgage--title{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .form__title{
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-direction: row;
+                    width: 60rem;
+                }
+                .house__price__input, .savings__input, 
+                .years__input, .interest__input{
+                    width: 60rem;
+                }
+                .interest__section{
+                    width: 60rem;
+                }
+            }
+            .calculate--container{
+                .calculate{
+                    width: 60rem;
+                }
+            }
+        }
+        hr{
+            width: 61rem;
+        }
+        .results{
+            display: flex;
+            flex-direction: column;
+            .bills{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .figures--container{
+                    display: flex;
+                    flex-direction: row;
+                    width: 60rem;
+                }
+            }
+            
+        }
+    }
+    .contact{
+        display: flex;
+        flex-direction: column;
+        .contact--container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .request__field, .name__field, .email__field, .submit__button{
+                width: 60rem;
+            }
+        }
+       
+    }
+    .create--property{
+        display: flex;
+        flex-direction: column;
+        .create--property--container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .title__field, .text__field, .rooms__field, 
+            .meters__field, .ref__field, 
+            .extras__field, .price__field, .submit__button{
+                width: 60rem;
+            }
+            .select__images{
+                display: flex;
+                justify-content: flex-start;
+                width: 61.4rem;
+            }
+            .picture__container{
+                .picture__square{
+                    width: 40rem;
+                }
+            }
+        }
+    }
+}
+@media (min-width: 800px){
+    .mortgages{
+        .sub--title{
+            justify-content: center;
+            .reset{
+                margin-left: 2rem;
+            }
+        }
+    }
+}
+@media (max-width: 600px){
+    .header--container{
+        .nav__link{
+            font-size: 1rem;
+        }
+        .login__button, .logout__button{
+            .on__symbol, .off__symbol{
+                font-size: 2rem;
+            }
+        }
+    }
+    .property--list, .create--property, .users--list{
+        .admin--container{
+            .admin__button{
+                font-size: 1rem;
+            }
+        }
+    }
+    .properties{
+        .property--card{
+            .card__contact{
+                .nav__link{
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
 @keyframes blink{
     from { background-color: blue; }
     to { background-color: red; }
