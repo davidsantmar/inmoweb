@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import CreateProperty from './components/CreateProperty';
 import UsersList from './components/UsersList';
 import PropertyList from './components/PropertyList';
+import Hamburguer from './components/Hamburguer';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Header />
+          <Hamburguer />
           <main>
             <Routes>
               <Route path="/" exact element={<Properties />} />

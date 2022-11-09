@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const Mortages = () => {
     const [housePrice, setHousePrice] = useState('');
-    //const housePrice = useSelector((state) => state.housePrice);
     const [loan, setLoan] = useState('');
     const [monthlyFee, setMonthlyFee] = useState('');
     const [savings, setSavings] = useState('');

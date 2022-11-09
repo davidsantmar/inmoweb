@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
