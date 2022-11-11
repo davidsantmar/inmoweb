@@ -12,7 +12,7 @@ body{
     flex-direction: row;
     justify-content: space-around;
     padding: 1rem;
-    background-color: lightgray;
+    background: linear-gradient(to left, #f46b45, #eea849);
     .logo{
         width: 5rem;
         border-radius: 10px;
@@ -24,7 +24,7 @@ body{
         display: flex;
         align-items: center;
         font-weight: 600;
-        color: black;
+        color: white;
         text-decoration: none;
         padding: .5rem;
         border-radius: 10px;
@@ -43,7 +43,7 @@ body{
         border: none;
         padding: .5rem;
         font-family: 'Poppins'; 
-        background-color: lightgray;
+        background:#f46b45;
         border-radius: 10px;
         text-decoration: none;
         .on__symbol{
@@ -997,10 +997,11 @@ hr{
                 margin-top: .5rem;
                 color: black;
             }
-            .logout__button{
-                text-decoration: none;
-                font-size: 2rem;
-                color: rgb(8, 223, 8);
+            .nav__link:hover{
+                color: blue;
+            }
+            .menu__option:hover{
+                background-color: lightgreen;
             }
         }
         #menu-toggle ~ .menu li {
@@ -1042,9 +1043,49 @@ hr{
         color: #FFF;
         height: 5.5rem;
         padding: 1em;
-        .logo{
-            width: 5rem;
+        .logo--container{
             border-radius: 10px;
+            height: 1rem;
+            .logo{
+                width: 5rem;
+                border-radius: 10px;
+            }
+        }
+        .nav__link:hover{
+            background-color: lightgreen;
+            color: blue;
+        }
+        .login__button{
+            display: flex;
+            align-items: center;
+            border: none;
+            padding: .5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            .on__symbol{
+                font-size: 2.5rem;
+                color: rgb(8, 223, 8);
+            }
+        }
+        .logout__button{
+            display: flex;
+            align-items: center;
+            border: none;
+            padding: .5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            .off__symbol{
+                font-size: 2.5rem;
+                color: red;
+            }
+        }
+        .login__button:hover{
+            background-color: lightgreen;
+            color: blue;
+        }
+        .logout__button:hover{
+            background-color: lightcoral;
+            color: blue;
         }
     }
     .menu {
@@ -1053,6 +1094,11 @@ hr{
         list-style-type: none;
         margin: 0;
         padding: 0;
+        .nav__link__logout{
+            text-decoration: none;
+            margin-top: .5rem;
+            color: black;
+        }
     }
     .menu > li {
         margin: 0 1rem;
@@ -1122,17 +1168,19 @@ hr{
             flex-direction: column;
         }
     }
-    .mortgages{
-        .sub--title{
-            .reset{
-                margin-top: 3rem;
-            }
-        }
-    }
 }
 @media (min-width: 601px){
     .hamburguer--container{
         display: none;    
+    }
+}
+@media (max-width: 400px){
+    .mortgages{
+        .sub--title{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
     }
 }
 @keyframes blink{
