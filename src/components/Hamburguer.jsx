@@ -45,57 +45,51 @@ const Hamburguer = () => {
       dispatch(logout());
     }
     const closeMenu = () => {
-     
       document.getElementById('menu-toggle').checked = false;
-    //document.getElementById('hamburguer-container').addEventListener('click',function(){
-      //document.getElementById('menu-toggle').checked === false;
-          
-      
-    
-    
     }
 
     return (
         <>
            <nav className='hamburguer--container' id='hamburguer-container'>
-                <Link to='/' className='logo__nav__link nav__link' data-testid='logo-link'>
-                    <img className='logo' src={logo} alt='logo'/>
-                </Link>                
-                <input id='menu-toggle' type='checkbox' />
-                <label className='menu-button-container' htmlFor='menu-toggle'>
-                <div className='menu-button'>
-                </div>
-                </label>
+                  <Link to='/' className='logo__nav__link nav__link' data-testid='logo-link'>
+                      <img className='logo' src={logo} alt='logo'/>
+                  </Link>  
+                  <input id='menu-toggle' type='checkbox' />
+                  <label className='menu-button-container' htmlFor='menu-toggle'>
+                  <div className='menu-button'>
+                  </div>
+                  </label>
                 <ul className='menu'>
-                    <li className='menu__option'>
-                        <Link to='/about' className='nav__link' data-testid='about-us-link' onClick={closeMenu}>
+                      <li>
+                        <Link to='/about' className='menu__option menu__option nav__link' data-testid='about-us-link' onClick={closeMenu}>
                             About us
                         </Link>
-                    </li>
-                    <li className='menu__option'>
-                        <Link to='/mortgages' className='nav__link' data-testid='hipotecas-link' onClick={closeMenu}>
+                      </li>
+                    <li>
+                        <Link to='/mortgages' className='menu__option nav__link' data-testid='hipotecas-link' onClick={closeMenu}>
                             Mortgages
                         </Link>
                     </li>
-                    <li className='menu__option' onClick={closeMenu}>
-                        <Link to='/contact' className='nav__link' data-testid='contacto-link' onClick={closeMenu}>
+                    <li onClick={closeMenu}>
+                        <Link to='/contact' className='menu__option nav__link' data-testid='contacto-link' onClick={closeMenu}>
                             Contact
                         </Link>
                     </li>
                     {isAuthenticated ? (
                     <>
-                    <li className='menu__option'>
-                      <Link to='/createProperty' className='nav__link' onClick={closeMenu}>
+                    <li>
+                      <Link to='/createProperty' className='menu__option nav__link' onClick={closeMenu}>
                           Admin
                       </Link> 
                     </li>
-                    <li className='nav__link logout__button'
+                    <li 
                       onClick={handleLogout}
+                      className='logout__button'
                         type='button'
                         data-testid='logout-button'
                       >
-                        <Link to='/' className='nav__link__logout'>
-                          <span className='off__symbol' onClick={closeMenu}>&#x23FB;</span>
+                        <Link to='/' className='nav__link__logout' onClick={closeMenu}>
+                          <span className='off__symbol'>&#x23FB;</span>
                         </Link> 
                     </li>
                   </>
@@ -106,7 +100,7 @@ const Hamburguer = () => {
                     className='login__button'
                     data-testid='login-button'
                   >
-                    <span className='on__symbol'>&#x23FB;</span>
+                    <span className='on__symbol nav__link'>&#x23FB;</span>
                   </li>
                 )}
                 </ul>
