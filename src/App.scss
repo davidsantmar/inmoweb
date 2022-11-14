@@ -978,7 +978,7 @@ hr{
         }
     }
 }
-@media (max-width: 700px) {
+@media (max-width: 700px) { //hovers not so important because of the sizes aiming to touch screens
     .hamburguer--container{
         .menu-button-container {
             display: flex;
@@ -1043,14 +1043,14 @@ hr{
         color: #FFF;
         height: 5.5rem;
         padding: 1em;
-        .logo--container{
-            border-radius: 10px;
-            height: 1rem;
-            .logo{
+            .logo__nav__link{
                 width: 5rem;
                 border-radius: 10px;
+                .logo{
+                    width: 5rem;
+                    border-radius: 10px;
+                }
             }
-        }
         .nav__link:hover{
             background-color: lightgreen;
             color: blue;

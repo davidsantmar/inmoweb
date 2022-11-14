@@ -36,60 +36,40 @@ const Properties  = () => {
                 const storage = getStorage();
                 const listRef = ref(storage, `images/${picturesRefs[i]}/`);
                 let imagesArr = [];
-                let counter = 1;
-                let imagesIds = [];
-                listAll(listRef)
-                    .then((res) => {
-                        res.items.forEach((itemRef) => {
-                            getDownloadURL(itemRef).then(function(url) {
-                                imageListing.push(url);
-                                imagesArr = imageListing.sort();
-                                solveProm(imagesArr)
-                                    .then((res) => {
-                                        const rootElement = document.getElementById(reference);  
-                                        for (let h = 0; h <= 1; h++){
-                                            const element = document.createElement('img');
-                                            rootElement.append(element);  
-                                            element.id = reference + '-' + counter;
-                                            element.style.width = '40rem';
-                                            element.style.height = '20rem';
-                                            element.style.marginRight = '1rem'
-                                            element.style.border = '2px solid green'
-                                            element.style.borderRadius = '20px';
-                                            element.src = res[h];
-                                            element.style.backgroundSize = 'cover';
-                                            counter = counter + 1;
-                                            imagesIds.push(element.id);
-                                        }
-                                        removeDupli(imagesIds);
-                                    })              
-                            });
-                        })
-                    })  
+                let counter = 0;
+                    listAll(listRef)
+                        .then((res) => {
+                            res.items.forEach((itemRef) => {
+                                getDownloadURL(itemRef).then(function(url) {
+                                    imageListing.push(url);
+                                    imagesArr = imageListing.sort();  //ordering pictures
+                                    solveProm(imagesArr)
+                                        .then((res) => {
+                                            const rootElement = document.getElementById(reference);  
+                                                const element = document.createElement('img');
+                                                rootElement.append(element);  
+                                                element.src = res[counter];
+                                                element.style.width = '40rem';
+                                                element.style.height = '20rem';
+                                                element.style.marginRight = '1rem'
+                                                element.style.border = '2px solid green'
+                                                element.style.borderRadius = '20px';
+                                                element.style.backgroundSize = 'cover';
+                                                counter = counter + 1;     //simply increment res array index
+                                        })
+                                });
+                            })
+                        })  
             }
         }
     }
-    const removeDupli = async (idsArr) => {
-        solveProm(idsArr)
-            .then((res) => {
-                const half = res.slice(res.length/2, res.length);
-                for (let k = 0; k < half.length; k ++) {
-                    const idExist = document.getElementById(half[k]);
-                    if (idExist !== null){
-                        document.getElementById(half[k]).remove();
-                    }
-                }
-            })
-    }
     const solveProm = async (arr) => {
         const promise = new Promise((resolve, reject) => {
-            setTimeout(() => resolve(arr), 100)
+            setTimeout(() => resolve(arr), 500)
           });
-        
         const result = await promise;
         return result;        
     }
-
     const orderByPrice = () => {
         setOrder('price');
     }

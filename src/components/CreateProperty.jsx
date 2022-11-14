@@ -38,7 +38,7 @@ function CreateProperty() {
     setImageOrder(0);
     const imageRef = ref(storage, `images/${newRef}/order${imageOrder}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {  //actualización de images en front sin reload page
+      getDownloadURL(snapshot.ref).then((url) => {  //images update without refresh
         setImageList((prev) => [...prev, url]);
         addImage();  //addImage(url);
       });

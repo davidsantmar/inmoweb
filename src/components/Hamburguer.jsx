@@ -57,12 +57,10 @@ const Hamburguer = () => {
 
     return (
         <>
-           <section className='hamburguer--container' id='hamburguer-container'>
-                <div>
-                    <Link to='/' className='nav__link logo--container' data-testid='logo-link'>
-                        <img className='logo' src={logo} alt='logo'/>
-                    </Link>                
-                </div>
+           <nav className='hamburguer--container' id='hamburguer-container'>
+                <Link to='/' className='logo__nav__link nav__link' data-testid='logo-link'>
+                    <img className='logo' src={logo} alt='logo'/>
+                </Link>                
                 <input id='menu-toggle' type='checkbox' />
                 <label className='menu-button-container' htmlFor='menu-toggle'>
                 <div className='menu-button'>
@@ -112,7 +110,7 @@ const Hamburguer = () => {
                   </li>
                 )}
                 </ul>
-            </section>
+            </nav>
         </>
     );
 };
