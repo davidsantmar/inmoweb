@@ -1,6 +1,6 @@
 Inmoweb
 
-Classic real estate website with mocked data. Granted login to limited users managed by Administration portal. You could manage posting of properties or flats. Developed with HTML, Sass, Javascript, BEM, React. Deployed with Firebase. Components tested with Jest.
+It's a classic real estate website (with mocked data). Users can send their data or requests filling a form that is going to reach the administrator email. It also has a mortgage simulator. The administration portal allows to create and delete granted logins to limited administrators, that they could create and remove properties postings. Developed with HTML, Sass, Javascript, BEM, React. Deployed with Firebase. Components tested with Jest.
 
 <a href="https://inmoweb-app.web.app//">App firebase deployed</a>
 
