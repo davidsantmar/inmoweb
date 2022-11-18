@@ -980,12 +980,13 @@ hr{
 }
 @media (max-width: 700px) { //hovers not so important because of the sizes aiming to touch screens
     .hamburguer--container{
+        display: flex;
         .menu-button-container {
             display: flex;
         }
         .menu {
             position: absolute;
-            top: 0;
+            top: 3rem;
             margin-top: 50px;
             left: 0;
             flex-direction: column;
@@ -994,13 +995,18 @@ hr{
             align-items: center;
             .nav__link{
                 text-decoration: none;
-                margin-top: .5rem;
+                width: 120%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 color: black;
+                font-weight: 900;
+                background-color: lightgray;
+                border-radius: 20px;
+                height: 120%;
             }
             .nav__link:hover{
                 color: blue;
-            }
-            .menu__option:hover{
                 background-color: lightgreen;
             }
         }
@@ -1014,17 +1020,15 @@ hr{
         #menu-toggle:checked ~ .menu li {
             height: 2.5em;
             padding: 0.5em;
-            margin-top: 1rem;
+            margin-top: 1rem;  //distance through buttons
             transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
         }
         .menu > li {
             display: flex;
             justify-content: center;
-            margin: 0;
             width: 30%;
             color: black;
             font-weight: 900;
-            background-color: lightgray;
             border-radius: 20px;
         }
     }
@@ -1051,10 +1055,6 @@ hr{
                     border-radius: 10px;
                 }
             }
-        .nav__link:hover{
-            background-color: lightgreen;
-            color: blue;
-        }
         .login__button{
             display: flex;
             align-items: center;
@@ -1065,6 +1065,9 @@ hr{
             .on__symbol{
                 font-size: 2.5rem;
                 color: rgb(8, 223, 8);
+            }
+            .nav__link:hover{
+                background-color: lightgreen;
             }
         }
         .logout__button{
@@ -1079,29 +1082,29 @@ hr{
                 color: red;
             }
         }
-        .login__button:hover{
-            background-color: lightgreen;
-            color: blue;
+    }
+    .menu {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+        .nav__link__logout{
+            text-decoration: none;
+            width: 120%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            background-color: lightgray;
+            border-radius: 20px;
+            height: 120%;
+            margin-top: .5rem;
         }
-        .logout__button:hover{
+        .nav__link__logout:hover{
             background-color: lightcoral;
             color: blue;
         }
     }
-    .menu {
-        display: flex;
-        flex-direction: row;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        .nav__link__logout{
-            text-decoration: none;
-            margin-top: .5rem;
-            color: black;
-        }
-    }
     .menu > li {
-        margin: 0 1rem;
         overflow: hidden;
     }
     .menu-button-container {
@@ -1180,6 +1183,21 @@ hr{
             display: flex;
             align-items: center;
             flex-direction: row;
+        }
+    }
+    .properties{
+        .flats--grid{
+            .property--card{
+                .card__contact{
+                    .nav__link{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        font-size: 1rem;
+                        width: 3rem;
+                    }
+                }
+            }
         }
     }
 }
