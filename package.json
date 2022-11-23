@@ -45,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-eslint": "^7.0.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
